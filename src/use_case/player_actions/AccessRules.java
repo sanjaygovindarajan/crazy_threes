@@ -1,4 +1,4 @@
-package src.use_case.player_actions;
+package use_case.player_actions;
 
 public class AccessRules {
 }

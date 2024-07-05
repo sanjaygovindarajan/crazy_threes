@@ -1,4 +1,4 @@
-package src.use_case.deck_actions;
+package use_case.deck_actions;
 
 public class Shuffle {
 }
