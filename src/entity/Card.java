@@ -1,6 +1,6 @@
 package entity;
 
-public class Card {
+public class Card implements CardInterface {
     private int cardNum;
     private char cardSuit;
 
