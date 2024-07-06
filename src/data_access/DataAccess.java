@@ -1,5 +1,5 @@
-package src.data_access;
-import src.entity.Game;
+package data_access;
+import entity.Game;
 
 public class DataAccess {
 }
