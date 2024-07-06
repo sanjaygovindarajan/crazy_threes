@@ -1,11 +1,9 @@
 package entity;
 
-public class Three extends Card {
-    private int cardNum;
-    private char cardSuit;
-    char newSuit;
+public class Three extends Card implements ThreeInterface {
+    private char newSuit;
 
-    public Three(int cardNum, char cardSuit) {
+    public Three(char cardSuit) {
         super(3, cardSuit);
     }
 
@@ -14,6 +12,6 @@ public class Three extends Card {
     }
 
     public char getCurrentSuit(){
-        return this.cardSuit;
+        return this.newSuit;
     }
 }
