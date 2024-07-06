@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hand extends CardCollection {
-    private ArrayList<Card> cardList;
+    ArrayList<Card> cardList;
 
     public Hand(){
         this.cardList = new ArrayList<Card>();
