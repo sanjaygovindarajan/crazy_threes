@@ -1,7 +1,7 @@
 package entity;
 import java.util.*;
 
-abstract class CardCollection {
+abstract class CardCollection implements CardCollectionInterface {
     List<Card> cardList;
     public CardCollection() {
     }
