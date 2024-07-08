@@ -21,4 +21,8 @@ public class DeckDisposed extends CardCollection {
     public Card getCard(){
         return cardList.getFirst();
     }
+
+    public int getNum(){
+        return cardList.getFirst().getCardNum();
+    }
 }
