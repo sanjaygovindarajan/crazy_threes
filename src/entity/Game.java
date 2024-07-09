@@ -1,13 +1,13 @@
 package entity;
 
 public class Game {
-    DeckDisposed disposed;
+    DeckDisposed discard;
 
-    public Game(DeckDisposed disposed) {
-        this.disposed = disposed;
+    public Game() {
+        this.discard = new DeckDisposed();
     }
 
-    public DeckDisposed getDisposed() {
-        return disposed;
+    public DeckDisposed getDiscard() {
+        return discard;
     }
 }

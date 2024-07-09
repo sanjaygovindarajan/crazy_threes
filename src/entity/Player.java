@@ -26,8 +26,8 @@ public class Player {
     }
 
     public void playCard(Game game, int i) {
-        if (cards.cardList.get(i).getCardNum() == game.getDisposed().getNum()
-        && cards.cardList.get(i).getCurrentSuit() == game.getDisposed().getSuit()) {
+        if (cards.cardList.get(i).getCardNum() == game.getDiscard().getNum()
+        && cards.cardList.get(i).getCurrentSuit() == game.getDiscard().getSuit()) {
             cards.playCard(i);
         }
     }
