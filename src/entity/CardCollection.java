@@ -1,7 +1,7 @@
 package entity;
 import java.util.*;
 
-abstract class CardCollection implements CardCollectionInterface {
+public abstract class CardCollection implements CardCollectionInterface {
     List<Card> cardList;
     public CardCollection() {
     }
@@ -12,5 +12,9 @@ abstract class CardCollection implements CardCollectionInterface {
     public void addCard(Card card){
         // Adds a card to the end of the list
         this.cardList.add(card);
+    }
+
+    public List<Card> getCardList(){
+        return this.cardList;
     }
 }
