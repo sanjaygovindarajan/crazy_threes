@@ -25,12 +25,19 @@ public class Player {
         return false;
     }
 
+    public void playCard(Game game, int i) {
+        if (cards.cardList.get(i).getCardNum() == game.getDisposed().getNum()
+        && cards.cardList.get(i).getCurrentSuit() == game.getDisposed().getSuit()) {
+            cards.playCard(i);
+        }
+    }
+
     public void drawCard(Deck d) {
         cards.addCard(d.dealCard());
     }
 
     public boolean hasWin() {
-            return cards.cardList.isEmpty()
+            return cards.cardList.isEmpty();
     }
 
 
