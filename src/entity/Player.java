@@ -25,8 +25,11 @@ public class Player {
     }
 
     public boolean hasCard(Card card) {
+        boolean found = false;
         for (Card c: cards.cardList) {
-            return c.equals(card);
+            if (c.equals(card)) {
+                return true;
+            }
         }
         return false;
     }
