@@ -10,6 +10,12 @@ public class Player {
         this.numWins = 0;
     } //constructor
 
+    public Player(String name, Hand cards){
+        this.name = name;
+        this.cards = cards;
+        this.numWins = 0;
+    }
+
     public Hand getHand() {
         return cards;
     }

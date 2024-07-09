@@ -71,7 +71,7 @@ public class DataAccess implements DataAccessInterface {
         String[] playerArray = playerString.split(";");
         String name = playerArray[0];
         Hand hand = new Hand(readCardCollection(playerArray[1]));
-        return new Player(); //Add once constructor is complete
+        return new Player(name, hand); //Add once constructor is complete
     }
 
     private Game readGame(String gameString){
