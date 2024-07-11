@@ -5,7 +5,7 @@ import java.util.*;
 public class Game {
     private Deck deck;
     private ArrayList<Player> players;
-    private int turn;
+    private static int turn;
     private DeckDisposed discard;
     private boolean isGameOver;
 
@@ -16,7 +16,7 @@ public class Game {
         for (String name: playerNames) {
             players.add(new Player(name));
         }
-        this.turn = 1;
+        turn = 1;
         isGameOver = false;
         this.discard = new DeckDisposed();
     }
@@ -35,8 +35,17 @@ public class Game {
         }
     }
 
-    public int getCurrentPlayer() {
-        return this.turn;
+    public class Counter() {
+        public static int getTurnNum() {
+            return turn;
+        }
+    }
+    public Player getCurrentPlayer() {
+        int turnNum = Counter.getTurnNum();
+        while (turnNum - players.size() > 0){
+            turnNum -= players.size();
+        }
+        return players.get(turnNum);
     }
 
     public DeckDisposed getDiscard() {
@@ -72,6 +81,7 @@ public class Game {
         turn = players.get((currentIndex + 1) % players.size());
 
     }
+
 
     public boolean isGameOver() {
         for(Player player: this.players) {
