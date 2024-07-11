@@ -30,7 +30,7 @@ public class Game {
     public void dealCards(int numCards) {
         for (Player player : players) {
             for (int i = 0; i < numCards; i++) {
-                deck.dealCard(player); // maybe this should make
+                deck.dealCard(Player player); // maybe this should make
             }
         }
     }
@@ -58,6 +58,7 @@ public class Game {
             // what to do if invalid play
         }
     }
+
     private boolean isValidPlay(Card card) {
         Card topCard = discard.peekTopCard();
         return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit();
