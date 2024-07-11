@@ -41,6 +41,7 @@ public class Game {
 
     public DeckDisposed getDiscard() {
         return this.discard;
+
     }
 
     public void playCard(Player player, int cardIndex) {
@@ -59,8 +60,9 @@ public class Game {
         }
     }
 
+
     private boolean isValidPlay(Card card) {
-        Card topCard = discard.peekTopCard();
+        Card topCard = discard.getCard();
         return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit();
     }
 
