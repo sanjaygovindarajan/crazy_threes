@@ -1,23 +1,22 @@
-import entity.Deck;
-import entity.Player;
-import java.util.ArrayList;
 package entity;
+
+import java.util.*;
 
 public class Game {
     private Deck deck;
     private ArrayList<Player> players;
     private Player turn;
-    private Deck discard;
+    private DeckDisposed discard;
     private boolean isGameOver;
 
-    public Game() {
+    public Game(List<String> playerNames) {
         deck = new Deck();
-        discard = new Deck();
+        discard = new DeckDisposed();
         players =  new ArrayList<>();
         for (String name: playerNames) {
             players.add(new Player(name));
         }
-        turn = players.get(0);
+        this.turn = players.get(0);
         isGameOver = false;
         this.discard = new DeckDisposed();
     }
@@ -31,22 +30,21 @@ public class Game {
     public void dealCards(int numCards) {
         for (Player player : players) {
             for (int i = 0; i < numCards; i++) {
-                player.dealCard(deck); // maybe this should make
+                deck.dealCard(player); // maybe this should make
             }
-        }
         }
     }
 
     public Player getCurrentPlayer() {
-        return turn;
+        return this.turn;
     }
 
     public DeckDisposed getDiscard() {
-        return discard;
+        return this.discard;
     }
 
     public void playCard(Player player, int cardIndex) {
-        Card card = player.getHand().getCard(cardIndex);
+        Card card = player.getHand().viewCards().get(cardIndex);
         if (isValidPlay(card)) {
             player.playCard(this, cardIndex); //unsure about cardIndex here
             discard.addCard(card);
@@ -71,9 +69,12 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        if (player.hasWin()){
-            return isGameOver;
+        for(Player player: this.players) {
+            if (player.hasWin()) {
+                return true;
+            }
         }
+        return false;
     }
 
 }
