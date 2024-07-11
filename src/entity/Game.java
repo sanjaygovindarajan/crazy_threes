@@ -35,11 +35,16 @@ public class Game {
         }
     }
 
-    public class Counter() {
+    public class Counter {
+        public static void advanceTurn() {
+            turn +=1;
+        }
+
         public static int getTurnNum() {
             return turn;
         }
     }
+
     public Player getCurrentPlayer() {
         int turnNum = Counter.getTurnNum();
         while (turnNum - players.size() > 0){
@@ -48,9 +53,7 @@ public class Game {
         return players.get(turnNum);
     }
 
-    private void advanceTurn() {
-        turn += 1;
-    }
+
 
     public DeckDisposed getDiscard() {
         return this.discard;
@@ -65,7 +68,7 @@ public class Game {
             if (player.hasWin()) {
                 isGameOver = true;
             } else {
-                advanceTurn();
+                Counter.advanceTurn();
             }
         }
         else {
