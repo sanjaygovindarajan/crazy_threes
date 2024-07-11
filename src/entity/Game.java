@@ -71,7 +71,9 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        return isGameOver;
+        if (player.hasWin()){
+            return isGameOver;
+        }
     }
 
 }
