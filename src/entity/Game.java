@@ -30,7 +30,7 @@ public class Game {
     public void dealCards(int numCards) {
         for (Player player : players) {
             for (int i = 0; i < numCards; i++) {
-                deck.dealCard(player); // maybe this should make
+                deck.dealCard(); // maybe this should make
             }
         }
     }

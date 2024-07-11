@@ -15,7 +15,7 @@ public class DeckDisposed extends CardCollection {
     }
 
     public char getSuit(){
-        return cardList.getFirst().getDisplaySuit();
+        return cardList.getFirst().getCurrentSuit();
     }
 
     public Card getCard(){
