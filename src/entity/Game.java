@@ -48,6 +48,10 @@ public class Game {
         return players.get(turnNum);
     }
 
+    private void advanceTurn() {
+        turn += 1;
+    }
+
     public DeckDisposed getDiscard() {
         return this.discard;
 
@@ -69,19 +73,10 @@ public class Game {
         }
     }
 
-
     private boolean isValidPlay(Card card) {
         Card topCard = discard.getCard();
         return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit();
     }
-
-    private void advanceTurn() {
-        int currentIndex = players.indexOf(turn);
-        player.get(turn);
-        turn = players.get((currentIndex + 1) % players.size());
-
-    }
-
 
     public boolean isGameOver() {
         for(Player player: this.players) {
