@@ -23,17 +23,17 @@ public class Game {
 
     public void startGame() {
         deck.shuffle();
-        dealCards(5);
+        dealCards(9);
         discard.addCard(deck.dealCard());
     }
 
     public void dealCards(int numCards) {
         for (Player player : players) {
             for (int i = 0; i < numCards; i++) {
-                deck.dealCard(Player player); // maybe this should make
+                Hand.cardList.add(deck.dealCard()); // idk
             }
         }
-    }
+    } //FIX ME!!!!!!!!!
 
     public class Counter {
         public static void advanceTurn() {
@@ -43,15 +43,15 @@ public class Game {
         public static int getTurnNum() {
             return turn;
         }
-    }
+    } //checked
 
     public Player getCurrentPlayer() {
         int turnNum = Counter.getTurnNum();
         while (turnNum - players.size() > 0){
             turnNum -= players.size();
         }
-        return players.get(turnNum);
-    }
+        return players.get(turnNum - 1);
+    } //checked
 
 
 
