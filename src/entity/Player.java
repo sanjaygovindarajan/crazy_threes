@@ -1,9 +1,9 @@
 package entity;
 
 public class Player {
-    private Hand cards;
-    private String name;
-    private int numWins;
+    private final Hand cards;
+    private final String name;
+    private final int numWins;
     public Player(String name) {
         this.name = name;
         this.cards = new Hand();
@@ -16,7 +16,7 @@ public class Player {
         this.numWins = 0;
     }
 
-    public Hand getHand() {
+    public Hand viewHand() {
         return cards;
     }
 
@@ -46,6 +46,14 @@ public class Player {
 
     public boolean hasWin() {
             return cards.cardList.isEmpty();
+    }
+
+    /**
+     * Converts a Player object to a String
+     * @return The player in string format
+     */
+    public String toString(){
+        return String.join( ";",name,cards.toString());
     }
 
 
