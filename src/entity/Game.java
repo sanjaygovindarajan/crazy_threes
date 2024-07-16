@@ -23,30 +23,37 @@ public class Game {
 
     public void startGame() {
         deck.shuffle();
-        dealCards(5);
+        dealCards(9);
         discard.addCard(deck.dealCard());
     }
 
     public void dealCards(int numCards) {
         for (Player player : players) {
             for (int i = 0; i < numCards; i++) {
-                deck.dealCard(Player player); // maybe this should make
+                Hand.cardList.add(deck.dealCard()); // idk
             }
         }
-    }
+    } //FIX ME!!!!!!!!!
 
-    public class Counter() {
+    public class Counter {
+        public static void advanceTurn() {
+            turn +=1;
+        }
+
         public static int getTurnNum() {
             return turn;
         }
-    }
+    } //checked
+
     public Player getCurrentPlayer() {
         int turnNum = Counter.getTurnNum();
         while (turnNum - players.size() > 0){
             turnNum -= players.size();
         }
-        return players.get(turnNum);
-    }
+        return players.get(turnNum - 1);
+    } //checked
+
+
 
     public DeckDisposed getDiscard() {
         return this.discard;
@@ -61,7 +68,7 @@ public class Game {
             if (player.hasWin()) {
                 isGameOver = true;
             } else {
-                advanceTurn();
+                Counter.advanceTurn();
             }
         }
         else {
@@ -69,19 +76,10 @@ public class Game {
         }
     }
 
-
     private boolean isValidPlay(Card card) {
         Card topCard = discard.getCard();
         return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit();
     }
-
-    private void advanceTurn() {
-        int currentIndex = players.indexOf(turn);
-        player.get(turn);
-        turn = players.get((currentIndex + 1) % players.size());
-
-    }
-
 
     public boolean isGameOver() {
         for(Player player: this.players) {
