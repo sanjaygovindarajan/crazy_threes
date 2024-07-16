@@ -164,4 +164,17 @@ public class Game {
     public int getTurn(){
         return this.turn;
     }
+
+    /**
+     * Converts a Game object to a String and gives the game a name.
+     * @return The game in string format, with the name
+     */
+    public String toString(){
+        List<String> playerList = new ArrayList<>(players.size());
+        for(Player player : players){
+            playerList.add(player.toString());
+        }
+        String playerListStr = String.join(",",playerList);
+        return String.join(":",deck.toString(),discard.toString(),playerListStr,Integer.toString(turn));
+    }
 }

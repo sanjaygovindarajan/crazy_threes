@@ -1,8 +1,8 @@
 package entity;
 
 public class Card implements CardInterface {
-    private int cardNum;
-    private char cardSuit;
+    private final int cardNum;
+    private final char cardSuit;
 
     public Card(int cardNum, char cardSuit) {
         this.cardNum = cardNum;
@@ -18,5 +18,13 @@ public class Card implements CardInterface {
 
     public int getCardNum() {
         return cardNum;
+    }
+
+    /**
+     * Returns the String representation of a Card.
+     * @return The card suit concatenated with the Card number.
+     */
+    public String toString(){
+        return  cardSuit + Integer.toString(cardNum);
     }
 }
