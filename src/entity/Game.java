@@ -143,7 +143,8 @@ public class Game {
     }
 
     /**
-     * Converts a Game object to a String and gives the game a name.
+     * Converts a Game object to a String .
+     * and gives the game a name.
      * @return The game in string format, with the name
      */
     public String toString(){
