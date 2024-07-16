@@ -23,10 +23,15 @@ public class DataAccess implements DataAccessInterface {
      * @return A Game object corresponding to the Game stored in the database
      */
     public Game loadGameByName(String name) {
-        String db = Files.readString(Path.of(this.databaseFile.getPath()));
+        String db = null;
+        try {
+            db = Files.readString(Path.of(this.databaseFile.getPath()));
+        } catch (IOException e) {
+            System.out.println("No such file in the database");
+        }
         String[] gamesArray = db.split(",,,");
-        for(String game: gamesArray){
-            if(game.split(":")[0].equals(name)){
+        for (String game : gamesArray) {
+            if (game.split(":")[0].equals(name)) {
                 return readGame(game);
             }
         }
@@ -38,10 +43,14 @@ public class DataAccess implements DataAccessInterface {
      * @param game The game to be saved in the database
      * @param name The identifier of the game by which it can be accessed later from the database
      */
-    public void saveGame(Game game, String name){
+    public void saveGame(Game game, String name) {
         String gameStr = convertGame(game, name);
-        String db = gameStr + ",,," + Files.readString(Path.of(this.databaseFile.getPath()));
-        Files.writeString(Path.of(this.databaseFile.getPath()), db);
+        try {
+            String db = gameStr + ",,," + Files.readString(Path.of(this.databaseFile.getPath()));
+            Files.writeString(Path.of(this.databaseFile.getPath()), db);
+        } catch (IOException e) {
+            System.out.println("No such file in the database");
+        }
     }
 
     /**
@@ -75,6 +84,7 @@ public class DataAccess implements DataAccessInterface {
      */
     private String convertPlayer(Player player){
         return String.join(";",player.getName(),convertCardCollection(player.viewHand()));
+        // SHOULD THAT BE getHand()???? //
     }
 
     /**

@@ -65,35 +65,12 @@ public class Game {
     public Player getCurrentPlayer() {;
         return players.get(turn);
     }
-                Hand.cardList.add(deck.dealCard()); // idk
-            }
-        }
-    } //FIX ME!!!!!!!!!
-
-    public class Counter {
-        public static void advanceTurn() {
-            turn +=1;
-        }
-
-        public static int getTurnNum() {
-            return turn;
-        }
-    } //checked
-
-    public Player getCurrentPlayer() {
-        int turnNum = Counter.getTurnNum();
-        while (turnNum - players.size() > 0){
-            turnNum -= players.size();
-        }
-        return players.get(turnNum - 1);
-    } //checked
-
-
 
     public DeckDisposed getDiscard() {
         return this.discard;
 
     }
+
 
     public void playCard(Player player, int cardIndex) throws MissingCardException {
         Card card = player.viewHand().viewCards().get(cardIndex);
@@ -103,7 +80,7 @@ public class Game {
             if (player.hasWin()) {
                 isGameOver = true;
             } else {
-                Counter.advanceTurn();
+                advanceTurn();
             }
         }
         else {
@@ -166,7 +143,8 @@ public class Game {
     }
 
     /**
-     * Converts a Game object to a String and gives the game a name.
+     * Converts a Game object to a String .
+     * and gives the game a name.
      * @return The game in string format, with the name
      */
     public String toString(){

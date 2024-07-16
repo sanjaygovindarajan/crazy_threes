@@ -15,6 +15,10 @@ public class Deck extends CardCollection {
         this.cardList = (LinkedList<Card>) cardList;
     }
 
+    /**
+     * Removes card from top of deck to be given to player.
+     * @return A Card object from top of deck.
+     */
     public Card dealCard(){
         Card top;
         top = cardList.getFirst();
@@ -22,8 +26,9 @@ public class Deck extends CardCollection {
         return top;
     }
 
-    // For the shuffle use case, remove all cards from DeckDisposed except first, add them to deck, then use the
-    // shuffle method
+    /**
+     * Shuffles/reorders the deck.
+     */
     public void shuffle(){
         Collections.shuffle(cardList);
     }
