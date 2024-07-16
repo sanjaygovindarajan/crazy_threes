@@ -4,5 +4,5 @@ public interface LoadGameOutputBoundary {
 
     void prepareSuccessView(LoadGameOutputData loadGameOutputData);
 
-    void prepareFailView(String error);
+    void prepareFailView(String error) throws Exception;
 }

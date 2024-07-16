@@ -2,7 +2,7 @@ package entity;
 import java.util.*;
 
 public abstract class CardCollection implements CardCollectionInterface {
-    private List<Card> cardList;
+    protected List<Card> cardList;
     public CardCollection() {
     }
 
