@@ -1,2 +1,2 @@
-package entity;public class MissingCardException {
+package entity;public class MissingCardException extends Throwable {
 }
