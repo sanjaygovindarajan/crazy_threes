@@ -4,10 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DeckDisposed extends CardCollection {
-    LinkedList<Card> cardList;
 
     public DeckDisposed(){
-        this.cardList = new LinkedList<Card>();
+        this.cardList = new LinkedList<>();
     }
 
     public DeckDisposed(List<Card> cardList){

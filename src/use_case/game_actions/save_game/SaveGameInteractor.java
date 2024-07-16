@@ -30,4 +30,12 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
             presenter.prepareFailureView("Database file not found. Your game was unable to be saved.");
         }
     }
+
+    /**
+     * Sets the current game being played.
+     * @param game The game currently being played.
+     */
+    public void setGame(Game game){
+        this.game = game;
+    }
 }

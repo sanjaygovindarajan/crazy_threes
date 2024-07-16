@@ -8,7 +8,7 @@ import java.util.*;
 public class DataAccess implements DataAccessInterface {
     private final File databaseFile;
     public DataAccess() {
-        this.databaseFile = new File("database.txt");
+        this.databaseFile = new File("src/data_access/database.txt");
     }
     public DataAccess(File databaseFile) {
         this.databaseFile = databaseFile;
@@ -22,16 +22,11 @@ public class DataAccess implements DataAccessInterface {
      * @param name The identifier by which the game is stored in the database
      * @return A Game object corresponding to the Game stored in the database
      */
-    public Game loadGameByName(String name) {
-        String db = null;
-        try {
-            db = Files.readString(Path.of(this.databaseFile.getPath()));
-        } catch (IOException e) {
-            System.out.println("No such file in the database");
-        }
+    public Game loadGameByName(String name) throws IOException {
+        String db = Files.readString(Path.of(this.databaseFile.getPath()));
         String[] gamesArray = db.split(",,,");
-        for (String game : gamesArray) {
-            if (game.split(":")[0].equals(name)) {
+        for(String game: gamesArray){
+            if(game.split(":")[0].equals(name)){
                 return readGame(game);
             }
         }
@@ -39,68 +34,20 @@ public class DataAccess implements DataAccessInterface {
     }
 
     /**
-     * Saves a Game object in the database
-     * @param game The game to be saved in the database
-     * @param name The identifier of the game by which it can be accessed later from the database
+     * Saves a string representing a game in the database
+     * @param game The string of the game to be saved in the database
      */
-    public void saveGame(Game game, String name) {
-        String gameStr = convertGame(game, name);
-        try {
-            String db = gameStr + ",,," + Files.readString(Path.of(this.databaseFile.getPath()));
-            Files.writeString(Path.of(this.databaseFile.getPath()), db);
-        } catch (IOException e) {
-            System.out.println("No such file in the database");
-        }
+    public void saveGame(String game) throws IOException{
+        String existing = Files.readString(Path.of(this.databaseFile.getPath()));
+        String db;
+        if(existing.isEmpty()) {
+            db = game;
+        } else {
+            db = game + ",,," + existing;
+        };
+        Files.writeString(Path.of(this.databaseFile.getPath()), db);
     }
 
-    /**
-     * Converts a Card object to a String
-     * @param card The Card object corresponding to the Card to be saved
-     * @return A String with the first character corresponding to the suit of the card and the subsequent characters
-     * corresponding to the number of the card
-     */
-
-    private String convertCard(Card card){
-        return Character.toString(card.getCurrentSuit()) + Integer.toString(card.getCardNum());
-    }
-
-    /**
-     * Converts a CardCollection object to a String
-     * @param cardList A CardCollection object corresponding to the CardCollection to be saved
-     * @return The CardCollection in string format (that is, the Card objects in string format separated by a comma)
-     */
-    private String convertCardCollection(CardCollection cardList){
-        List<String> cardListStr = new ArrayList<>(cardList.getCardList().size());
-        for(Card card : cardList.getCardList()){
-            cardListStr.add(convertCard(card));
-        }
-        return String.join(",",cardListStr);
-    }
-
-    /**
-     * Converts a Player object to a String
-     * @param player A Player object corresponding to the player to be saved
-     * @return The player in string format
-     */
-    private String convertPlayer(Player player){
-        return String.join(";",player.getName(),convertCardCollection(player.viewHand()));
-        // SHOULD THAT BE getHand()???? //
-    }
-
-    /**
-     * Converts a Game object to a String and gives the game a name.
-     * @param game A Game object corresponding to the game to be saved
-     * @param name What the game should be named in the database
-     * @return The game in string format, with the name
-     */
-    private String convertGame(Game game, String name){
-        List<String> playerList = new ArrayList<>(game.getPlayers().size());
-        for(Player player : game.getPlayers()){
-            playerList.add(convertPlayer(player));
-        }
-        String playerListStr = String.join(",",playerList);
-        return String.join(":",name,convertCardCollection(game.getDeck()),convertCardCollection(game.getDiscard()),playerListStr,Integer.toString(game.getTurn()));
-    }
 
     /**
      * Creates a new Card based on a String.

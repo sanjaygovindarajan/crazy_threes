@@ -16,7 +16,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     }
 
     @Override
-    public void execute(LoadGameInputData loadGameInputData) {
+    public void execute(LoadGameInputData loadGameInputData) throws Exception {
         Game game = null;
         try {
             game = userDataAccessObject.loadGameByName(loadGameInputData.getGameName());

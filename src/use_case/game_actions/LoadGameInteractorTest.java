@@ -3,11 +3,9 @@ package use_case.game_actions;
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class LoadGameInteractorTest {
 
-    void successTest(){
+    void successTest() throws Exception {
         DataAccessInterface dataAccess = new DataAccess();
         LoadGameOutputBoundary successPresenter = new LoadGameOutputBoundary() {
             @Override
@@ -16,8 +14,9 @@ class LoadGameInteractorTest {
             }
 
             @Override
-            public void prepareFailView(String error) {
-                fail("This old game doesn't exist.");
+            public void prepareFailView(String error) throws Exception {
+
+                throw new Exception("This old game doesn't exist.");
             }
         };
         LoadGameInputData inputData = new LoadGameInputData("Game1");

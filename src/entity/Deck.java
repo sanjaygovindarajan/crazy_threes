@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Deck extends CardCollection {
-    LinkedList<Card> cardList;
 
     public Deck(){
-        this.cardList = new LinkedList<Card>();
+        super();
+        this.cardList = new LinkedList<>();
     }
 
     public Deck(List<Card> cardList){
