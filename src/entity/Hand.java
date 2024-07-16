@@ -14,7 +14,7 @@ public class Hand extends CardCollection {
         this.cardList = (ArrayList<Card>) cardList;
     }
 
-    public Card playCard(int i){
+    public Card playCard(int i) {
         Card playedCard = cardList.get(i);
         cardList.remove(i);
         return playedCard;

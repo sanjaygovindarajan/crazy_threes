@@ -46,7 +46,7 @@ public class Game {
 
     public void startGame() {
         deck.shuffle();
-        dealCards(5);
+        dealCards(9);
         discard.addCard(deck.dealCard());
     }
 
@@ -65,6 +65,30 @@ public class Game {
     public Player getCurrentPlayer() {;
         return players.get(turn);
     }
+                Hand.cardList.add(deck.dealCard()); // idk
+            }
+        }
+    } //FIX ME!!!!!!!!!
+
+    public class Counter {
+        public static void advanceTurn() {
+            turn +=1;
+        }
+
+        public static int getTurnNum() {
+            return turn;
+        }
+    } //checked
+
+    public Player getCurrentPlayer() {
+        int turnNum = Counter.getTurnNum();
+        while (turnNum - players.size() > 0){
+            turnNum -= players.size();
+        }
+        return players.get(turnNum - 1);
+    } //checked
+
+
 
     public DeckDisposed getDiscard() {
         return this.discard;
@@ -79,7 +103,7 @@ public class Game {
             if (player.hasWin()) {
                 isGameOver = true;
             } else {
-                advanceTurn();
+                Counter.advanceTurn();
             }
         }
         else {
@@ -87,11 +111,13 @@ public class Game {
         }
     }
 
+
     /**
      * Checks whether a Card object can be played.
      * @param card The Card object to check whether it can be played
      * @return Whether the card can be played
      */
+
     private boolean isValidPlay(Card card) {
         Card topCard = discard.getCard();
         return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit() || card.getCardNum() == 3;
@@ -109,6 +135,8 @@ public class Game {
      * Getter method for isGameOver instance variable.
      * @return Whether the Game is over or not
      */
+
+
     public boolean isGameOver() {
         return this.isGameOver;
     }
