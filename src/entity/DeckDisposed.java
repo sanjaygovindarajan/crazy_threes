@@ -14,14 +14,26 @@ public class DeckDisposed extends CardCollection {
         this.cardList = (LinkedList<Card>) cardList;
     }
 
+    /**
+     * Tells you what the current suit of the game is (or what the suit of the lat played card is).
+     * @return A char spelling the name of the suit
+     */
     public char getSuit(){
         return cardList.getFirst().getCurrentSuit();
     }
 
+    /**
+     * Tells you what the most recently played card is.
+     * @return A Card object that was most recently played.
+     */
     public Card getCard(){
         return cardList.getFirst();
     }
 
+    /**
+     * Tell you what the number of the most recently played card is.
+     * @return An int that represents the number of the most recently played card.
+     */
     public int getNum(){
         return cardList.getFirst().getCardNum();
     }
