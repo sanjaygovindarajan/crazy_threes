@@ -47,7 +47,7 @@ class PlayerTest {
     @Test
     void playCard() {
         DeckDisposed testDeck = new DeckDisposed();
-        Game testGame = new Game(new Deck(), new ArrayList<Player>(), 9, testDeck);
+        Game testGame = new Game(new Deck(), new ArrayList<>(), 9, testDeck);
         testDeck.addCard(new Card(7, 'h'));
         assert testPlayer2.playCard(testGame, 0);
     }
