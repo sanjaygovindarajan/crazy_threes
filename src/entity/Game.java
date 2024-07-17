@@ -2,23 +2,23 @@ package entity;
 
 import java.util.*;
 
-public class Game {
-    private Deck deck;
+public class Game implements GameInterface{
+    private final Deck deck;
     private final List<Player> players;
-    int turn;
-    private DeckDisposed discard;
+    private int turn;
+    private final DeckDisposed discard;
     private boolean isGameOver;
 
     public Game(List<String> playerNames) {
-        deck = createNewDeck();
-        discard = new DeckDisposed();
-        players =  new ArrayList<>();
-        for (String name: playerNames) {
-            players.add(new Player(name));
-        }
-        turn = 1;
-        this.isGameOver = false;
+        this.deck = createNewDeck();
         this.discard = new DeckDisposed();
+        this.players =  new ArrayList<>();
+        for (String name: playerNames) {
+            this.players.add(new Player(name));
+        }
+        turn = 0;
+        this.isGameOver = false;
+        startGame();
     }
 
     public Game(Deck deck, List<Player> playerList, int turn, DeckDisposed discard) {
@@ -45,12 +45,9 @@ public class Game {
     }
 
     /**
-     * Starts the game by:
-     * 1. Shuffling cards
-     * 2. Dealing cards to each Player
-     * 3. Setting the first card in the DeckDisposed
+     * Starts the game and deals 9 cards to each player.
      */
-    public void startGame() {
+    private void startGame() {
         deck.shuffle();
         dealCards(9);
         discard.addCard(deck.dealCard());
@@ -60,8 +57,7 @@ public class Game {
      * Deals a set number of cards to every Player in the Game
      * @param numCards The number of cards to be dealt to each Player
      */
-    public void dealCards(int numCards) {
-        Card card = null;
+    private void dealCards(int numCards) {
         for (Player player : players) {
             for (int i = 0; i < numCards; i++) {
                 player.drawCard(deck);
@@ -70,37 +66,17 @@ public class Game {
     }
 
     /**
-     * Advances the turn, it is called after a player plays a card
+     * Gets the player whose turn it is
+     * @return The player whose turn it is
      */
-    public void advanceTurn() {
-            this.turn +=1;
-        }
 
-    /**
-     * Gets the turn number
-     * @return turn number
-     */
-    public int getTurnNum() {
-            return this.turn;
-        }
-
-
-    /**
-     * Gets the turn number
-     * @return turn number
-     */
     public Player getCurrentPlayer() {
-        int turnNum = getTurnNum();
-        while (turnNum - players.size() > 0){
-            turnNum -= players.size();
-        }
-        return players.get(turnNum);
+        return players.get(turn);
     }
 
-
     /**
-     * Gets the turn number
-     * @return turn number
+     * Gets the discard pile
+     * @return The discard pile
      */
     public DeckDisposed getDiscard() {
         return this.discard;
@@ -108,14 +84,15 @@ public class Game {
     }
 
     /**
-     * Player selects a card to set in the DeckDisposed and check if its valid
-     * @param player The current player's turn
-     * @param cardIndex index of the selected card in the Player's Hand
+     * Plays a card, if possible. Otherwise, throws an exception.
+     * @param player The player who is playing the card
+     * @param cardIndex The index of the card they are playing
+     * @throws MissingCardException The card is not allowed to be played since it is not the right suit or number.
      */
     public void playCard(Player player, int cardIndex) throws MissingCardException {
         Card card = player.viewHand().viewCards().get(cardIndex);
         if (isValidPlay(card)) {
-            player.playCard(this, cardIndex); //unsure about cardIndex here
+            player.playCard(this, cardIndex);
             discard.addCard(card);
             if (player.hasWin()) {
                 isGameOver = true;
@@ -126,6 +103,7 @@ public class Game {
         else {
             throw new MissingCardException();
         }
+        advanceTurn();
     }
 
 
@@ -136,16 +114,28 @@ public class Game {
      */
 
     private boolean isValidPlay(Card card) {
-        Card topCard = discard.getCard();
-        return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit() || card.getCardNum() == 3;
+        if (discard.getCardList().isEmpty()) {
+            return true;
+        } else {
+            Card topCard = discard.getCard();
+            return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit() || card.getCardNum() == 3;
+        }
     }
 
+    /**
+     * Moves the turn to the next player
+     */
+    private void advanceTurn() {
+        this.turn = (this.turn + 1) % players.size();
 
+    }
 
     /**
      * Getter method for isGameOver instance variable.
      * @return Whether the Game is over or not
      */
+
+
     public boolean isGameOver() {
         return this.isGameOver;
     }
