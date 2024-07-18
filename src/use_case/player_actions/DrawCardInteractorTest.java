@@ -10,7 +10,7 @@ import java.util.List;
 public class DrawCardInteractorTest {
 
     @Test
-    public void testHandlePlayerTurn() throws MissingCardException {
+    public void testHandleDrawCard() throws MissingCardException {
         // Setup
         List<Card> initialDeck = new ArrayList<>();
         for (char suit : new char[]{'S', 'C', 'H', 'D'}) {
@@ -21,18 +21,18 @@ public class DrawCardInteractorTest {
         Deck deck = new Deck(initialDeck);
         List<Player> players = new ArrayList<>();
         players.add(new Player("Alice"));
-        Game game = new Game(deck, players, 0, new DeckDisposed());
+        Game game = new Game(Player players);
 
         DrawCardInteractor interactor = new DrawCardInteractor();
 
         // Test
         Player player = game.getCurrentPlayer();
-        interactor.handlePlayerTurn(game, player);
+        interactor.handleDrawCard(game, player);
 
         // Verify
         Card topCard = game.getDiscard().getCard();
         boolean hasPlayableCard = false;
-        for (Card card : player.viewHand().viewCards()) {
+        for (Card card : player.getHand().viewCards()) {
             if (game.isValidPlay(card)) {
                 hasPlayableCard = true;
                 break;

@@ -5,7 +5,7 @@ import entity.Player;
 import entity.MissingCardException;
 
 public interface DrawCardInputBoundary {
-    void handlePlayerTurn(Game game, Player player) throws MissingCardException;
+    void handleDrawCard(Game game, Player player) throws MissingCardException;
 }
 
 

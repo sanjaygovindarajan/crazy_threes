@@ -5,15 +5,15 @@ import entity.Player;
 import entity.MissingCardException; //once u acc pull
 import entity.Card;
 
-public class DrawCardInteractor implements PlayerTurnInputBoundary {
+public class DrawCardInteractor implements DrawCardInputBoundary {
 
     @Override
-    public void handlePlayerTurn(Game game, Player player) throws MissingCardException {
+    public void handleDrawCard(Game game, Player player) throws MissingCardException {
         Card topCard = game.getDiscard().getCard();
         boolean hasPlayableCard = false;
 
         // Check if the player has a playable card
-        for (Card card : player.viewHand().viewCards()) {
+        for (Card card : player.getHand().viewCards()) {
             if (game.isValidPlay(card)) {
                 hasPlayableCard = true;
                 break;
@@ -26,8 +26,8 @@ public class DrawCardInteractor implements PlayerTurnInputBoundary {
         }
 
         // Play a card
-        for (int i = 0; i < player.viewHand().viewCards().size(); i++) {
-            if (game.isValidPlay(player.viewHand().viewCards().get(i))) {
+        for (int i = 0; i < player.getHand().viewCards().size(); i++) {
+            if (game.isValidPlay(player.getHand().viewCards().get(i))) {
                 game.playCard(player, i);
                 break;
             }
