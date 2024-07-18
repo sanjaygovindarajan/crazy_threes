@@ -1,7 +1,8 @@
 package entity;
 
 public interface CardInterface {
-    public char getCurrentSuit();
-    public char getDisplaySuit();
-    public int getCardNum();
+    char getCurrentSuit();
+    char getDisplaySuit();
+    int getCardNum();
+    void setNewSuit(char newSuit);
 }

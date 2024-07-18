@@ -2,23 +2,23 @@ package entity;
 
 import java.util.*;
 
-public class Game {
-    private Deck deck;
+public class Game implements GameInterface{
+    private final Deck deck;
     private final List<Player> players;
     private int turn;
-    private DeckDisposed discard;
+    private final DeckDisposed discard;
     private boolean isGameOver;
 
     public Game(List<String> playerNames) {
-        deck = createNewDeck();
-        discard = new DeckDisposed();
-        players =  new ArrayList<>();
-        for (String name: playerNames) {
-            players.add(new Player(name));
-        }
-        turn = 1;
-        this.isGameOver = false;
+        this.deck = createNewDeck();
         this.discard = new DeckDisposed();
+        this.players =  new ArrayList<>();
+        for (String name: playerNames) {
+            this.players.add(new Player(name));
+        }
+        turn = 0;
+        this.isGameOver = false;
+        startGame();
     }
 
     public Game(Deck deck, List<Player> playerList, int turn, DeckDisposed discard) {
@@ -47,7 +47,7 @@ public class Game {
     /**
      * Starts the game and deals 9 cards to each player.
      */
-    public void startGame() {
+    private void startGame() {
         deck.shuffle();
         dealCards(9);
         discard.addCard(deck.dealCard());
@@ -57,8 +57,7 @@ public class Game {
      * Deals a set number of cards to every Player in the Game
      * @param numCards The number of cards to be dealt to each Player
      */
-    public void dealCards(int numCards) {
-        Card card = null;
+    private void dealCards(int numCards) {
         for (Player player : players) {
             for (int i = 0; i < numCards; i++) {
                 player.drawCard(deck);
@@ -71,7 +70,7 @@ public class Game {
      * @return The player whose turn it is
      */
 
-    public Player getCurrentPlayer() {;
+    public Player getCurrentPlayer() {
         return players.get(turn);
     }
 
@@ -85,15 +84,15 @@ public class Game {
     }
 
     /**
-     * Plays a card, if possible. Otherwise throws an exception.
+     * Plays a card, if possible. Otherwise, throws an exception.
      * @param player The player who is playing the card
      * @param cardIndex The index of the card they are playing
      * @throws MissingCardException The card is not allowed to be played since it is not the right suit or number.
      */
     public void playCard(Player player, int cardIndex) throws MissingCardException {
-        Card card = player.viewHand().viewCards().get(cardIndex);
+        Card card = player.viewHand().getCardList().get(cardIndex);
         if (isValidPlay(card)) {
-            player.playCard(this, cardIndex); //unsure about cardIndex here
+            player.playCard(this, cardIndex);
             discard.addCard(card);
             if (player.hasWin()) {
                 isGameOver = true;
@@ -106,6 +105,13 @@ public class Game {
         }
     }
 
+    /**
+     * Sets the new suit, if possible
+     * @param c The new suit
+     */
+    public void setCurrentSuit(char c){
+        discard.getCard().setNewSuit(c);
+    }
 
     /**
      * Checks whether a Card object can be played.
@@ -114,8 +120,12 @@ public class Game {
      */
 
     private boolean isValidPlay(Card card) {
-        Card topCard = discard.getCard();
-        return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit() || card.getCardNum() == 3;
+        if (discard.getCardList().isEmpty()) {
+            return true;
+        } else {
+            Card topCard = discard.getCard();
+            return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit() || card.getCardNum() == 3;
+        }
     }
 
     /**
