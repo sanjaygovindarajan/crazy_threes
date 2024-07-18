@@ -16,16 +16,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
 
     @Override
     public void execute(LoadGameInputData loadGameInputData) throws Exception {
-//        Game game = null;
-//        try {
-//            game = userDataAccessObject.loadGameByName(loadGameInputData.getGameName());
-//        } catch (IndexOutOfBoundsException e) {
-//            userPresenter.prepareFailView("This game doesn't exist.");
-//
-//        }
-//        LoadGameOutputData loadGameOutputData = new LoadGameOutputData(game, false);
-//        userPresenter.prepareSuccessView(loadGameOutputData);
-//    }
+
         Game game = null;
         try {
             if (userDataAccessObject != null) {
@@ -45,7 +36,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
                 userPresenter.prepareFailView("This game doesn't exist.");
             }
             else {
-                userPresenter.prepareFailView("An error occurred while loading the game: " + e.getMessage());}
+                throw e;}
             }
 
         }

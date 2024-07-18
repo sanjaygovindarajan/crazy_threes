@@ -95,7 +95,7 @@ public class DataAccess implements DataAccessInterface {
         String[] gameArray = gameString.split(":");
         Deck deck = new Deck(readCardCollection(gameArray[1]));
         DeckDisposed discard = new DeckDisposed(readCardCollection(gameArray[2]));
-        String[] playerArray = gameArray[3].split(",");
+        String[] playerArray = gameArray[3].split("/");
         List<Player> playerList = new ArrayList<>();
         for(String player: playerArray) {
             playerList.add(readPlayer(player));
