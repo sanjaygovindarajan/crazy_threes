@@ -1,19 +1,16 @@
 package use_case.player_actions;
 
-import entity.Game;
-import entity.Player;
-import entity.MissingCardException; //once u acc pull
-import entity.Card;
+import entity.*;
 
 public class DrawCardInteractor implements DrawCardInputBoundary {
+Game game;
 
-    @Override
-    public void handleDrawCard(Game game, Player player) throws MissingCardException {
-        Card topCard = game.getDiscard().getCard();
+    public void handleDrawCard() throws MissingCardException {
         boolean hasPlayableCard = false;
+        Player player = game.getCurrentPlayer();
 
         // Check if the player has a playable card
-        for (Card card : player.getHand().viewCards()) {
+        for (Card card : player.viewHand().getCardList()) {
             if (game.isValidPlay(card)) {
                 hasPlayableCard = true;
                 break;
@@ -22,12 +19,12 @@ public class DrawCardInteractor implements DrawCardInputBoundary {
 
         // If no playable card, draw until a playable card is found
         if (!hasPlayableCard) {
-            player.drawUntilPlayable(game.getDeck(), topCard);
+            player.drawCard(game.getDeck());
         }
 
         // Play a card
-        for (int i = 0; i < player.getHand().viewCards().size(); i++) {
-            if (game.isValidPlay(player.getHand().viewCards().get(i))) {
+        for (int i = 0; i < player.viewHand().getCardList().size(); i++) {
+            if (game.isValidPlay(player.viewHand().getCardList().get(i))) {
                 game.playCard(player, i);
                 break;
             }
