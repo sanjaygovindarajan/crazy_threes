@@ -89,4 +89,10 @@ public class Player {
     }
 
 
+    public Hand getHand() {
+        return cards;
+    }
+
+    public void drawUntilPlayable(Deck deck, Card topCard) {
+    }
 }
