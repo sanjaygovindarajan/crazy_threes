@@ -11,8 +11,10 @@ public class Deck extends CardCollection {
         this.cardList = new LinkedList<>();
     }
 
-    public Deck(List<Card> cardList){
-        this.cardList = (LinkedList<Card>) cardList;
+    public  Deck(List<Card> cardList){
+        this.cardList = new LinkedList<>();
+        cardList.addAll(cardList);
+
     }
 
     /**

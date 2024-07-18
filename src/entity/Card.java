@@ -24,7 +24,16 @@ public class Card implements CardInterface {
      * Returns the String representation of a Card.
      * @return The card suit concatenated with the Card number.
      */
+    @Override
     public String toString(){
         return  cardSuit + Integer.toString(cardNum);
+    }
+
+    /**
+     * Does nothing, overridden when the card is a three
+     * @param newSuit Does nothing
+     */
+    @Override
+    public void setNewSuit(char newSuit) {
     }
 }
