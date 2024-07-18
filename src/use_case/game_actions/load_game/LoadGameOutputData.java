@@ -1,4 +1,4 @@
-package use_case.game_actions;
+package use_case.game_actions.load_game;
 import entity.Game;
 
 public class LoadGameOutputData {
