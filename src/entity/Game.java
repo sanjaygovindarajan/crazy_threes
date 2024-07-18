@@ -88,9 +88,9 @@ public class Game {
      * Plays a card, if possible. Otherwise throws an exception.
      * @param player The player who is playing the card
      * @param cardIndex The index of the card they are playing
-     * @throws MissingCardException The card is not allowed to be played since it is not the right suit or number.
+     * @throws InvalidCardException The card is not allowed to be played since it is not the right suit or number.
      */
-    public void playCard(Player player, int cardIndex) throws MissingCardException {
+    public void playCard(Player player, int cardIndex) throws InvalidCardException {
         Card card = player.viewHand().viewCards().get(cardIndex);
         if (isValidPlay(card)) {
             player.playCard(this, cardIndex); //unsure about cardIndex here
@@ -102,8 +102,12 @@ public class Game {
             }
         }
         else {
-            throw new MissingCardException();
+            throw new InvalidCardException();
         }
+    }
+
+    public void playThree(Player player, int cardIndex, char suit) throws InvalidCardException {
+
     }
 
 
