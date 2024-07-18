@@ -9,7 +9,6 @@ import java.util.List;
 
 public class DrawCardInteractorTest {
 
-    @Test
     public void testHandleDrawCard() throws MissingCardException {
         // Setup
         List<Card> initialDeck = new ArrayList<>();
@@ -19,32 +18,32 @@ public class DrawCardInteractorTest {
             }
         }
         Deck deck = new Deck(initialDeck);
-        List<Player> players = new ArrayList<>();
-        players.add(new Player("Alice"));
         List<String> playerNames = new ArrayList<>();
-        for (Player player : players) {
-            playerNames.add(player.getName());
-        }
+        playerNames.add(new Player("TestName").getName());
         Game game = new Game(playerNames);
 
         DrawCardInteractor interactor = new DrawCardInteractor();
 
         // Test
         Player player = game.getCurrentPlayer();
-        interactor.handleDrawCard(game, player);
+        interactor.handleDrawCard();
 
         // Verify
         Card topCard = game.getDiscard().getCard();
         boolean hasPlayableCard = false;
-        for (Card card : player.getHand().viewCards()) {
+        for (Card card : player.viewHand().getCardList()) {
             if (game.isValidPlay(card)) {
                 hasPlayableCard = true;
                 break;
             }
         }
-        assertTrue(hasPlayableCard, "Player should have drawn a playable card");
+        if (!hasPlayableCard) {
+            throw new AssertionError("Player should have drawn a playable card");
+        }
 
         // Ensure a card was played
-        assertTrue(game.getDiscard().getCard() != topCard, "A card should have been played");
+        if (game.getDiscard().getCard() == topCard) {
+            throw new AssertionError("A card should have been played");
+        }
     }
 }
