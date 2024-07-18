@@ -2,11 +2,11 @@ package entity;
 import java.util.*;
 
 public abstract class CardCollection implements CardCollectionInterface {
-    protected List<Card> cardList;
+    protected LinkedList<Card> cardList;
     public CardCollection() {
     }
 
-    public CardCollection(List<Card> cardList){
+    public CardCollection(LinkedList<Card> cardList){
         this.cardList = cardList;
     }
     /**
@@ -20,7 +20,7 @@ public abstract class CardCollection implements CardCollectionInterface {
      * Gets the list of cards.
      * @return The list of cards
      */
-    public List<Card> getCardList(){
+    public LinkedList<Card> getCardList(){
         return this.cardList;
     }
 
@@ -29,7 +29,7 @@ public abstract class CardCollection implements CardCollectionInterface {
      * @return The CardCollection in string format (that is, the Card objects in string format separated by a comma)
      */
     public String toString(){
-        List<String> cardListStr = new ArrayList<>(cardList.size());
+        LinkedList<String> cardListStr = new LinkedList<>();
         for(Card card : cardList){
             cardListStr.add(card.toString());
         }
