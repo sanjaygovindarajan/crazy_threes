@@ -1,8 +1,8 @@
 package entity;
 
 public class Player {
-    private final Hand cards;
-    private final String name;
+    private Hand cards;
+    private String name;
     private final int numWins;
     public Player(String name) {
         this.name = name;

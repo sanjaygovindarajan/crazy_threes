@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Game {
     private Deck deck;
-    private final List<Player> players;
+    public static List<Player> players;
     int turn;
     private DeckDisposed discard;
     private boolean isGameOver;
@@ -156,6 +156,10 @@ public class Game {
      */
     public List<Player> getPlayers() {
         return this.players;
+    }
+
+    public static void setPlayers(Player player) {
+        players.add(player);
     }
 
     /**
