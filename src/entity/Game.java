@@ -119,7 +119,7 @@ public class Game implements GameInterface{
      * @return Whether the card can be played
      */
 
-    private boolean isValidPlay(Card card) {
+    public boolean isValidPlay(Card card) {
         if (discard.getCardList().isEmpty()) {
             return true;
         } else {
