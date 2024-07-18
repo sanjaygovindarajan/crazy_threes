@@ -113,7 +113,7 @@ public class Game {
      * @return Whether the card can be played
      */
 
-    private boolean isValidPlay(Card card) {
+    public boolean isValidPlay(Card card) {
         Card topCard = discard.getCard();
         return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit() || card.getCardNum() == 3;
     }
