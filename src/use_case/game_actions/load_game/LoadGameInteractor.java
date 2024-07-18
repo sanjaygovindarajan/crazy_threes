@@ -3,9 +3,6 @@ package use_case.game_actions.load_game;
 import data_access.DataAccessInterface;
 import entity.Game;
 
-import java.io.IOException;
-
-
 public class LoadGameInteractor implements LoadGameInputBoundary {
 
     final DataAccessInterface userDataAccessObject;
