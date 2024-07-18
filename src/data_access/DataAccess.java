@@ -100,7 +100,7 @@ public class DataAccess implements DataAccessInterface {
         for(String player: playerArray) {
             playerList.add(readPlayer(player));
         }
-        int turn = Integer.parseInt(gameArray[4]);
+        int turn = Integer.parseInt(gameArray[4].trim());
         return new Game(deck, playerList, turn, discard); //Add once constructor is complete
     }
 

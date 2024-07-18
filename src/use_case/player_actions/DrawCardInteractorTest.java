@@ -21,7 +21,11 @@ public class DrawCardInteractorTest {
         Deck deck = new Deck(initialDeck);
         List<Player> players = new ArrayList<>();
         players.add(new Player("Alice"));
-        Game game = new Game(Player players);
+        List<String> playerNames = new ArrayList<>();
+        for (Player player : players) {
+            playerNames.add(player.getName());
+        }
+        Game game = new Game(playerNames);
 
         DrawCardInteractor interactor = new DrawCardInteractor();
 
