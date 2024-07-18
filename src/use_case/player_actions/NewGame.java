@@ -10,9 +10,8 @@ import java.util.Scanner;
 
 public class NewGame {
     int numberOfPlayers;
-    List<String> playersName;
-    Deck startingDeck;
-    List<Hand> dealt;
+    static List<String> playersName;
+    static List<Hand> dealt;
 
 
 
@@ -34,7 +33,7 @@ public class NewGame {
     /**
      * Ask user to set Names of Players
      */
-    public void setNamesList() {
+    public static void setNamesList() {
         //getting player names from user
         Scanner scanner = new Scanner(System.in);
         String nameInput;
@@ -55,7 +54,7 @@ public class NewGame {
     }
 
 
-    private void setPlayers(){
+    public static void setPlayers(){
         int i = 0;
         for (String name : playersName){
             Player aPlayer = new Player(name, dealt.get(i));
