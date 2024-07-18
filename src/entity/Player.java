@@ -34,10 +34,7 @@ public class Player {
     }
 
     public void playCard(Game game, int i) {
-        if (cards.cardList.get(i).getCardNum() == game.getDiscard().getNum()
-        && cards.cardList.get(i).getCurrentSuit() == game.getDiscard().getSuit()) {
-            cards.playCard(i);
-        }
+        cards.playCard(i);
     }
 
     public void drawCard(Deck d) {

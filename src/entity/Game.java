@@ -90,7 +90,7 @@ public class Game implements GameInterface{
      * @throws MissingCardException The card is not allowed to be played since it is not the right suit or number.
      */
     public void playCard(Player player, int cardIndex) throws MissingCardException {
-        Card card = player.viewHand().viewCards().get(cardIndex);
+        Card card = player.viewHand().getCardList().get(cardIndex);
         if (isValidPlay(card)) {
             player.playCard(this, cardIndex);
             discard.addCard(card);
@@ -103,9 +103,15 @@ public class Game implements GameInterface{
         else {
             throw new MissingCardException();
         }
-        advanceTurn();
     }
 
+    /**
+     * Sets the new suit, if possible
+     * @param c The new suit
+     */
+    public void setCurrentSuit(char c){
+        discard.getCard().setNewSuit(c);
+    }
 
     /**
      * Checks whether a Card object can be played.

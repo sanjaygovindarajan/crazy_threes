@@ -15,12 +15,8 @@ public class Hand extends CardCollection {
 
     public Card playCard(int i) {
         Card playedCard = cardList.get(i);
-        cardList.remove(i);
+        this.cardList.remove(i);
         return playedCard;
-    }
-
-    public List<Card> viewCards(){
-        return cardList;
     }
 
 }
