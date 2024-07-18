@@ -6,7 +6,6 @@ public class DrawCardInteractor implements DrawCardInputBoundary {
 Game game;
 
     public void handleDrawCard() throws MissingCardException {
-        Card topCard = game.getDiscard().getCard();
         boolean hasPlayableCard = false;
         Player player = game.getCurrentPlayer();
 
