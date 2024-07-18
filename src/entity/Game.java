@@ -87,10 +87,12 @@ public class Game implements GameInterface{
      * Plays a card, if possible. Otherwise, throws an exception.
      * @param player The player who is playing the card
      * @param cardIndex The index of the card they are playing
-     * @throws MissingCardException The card is not allowed to be played since it is not the right suit or number.
+     * @throws InvalidCardException The card is not allowed to be played since it is not the right suit or number.
      */
-    public void playCard(Player player, int cardIndex) throws MissingCardException {
+
+    public void playCard(Player player, int cardIndex) throws InvalidCardException {
         Card card = player.viewHand().getCardList().get(cardIndex);
+
         if (isValidPlay(card)) {
             player.playCard(this, cardIndex);
             discard.addCard(card);
@@ -101,9 +103,10 @@ public class Game implements GameInterface{
             }
         }
         else {
-            throw new MissingCardException();
+            throw new InvalidCardException();
         }
     }
+
 
     /**
      * Sets the new suit, if possible
@@ -112,6 +115,7 @@ public class Game implements GameInterface{
     public void setCurrentSuit(char c){
         discard.getCard().setNewSuit(c);
     }
+
 
     /**
      * Checks whether a Card object can be played.
