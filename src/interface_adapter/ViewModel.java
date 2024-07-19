@@ -10,4 +10,6 @@ public abstract class ViewModel {
     }
 
     public abstract void firePropertyChanged();
+
     public abstract void addPropertyChangeListener(PropertyChangeListener listener);
+}

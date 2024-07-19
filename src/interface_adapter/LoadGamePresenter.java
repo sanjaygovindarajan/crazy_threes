@@ -15,6 +15,11 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
         this.loadGameViewModel = signupViewModel;
     }
 
+    @Override
+    public void prepareSuccessView(LoadGameOutputData loadGameOutputData) {
+        System.out.println("You load " + loadGameOutputData.getGameName() + " successfully");
+    }
+
     public void prepareFailView(String error) throws Exception {
         System.out.println(error);
 
