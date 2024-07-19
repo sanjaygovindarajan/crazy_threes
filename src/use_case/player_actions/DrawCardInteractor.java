@@ -24,9 +24,11 @@ Game game;
 
         // Play a card
         for (int i = 0; i < player.viewHand().getCardList().size(); i++) {
+
             if (game.isValidPlay(player.viewHand().getCardList().get(i))) {
-                game.playCard(player, i);
+//                 game.playCard(player, i);
                 break;
+
             }
         }
     }

@@ -15,14 +15,14 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SaveGameInteractorTest {
+public class SaveGameInteractorTest {
     private SaveGameInputBoundary interactor;
     private DataAccessInterface dataAccess;
     private SaveGameOutputBoundary output;
     private File file;
 
     @BeforeEach
-    void setUp() throws IOException {
+    public void setUp() throws IOException {
         file = new File("src/data_access/database.txt");
         dataAccess = new DataAccess(file);
         Files.writeString(Path.of(file.getPath()), "");
@@ -31,7 +31,7 @@ class SaveGameInteractorTest {
     }
 
     @Test
-    void testSaveGame() throws IOException {
+    public void testSaveGame() throws IOException {
         List<String> players = new ArrayList<>(3);
         players.add("player1");
         players.add("player2");
