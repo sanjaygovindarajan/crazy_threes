@@ -22,14 +22,13 @@ import java.util.List;
 
 public class LoadGameInteractorTest {
     private SaveGameInputBoundary interactor;
-    private DataAccessInterface dataAccess;
-    private SaveGameOutputBoundary output;
-    private File file;
 
+    private SaveGameOutputBoundary output;
+    private File file = new File("src/data_access/database.txt");
+    private DataAccessInterface dataAccess = new DataAccess(file);
     @Test
     public void successTest() throws Exception {
-        file = new File("src/data_access/database.txt");
-        dataAccess = new DataAccess(file);
+
         Files.writeString(Path.of(file.getPath()), "");
         output = new SaveGamePresenter();
         interactor = new SaveGameInteractor(dataAccess, output);
@@ -39,12 +38,24 @@ public class LoadGameInteractorTest {
         players.add("player2");
         players.add("player3");
         Game game = new Game(players);
+
         SaveGameInputData inputData = new SaveGameInputData("game1");
+
         interactor.setGame(game);
         interactor.execute(inputData);
-        File file = new File("src/data_access/database.txt");
-        DataAccessInterface dataAccess = new DataAccess();
-        LoadGameOutputBoundary successPresenter = new LoadGamePresenter();
+
+        LoadGameOutputBoundary successPresenter = new LoadGameOutputBoundary(){
+            public void prepareSuccessView(LoadGameOutputData loadGameOutputData) {
+                System.out.println("You load the game successfully!");
+            }
+            @Override
+            public void prepareFailView(String error) throws Exception {
+                System.out.println(error);
+
+            }
+
+        };
+
         LoadGameInputData inputData1 = new LoadGameInputData("game1");
         LoadGameInputBoundary interactor = new LoadGameInteractor(dataAccess, successPresenter);
         interactor.execute(inputData1);
@@ -55,7 +66,7 @@ public class LoadGameInteractorTest {
         DataAccessInterface dataAccess = new DataAccess();
         LoadGameOutputBoundary successPresenter = new LoadGameOutputBoundary() {
             public void prepareSuccessView(LoadGameOutputData loadGameOutputData) {
-                System.out.println("You load the game successfully");
+                System.out.println("You load the game successfully!");
             }
             @Override
             public void prepareFailView(String error) throws Exception {
