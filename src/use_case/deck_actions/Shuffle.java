@@ -11,9 +11,6 @@ public class Shuffle {
 
     public void shuffle(){
         deck.shuffle();
-    }
-
-    public void dealCard(){
         deck.dealCard();
     }
 }
