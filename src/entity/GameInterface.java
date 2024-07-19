@@ -19,7 +19,7 @@ public interface GameInterface {
      * @param cardIndex The index of the card they are playing
      * @throws MissingCardException The card is not allowed to be played since it is not the right suit or number.
      */
-    void playCard(Player player, int cardIndex) throws MissingCardException;
+    void playCard(Player player, int cardIndex) throws MissingCardException, InvalidCardException;
     /**
      * Getter method for the current turn in the game.
      * @return The current turn number, expressed as an integer

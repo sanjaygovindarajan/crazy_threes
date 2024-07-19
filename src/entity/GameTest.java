@@ -25,7 +25,7 @@ class GameTest {
     }
 
     @Test
-    void testPlayCardSameNum() throws MissingCardException {
+    void testPlayCardSameNum() throws MissingCardException, InvalidCardException {
         List<Player> players = Arrays.asList(new Player("1"), new Player("2"), new Player("3"));
         Deck deck = new Deck();
         players.getFirst().viewHand().addCard(new Card(9, 'S'));
@@ -37,7 +37,7 @@ class GameTest {
     }
 
     @Test
-    void testPlayCardSameNumNoWin() throws MissingCardException {
+    void testPlayCardSameNumNoWin() throws MissingCardException, InvalidCardException {
         List<Player> players = Arrays.asList(new Player("1"), new Player("2"), new Player("3"));
         Deck deck = new Deck();
         players.getFirst().viewHand().addCard(new Card(9, 'S'));
@@ -57,7 +57,7 @@ class GameTest {
     }
 
     @Test
-    void testPlayThree() throws MissingCardException {
+    void testPlayThree() throws MissingCardException, InvalidCardException {
         List<Player> players = Arrays.asList(new Player("1"), new Player("2"), new Player("3"));
         Deck deck = new Deck();
         players.getFirst().viewHand().addCard(new Card(3, 'S'));

@@ -28,7 +28,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
             if (game == null) {
                 userPresenter.prepareFailView("This game doesn't exist.");
             } else {
-                LoadGameOutputData loadGameOutputData = new LoadGameOutputData(game, false);
+                LoadGameOutputData loadGameOutputData = new LoadGameOutputData(game, loadGameInputData.getGameName(), false);
                 userPresenter.prepareSuccessView(loadGameOutputData);
             }
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
                 userPresenter.prepareFailView("This game doesn't exist.");
             }
             else {
-                throw e;}
+                userPresenter.prepareFailView(e.getMessage());}
             }
 
         }
