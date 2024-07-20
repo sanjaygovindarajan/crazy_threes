@@ -4,6 +4,7 @@ import entity.*;
 
 public class DrawCardInteractor implements DrawCardInputBoundary {
 Game game;
+OutputBoundary outputBoundary;
 
     public void handleDrawCard() throws MissingCardException {
         boolean hasPlayableCard = false;
@@ -20,7 +21,9 @@ Game game;
         // If no playable card, draw until a playable card is found
         if (!hasPlayableCard) {
             player.drawCard(game.getDeck());
+            outputBoundary.presentDrawCard(new DrawCardResponseModel("Player drew a card", true));
         }
+
 
         // Play a card
         for (int i = 0; i < player.viewHand().getCardList().size(); i++) {
@@ -28,6 +31,7 @@ Game game;
             if (game.isValidPlay(player.viewHand().getCardList().get(i))) {
 
 //                game.playCard(player, i);
+                outputBoundary.presentDrawCard(new DrawCardResponseModel("Player played a card", true));
 
                 break;
 
