@@ -1,6 +1,5 @@
 package entity;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,4 +20,9 @@ public class Hand extends CardCollection {
         return playedCard;
     }
 
+    public Three playThree(int i) {
+        Three playedCard = (Three) cardList.get(i);
+        this.cardList.remove(i);
+        return playedCard;
+    }
 }
