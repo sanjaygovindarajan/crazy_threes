@@ -1,14 +1,13 @@
-package use_case.player_actions;
+package use_case.player_actions.draw_card;
 
 import entity.*;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DrawCardInteractorTest {
-
+    @Test
     public void testHandleDrawCard() throws MissingCardException {
         // Setup
         List<Card> initialDeck = new ArrayList<>();
