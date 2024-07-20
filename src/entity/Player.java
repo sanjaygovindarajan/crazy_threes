@@ -42,7 +42,7 @@ public class Player {
     public boolean hasCard(Card card) {
 
         for (Card c: cards.cardList) {
-            if (c.equals(card)) {
+            if (c.getCurrentSuit() == card.getCurrentSuit() && c.getCardNum() == card.getCardNum()) {
                 return true;
             }
         }
@@ -54,6 +54,7 @@ public class Player {
      * @param game The Game we want to play in
      * @param i the position of the card in the Hand of the Player
      */
+
     public void playCard(Game game, int i) {
         cards.playCard(i);
     }
@@ -84,13 +85,10 @@ public class Player {
         return String.join( ";",name,cards.toString());
     }
 
-
     public Hand getHand() {
         return cards;
     }
 
-    public void drawUntilPlayable(Deck deck, Card topCard) {
-    }
 
     public void playThree(int index)  {
         cards.playThree(index);
