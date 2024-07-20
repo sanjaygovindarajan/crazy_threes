@@ -21,7 +21,7 @@ OutputBoundary outputBoundary;
         // If no playable card, draw until a playable card is found
         if (!hasPlayableCard) {
             player.drawCard(game.getDeck());
-            outputBoundary.presentDrawCard(new DrawCardResponseModel("Player drew a card", true));
+            outputBoundary.presentDrawCard(new DrawCardOutputData("Player drew a card", true));
         }
 
 
@@ -31,7 +31,7 @@ OutputBoundary outputBoundary;
             if (game.isValidPlay(player.viewHand().getCardList().get(i))) {
 
 //                game.playCard(player, i);
-                outputBoundary.presentDrawCard(new DrawCardResponseModel("Player played a card", true));
+                outputBoundary.presentDrawCard(new DrawCardOutputData("Player played a card", true));
 
                 break;
 
