@@ -7,7 +7,7 @@ public class ReadRulesController {
     public ReadRulesController(ReadRulesInputBoundary readRulesInputBoundary) {
         this.readRulesInputBoundary = readRulesInputBoundary;
     }
-    public void execute() {
-        readRulesInputBoundary.execute();
+    public void execute(boolean gameStarted) {
+        readRulesInputBoundary.execute(gameStarted);
     }
 }

@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.LoadGameController;
+import interface_adapter.ReadRulesController;
 import interface_adapter.StartGameController;
 
 import java.util.Scanner;
@@ -8,12 +9,11 @@ import java.util.Scanner;
 public class TemporaryDefaultView {
     private final StartGameController ng;
     private final LoadGameController lg;
-    private final ViewRulesController vr;
+    private ReadRulesController vr;
 
-    public TemporaryDefaultView(StartGameController ng, LoadGameController lg, ViewRulesController vr){
+    public TemporaryDefaultView(StartGameController ng, LoadGameController lg){
         this.ng = ng;
         this.lg = lg;
-        this.vr = vr;
     }
     public void requestAction() {
         System.out.println("Type the name of a saved game to load a game");
@@ -26,9 +26,13 @@ public class TemporaryDefaultView {
             String playerNames = input.nextLine();
             ng.execute(playerNames);
         } else if(action.equals("View rules")){
-            vr.execute();
+            vr.execute(false);
         } else {
             lg.execute(action);
         }
+    }
+
+    public void setViewRules(ReadRulesController vr) {
+        this.vr = vr;
     }
 }

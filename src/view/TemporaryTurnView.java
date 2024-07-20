@@ -3,6 +3,7 @@ package view;
 import entity.MissingCardException;
 import interface_adapter.DrawCardController;
 import interface_adapter.PlayCardController;
+import interface_adapter.ReadRulesController;
 import interface_adapter.SaveGameController;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class TemporaryTurnView {
     PlayCardController playCard;
     SaveGameController saveGame;
     DrawCardController drawCard;
-    ViewRulesController viewRules;
+    ReadRulesController viewRules;
 
     public void setControllers(PlayCardController playCard, SaveGameController saveGame, DrawCardController drawCard){
         this.playCard = playCard;
@@ -20,7 +21,7 @@ public class TemporaryTurnView {
         this.drawCard = drawCard;
     }
 
-    public void setViewRules(ViewRulesController viewRules){
+    public void setViewRules(ReadRulesController viewRules){
         this.viewRules = viewRules;
     }
 
@@ -40,7 +41,7 @@ public class TemporaryTurnView {
     }
 
     private void viewRules() {
-        viewRules.execute();
+        viewRules.execute(true);
     }
 
     private void saveGame(Scanner input) {

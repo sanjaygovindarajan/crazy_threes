@@ -1,22 +1,34 @@
 package use_case.deck_actions;
 
-import entity.Deck;
-import entity.Game;
+import entity.*;
+import interface_adapter.ShuffleOutputBoundary;
+import interface_adapter.ShufflePresenter;
+
+import java.util.List;
 
 public class ShuffleInteractor implements ShuffleInputBoundary {
-    private final Deck deck;
+    private GameInterface game;
+    private final ShuffleOutputBoundary presenter;
 
-    public ShuffleInteractor(Deck deck) {
-        this.deck = deck;
+    public ShuffleInteractor(ShufflePresenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
     public void shuffle(){
+        List<Card> cardList = game.getDiscard().getCardList();
+        Card topCard = game.getDiscard().getCard();
+        cardList.remove(game.getDiscard().getCard());
+        Deck deck = new Deck(cardList);
         deck.shuffle();
-        deck.dealCard();
+        game.setDeck(deck);
+
+        game.setDiscard(new DeckDisposed());
+        game.getDiscard().addCard(topCard);
+        presenter.loadSuccessful();
     }
 
     public void setGame(Game game) {
-
+        this.game = game;
     }
 }
