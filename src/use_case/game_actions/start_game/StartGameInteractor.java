@@ -14,16 +14,8 @@ import use_case.player_actions.PlayCardInteractor;
 
 public class StartGameInteractor implements StartGameInputBoundary {
     private Game game;
-    private LoadGameInputBoundary loadGame;
-    private SaveGameInputBoundary saveGame;
-    private PlayCardInputBoundary playCard;
-    private DrawCardInputBoundary drawCard;
-    private Shuffle shuffle;
 
-    public StartGameInteractor(DataAccessInterface dataAccess){
-        saveGame = new SaveGameInteractor(dataAccess, new SaveGamePresenter());
-        playCard = new PlayCardInteractor();
-        drawCard = new DrawCardInteractor();
+    public StartGameInteractor(){
     }
     /**
      * Starts a new game from the beginning.
@@ -33,29 +25,14 @@ public class StartGameInteractor implements StartGameInputBoundary {
     @Override
     public void execute(StartGameInputData inputData) {
         this.game = new Game(inputData.getPlayers());
-        saveGame.setGame(this.game);
-        playCard.setGame(this.game);
-        drawCard.setGame(this.game);
-        shuffle.setGame(this.game);
 
-    }
-    public SaveGameInputBoundary getSaveGame() {
-        return saveGame;
-    }
-    public PlayCardInputBoundary getPlayCard() {
-        return playCard;
-    }
-    public LoadGameInputBoundary getLoadGame() {
-        return loadGame;
-    }
-    public DrawCardInputBoundary getDrawCard() {
-        return drawCard;
-    }
-    public Shuffle getShuffle() {
-        return shuffle;
     }
 
     public void setGame(Game game){
         this.game = game;
+    }
+
+    public Game getGame(){
+        return game;
     }
 }

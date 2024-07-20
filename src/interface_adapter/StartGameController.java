@@ -9,6 +9,6 @@ public class StartGameController {
         this.startGame = startGame;
     }
     public void execute(String userInput){
-        startGame.execute(new StartGameInputData(userInput.split("/n")));
+        startGame.execute(new StartGameInputData(userInput.split(" ")));
     }
 }

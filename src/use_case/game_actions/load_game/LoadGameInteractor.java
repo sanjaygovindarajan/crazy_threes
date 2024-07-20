@@ -11,6 +11,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
 
     private final DataAccessInterface userDataAccessObject;
     private final LoadGameOutputBoundary userPresenter;
+    private Game currentGame;
 
     public LoadGameInteractor(DataAccessInterface userDataAccessObject,
                               LoadGameOutputBoundary userPresenter) {
@@ -42,7 +43,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
             } else {
 
                 LoadGameOutputData loadGameOutputData = new LoadGameOutputData(game, loadGameInputData.getGameName(), false);
-
+                this.currentGame = game;
                 userPresenter.prepareSuccessView(loadGameOutputData);
             }
         } catch (Exception e) {
@@ -56,6 +57,11 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
             }
 
         }
+
+    @Override
+    public Game getGame() {
+        return currentGame;
+    }
 
     /**
      * Creates a new game based on a String.
