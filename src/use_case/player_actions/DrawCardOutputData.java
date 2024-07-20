@@ -1,10 +1,10 @@
 package use_case.player_actions;
 
-public class DrawCardResponseModel {
+public class DrawCardOutputData {
     private final String message;
     private final boolean success;
 
-    public DrawCardResponseModel(String message, boolean success) {
+    public DrawCardOutputData(String message, boolean success) {
         this.message = message;
         this.success = success;
     }
