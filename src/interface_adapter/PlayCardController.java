@@ -12,8 +12,10 @@ public class PlayCardController {
         this.playCardInteractor = playCardInteractor;
     }
 
-    public void playCard(int number, char suit) throws InvalidCardException {
-        PlayCardInputData newData = new PlayCardInputData(number, suit);
+    public void playCard(String number, String suit) throws InvalidCardException {
+        int newNumber = Integer.parseInt(number);
+        char newSuit = suit.charAt(0);
+        PlayCardInputData newData = new PlayCardInputData(newNumber, newSuit);
 
         playCardInteractor.playCard(newData.getCardNum(), newData.getSuit());
     }
