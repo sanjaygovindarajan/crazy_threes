@@ -1,18 +1,28 @@
 package view;
 
+import interface_adapter.SaveGameController;
+import use_case.player_actions.PlayCardController;
+
 import java.util.Scanner;
 
 public class TemporaryTurnView {
-    public static void requestAction(){
+    PlayCardController playCard;
+    SaveGameController saveCard;
+    public void requestAction(){
         System.out.println("Type 'Play card' to play a card.");
         System.out.println("Type 'Draw card' to draw a card.");
         Scanner input = new Scanner(System.in);
         String action = input.nextLine();
         if(action.equals("Play card")){
             playCard(input);
-        } else {
+        } else if(action.equals("Draw card")) {
             drawCard();
+        } else if(action.equals("Save game")){
+            saveGame();
         }
+    }
+
+    private static void saveGame() {
     }
 
     private static void drawCard() {
