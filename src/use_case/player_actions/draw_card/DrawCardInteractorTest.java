@@ -1,12 +1,27 @@
-package use_case.player_actions.draw_card;
+package use_case.player_actions;
 
 import entity.*;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Unit tests for the DrawCardInteractor class.
+ * This test class verifies the correct functionality of the handleDrawCard method,
+ * ensuring that cards are drawn and played as expected.
+ */
 public class DrawCardInteractorTest {
+
+    /**
+     * Tests the handleDrawCard method of the DrawCardInteractor.
+     * This test check that if the player does not have a playable card, a card is drawn from
+     * the deck. It also verifies that a playable card is eventually present and that a card
+     * is played. It checks if the interactor correctly interacts with the game state.
+     *
+     * @throws MissingCardException if there are no cards left in the deck to draw
+     */
     @Test
     public void testHandleDrawCard() throws MissingCardException {
         // Setup
@@ -20,6 +35,15 @@ public class DrawCardInteractorTest {
         List<String> playerNames = new ArrayList<>();
         playerNames.add(new Player("TestName").getName());
         Game game = new Game(playerNames);
+
+//        // Setup the interactor with the necessary dependencies
+//        DrawCardInteractor interactor = new DrawCardInteractor(game, new DrawCardOutputBoundary() {
+//            @Override
+//            public void presentDrawCard(DrawCardOutputData outputData) {
+//                // Mock implementation for testing
+//            }
+//        });
+        // idk if the above 6 lines are better than the 1 below, tbd, learning if the above is more efficient/nec
 
         DrawCardInteractor interactor = new DrawCardInteractor();
 
