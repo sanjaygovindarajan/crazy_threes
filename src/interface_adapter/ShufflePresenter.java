@@ -11,17 +11,17 @@ import view.TemporaryTurnView;
  * Implements the ShuffleOutputBoundary interface to handle the shuffling
  */
 public class ShufflePresenter implements ShuffleOutputBoundary {
+    private final TemporaryTurnView view;
+    public ShufflePresenter(TemporaryTurnView view) {
+        this.view = view;
+    }
     /**
      * Presents the result of the shuffle operation.
      * Formats the output data and prints it to the console.
      * Constructor for phase 1.
      */
-
-
-    public ShufflePresenter() {
-    }
-
     public void loadSuccessful(){
         System.out.println("Shuffle done successfully");
+        view.requestAction();
     }
 }

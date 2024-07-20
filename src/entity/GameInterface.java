@@ -47,4 +47,8 @@ public interface GameInterface {
     public default void playThree(char oldSuit, char suit) {
 
     }
+
+    void setDeck(Deck deck);
+
+    void setDiscard(DeckDisposed deckDisposed);
 }

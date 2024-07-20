@@ -14,8 +14,8 @@ public class ReadRulesInteractor implements ReadRulesInputBoundary {
      * Displays rules based on a fixed string.
      */
     @Override
-    public void execute(){
-        presenter.prepareSuccessView("The rules are as follows:" + ""); //type out rules here (in empty string)
+    public void execute(boolean gameStarted){
+        presenter.prepareSuccessView("The rules are as follows:" + "", gameStarted); //type out rules here (in empty string)
     }
 
 }

@@ -1,5 +1,6 @@
 package use_case.game_actions.start_game;
 
+import entity.Card;
 import entity.Game;
 import interface_adapter.StartGameOutputBoundary;
 import interface_adapter.StartGameOutputData;
@@ -7,7 +8,7 @@ import interface_adapter.StartGamePresenter;
 
 public class StartGameInteractor implements StartGameInputBoundary {
     private Game game;
-    private StartGameOutputBoundary presenter;
+    private final StartGameOutputBoundary presenter;
 
     public StartGameInteractor(StartGameOutputBoundary presenter){
         this.presenter = presenter;
@@ -23,7 +24,8 @@ public class StartGameInteractor implements StartGameInputBoundary {
     }
 
     public void present(){
-        StartGameOutputData data = new StartGameOutputData(game.getCurrentPlayer().getHand().toString(), game.getCurrentPlayer().getName());
+        Card card = game.getDiscard().getCard();
+        StartGameOutputData data = new StartGameOutputData(game.getCurrentPlayer().getHand().toString(), game.getCurrentPlayer().getName(), card.toString(), card.getCurrentSuit());
         presenter.loadSuccessView(data);
     }
 

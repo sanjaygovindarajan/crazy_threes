@@ -3,10 +3,10 @@ package entity;
 import java.util.*;
 
 public class Game implements GameInterface{
-    private final Deck deck;
+    private Deck deck;
     private final List<Player> players;
     private int turn;
-    private final DeckDisposed discard;
+    private DeckDisposed discard;
     private boolean isGameOver;
 
     public Game(List<String> playerNames) {
@@ -81,6 +81,16 @@ public class Game implements GameInterface{
     public DeckDisposed getDiscard() {
         return this.discard;
 
+    }
+
+    @Override
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    @Override
+    public void setDiscard(DeckDisposed deckDisposed) {
+        this.discard = deckDisposed;
     }
 
     /**

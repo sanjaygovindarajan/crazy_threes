@@ -4,5 +4,6 @@ public interface ReadRulesInputBoundary {
     /**
      * Displays rules
      */
-    void execute();
+
+    void execute(boolean gameStarted);
 }
