@@ -48,7 +48,7 @@ public class LoadGameInteractorTest {
                 System.out.println("You load the game successfully!");
             }
             @Override
-            public void prepareFailView(String error) throws Exception {
+            public void prepareFailView(String error){
                 System.out.println(error);
 
             }
@@ -68,7 +68,7 @@ public class LoadGameInteractorTest {
                 System.out.println("You load the game successfully!");
             }
             @Override
-            public void prepareFailView(String error) throws Exception {
+            public void prepareFailView(String error){
                 System.out.println(error);
 
             }

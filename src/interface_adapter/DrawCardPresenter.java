@@ -1,6 +1,5 @@
 package interface_adapter;
 
-import use_case.player_actions.DrawCardOutputBoundary;
 import use_case.player_actions.DrawCardOutputData;
 
 /**

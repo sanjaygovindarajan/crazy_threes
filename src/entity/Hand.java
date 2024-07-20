@@ -12,7 +12,7 @@ public class Hand extends CardCollection {
 
     public Hand(List<Card> cardList){
         this.cardList = new LinkedList<>();
-        cardList.addAll(cardList);
+        this.cardList.addAll(cardList);
     }
 
     public Card playCard(int i) {

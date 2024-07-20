@@ -1,8 +1,11 @@
 package interface_adapter;
 
+import view.TemporaryTurnView;
+
 public class StartGamePresenter implements StartGameOutputBoundary{
     private StartGameViewModel startGameViewModel;
     private ViewManagerModel viewManagerModel;
+    private TemporaryTurnView view;
     public StartGamePresenter(ViewManagerModel viewManagerModel, StartGameViewModel startGameViewModel){
         this.startGameViewModel = startGameViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -10,6 +13,11 @@ public class StartGamePresenter implements StartGameOutputBoundary{
     }
     public StartGamePresenter(){
     }
+
+    public StartGamePresenter(TemporaryTurnView view){
+        this.view = view;
+    }
+
     @Override
     public void loadSuccessView(StartGameOutputData data) {
         System.out.println("It's " + data.getPlayerName() + "'s turn!");
@@ -27,5 +35,6 @@ public class StartGamePresenter implements StartGameOutputBoundary{
             suit = suit.replace("D", "diamonds");
             System.out.println(num + " of " + suit);
         }
+        view.requestAction();
     }
 }

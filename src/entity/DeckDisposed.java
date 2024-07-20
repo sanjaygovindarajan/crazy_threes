@@ -11,7 +11,7 @@ public class DeckDisposed extends CardCollection {
 
     public DeckDisposed(List<Card> cardList){
         this.cardList = new LinkedList<>();
-        cardList.addAll(cardList);
+        this.cardList.addAll(cardList);
     }
 
     /**

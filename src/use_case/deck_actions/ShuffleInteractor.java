@@ -3,10 +3,10 @@ package use_case.deck_actions;
 import entity.Deck;
 import entity.Game;
 
-public class Shuffle implements ShuffleInputBoundary {
+public class ShuffleInteractor implements ShuffleInputBoundary {
     private final Deck deck;
 
-    public Shuffle(Deck deck) {
+    public ShuffleInteractor(Deck deck) {
         this.deck = deck;
     }
 

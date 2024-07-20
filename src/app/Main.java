@@ -2,6 +2,7 @@ package app;
 
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
+import interface_adapter.DrawCardController;
 import interface_adapter.LoadGameController;
 import interface_adapter.SaveGameController;
 import interface_adapter.StartGameController;
@@ -11,22 +12,26 @@ import use_case.game_actions.save_game.SaveGameInputBoundary;
 import use_case.game_actions.start_game.*;
 import use_case.player_actions.*;
 import use_case.player_actions.draw_card.DrawCardInputBoundary;
+import view.TemporaryTurnView;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         DataAccessInterface dataAccess = new DataAccess();
-        NewGameInteractor newGame = new NewGameInteractor(dataAccess);
+        TemporaryTurnView view = new TemporaryTurnView();
+        NewGameInteractor newGame = new NewGameInteractor(dataAccess, view);
         StartGameInputBoundary startGame = newGame.getStartGame();
         LoadGameInputBoundary loadGame = newGame.getLoadGame();
         PlayCardInputBoundary playCard = newGame.getPlayCard();
         DrawCardInputBoundary drawCard = newGame.getDrawCard();
         SaveGameInputBoundary saveGame = newGame.getSaveGame();
         SaveGameController sg = new SaveGameController(saveGame);
-        LoadGameController lg = new LoadGameController(loadGame);
+        LoadGameController lg = new LoadGameController(newGame);
         PlayCardController pc = new PlayCardController();
-        StartGameController ng = new StartGameController(startGame);
+        DrawCardController dc = new DrawCardController(drawCard);
+        StartGameController ng = new StartGameController(newGame);
+        view.setControllers(pc, sg, dc);
 
         System.out.println("Type the name of a saved game to load a game");
         System.out.println("Or, type 'Start game' to start a new game");
@@ -37,12 +42,7 @@ public class Main {
             String playerNames = input.nextLine();
                 ng.execute(playerNames);
         } else {
-            try {
-                lg.execute(action);
-            }
-            catch(Exception e) {
-                System.out.println("Game not found");
-            }
+            lg.execute(action);
         }
     }
 }

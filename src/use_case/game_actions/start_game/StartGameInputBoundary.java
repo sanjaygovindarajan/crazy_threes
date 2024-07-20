@@ -14,5 +14,10 @@ public interface StartGameInputBoundary {
      */
     void execute(StartGameInputData inputData);
 
+    /**
+     * Loads presenter view. (Only called by other interactor)
+     */
+    void present();
+
     Game getGame();
 }

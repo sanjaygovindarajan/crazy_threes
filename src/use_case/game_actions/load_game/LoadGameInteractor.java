@@ -20,7 +20,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     }
 
     @Override
-    public void execute(LoadGameInputData loadGameInputData) throws Exception {
+    public void execute(LoadGameInputData loadGameInputData) throws IllegalStateException {
 
         Game game = null;
         String name = loadGameInputData.getGameName();
@@ -42,9 +42,8 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
                 userPresenter.prepareFailView("This game doesn't exist.");
             } else {
 
-                LoadGameOutputData loadGameOutputData = new LoadGameOutputData(game, loadGameInputData.getGameName(), false);
                 this.currentGame = game;
-                userPresenter.prepareSuccessView(loadGameOutputData);
+                System.out.println(currentGame);
             }
         } catch (Exception e) {
             if (e.getMessage() == null) {
@@ -56,7 +55,12 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
 
             }
 
-        }
+    }
+
+    public void present(LoadGameInputData loadGameInputData){
+        LoadGameOutputData loadGameOutputData = new LoadGameOutputData(currentGame, loadGameInputData.getGameName(), false);
+        userPresenter.prepareSuccessView(loadGameOutputData);
+    }
 
     @Override
     public Game getGame() {

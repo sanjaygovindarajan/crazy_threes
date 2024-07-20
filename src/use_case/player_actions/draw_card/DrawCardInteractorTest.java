@@ -1,7 +1,10 @@
-package use_case.player_actions;
+package use_case.player_actions.draw_card;
 
 import entity.*;
 import org.junit.jupiter.api.Test;
+import use_case.player_actions.draw_card.DrawCardInputBoundary;
+import use_case.player_actions.draw_card.DrawCardInteractor;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -45,7 +48,7 @@ public class DrawCardInteractorTest {
 //        });
         // idk if the above 6 lines are better than the 1 below, tbd, learning if the above is more efficient/nec
 
-        DrawCardInteractor interactor = new DrawCardInteractor();
+        DrawCardInputBoundary interactor = new DrawCardInteractor();
 
         // Test
         Player player = game.getCurrentPlayer();
