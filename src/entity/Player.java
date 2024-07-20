@@ -90,5 +90,10 @@ public class Player {
         return String.join( ";",name,cards.toString());
     }
 
+    public Hand getHand() {
+        return cards;
+    }
 
+    public void drawUntilPlayable(Deck deck, Card topCard) {
+    }
 }
