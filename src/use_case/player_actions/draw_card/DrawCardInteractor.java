@@ -1,4 +1,4 @@
-package use_case.player_actions;
+package use_case.player_actions.draw_card;
 
 import entity.Card;
 import entity.MissingCardException;
@@ -64,6 +64,11 @@ PlayCardInputBoundary playCardInteractor
                 playedCard,
                 game.getNextPlayer()
         ));
+    }
+
+    @Override
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
 

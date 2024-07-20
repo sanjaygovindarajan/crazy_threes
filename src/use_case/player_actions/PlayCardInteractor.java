@@ -23,4 +23,9 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
             game.playCard(player, number);
         }
     }
+
+    @Override
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }
