@@ -188,16 +188,15 @@ public class Game implements GameInterface{
         return String.join(":",deck.toString(),discard.toString(),playerListStr, turn + "\n");
     }
 
-    public void playThree(int index, char suit) {
+    public void playThree(int index, char suit) throws InvalidCardException {
         Player player = this.getCurrentPlayer();
-        Three card = (Three) player.viewHand().getCardList().get(index);
-        player.playThree(index);
-        discard.addCard(card);
-        if (player.hasWin()) {
-            isGameOver = true;
+        if(card.getCardNum() == 3){
+            Three card = (Three) player.viewHand().getCardList().get(index);
+            card.setNewSuit(suit);
+            Player.viewHand().getCardList().set(index, card);
+            playCard(getCurrentPlayer(), index);
         } else {
-            advanceTurn();
+            throw new InvalidCardException();
         }
-        card.setNewSuit(suit);
     }
 }
