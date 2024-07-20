@@ -14,7 +14,6 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
     public SaveGameInteractor(DataAccessInterface dataAccessObject, SaveGameOutputBoundary presenter) {
         this.dataAccessObject = dataAccessObject;
         this.presenter = presenter;
-        this.game = null;
     }
 
     /**

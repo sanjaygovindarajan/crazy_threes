@@ -10,7 +10,8 @@ public class DeckDisposed extends CardCollection {
     }
 
     public DeckDisposed(List<Card> cardList){
-        this.cardList = (LinkedList<Card>) cardList;
+        this.cardList = new LinkedList<>();
+        this.cardList.addAll(cardList);
     }
 
     /**
@@ -18,7 +19,7 @@ public class DeckDisposed extends CardCollection {
      * @return A char spelling the name of the suit
      */
     public char getSuit(){
-        return cardList.getFirst().getCurrentSuit();
+        return cardList.getLast().getCurrentSuit();
     }
 
     /**
@@ -26,7 +27,7 @@ public class DeckDisposed extends CardCollection {
      * @return A Card object that was most recently played.
      */
     public Card getCard(){
-        return cardList.getFirst();
+        return cardList.getLast();
     }
 
     /**
@@ -34,6 +35,6 @@ public class DeckDisposed extends CardCollection {
      * @return An int that represents the number of the most recently played card.
      */
     public int getNum(){
-        return cardList.getFirst().getCardNum();
+        return cardList.getLast().getCardNum();
     }
 }

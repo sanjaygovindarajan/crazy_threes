@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,7 +36,7 @@ class DataAccessTest {
         dataAccess.saveGame(mockGameStr1);
         dataAccess.saveGame(mockGameStr2);
         dataAccess.saveGame(mockGameStr3);
-        assertEquals(String.join(",,,",mockGameStr1,mockGameStr2,mockGameStr3), Files.readString(Path.of(file.getPath())));
+        assertEquals(String.join(",,,",mockGameStr3,mockGameStr2,mockGameStr1), Files.readString(Path.of(file.getPath())));
     }
 
     @AfterEach
