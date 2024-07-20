@@ -190,10 +190,11 @@ public class Game implements GameInterface{
 
     public void playThree(int index, char suit) throws InvalidCardException {
         Player player = this.getCurrentPlayer();
-        if(card.getCardNum() == 3){
-            Three card = (Three) player.viewHand().getCardList().get(index);
-            card.setNewSuit(suit);
-            Player.viewHand().getCardList().set(index, card);
+        Card card = player.viewHand().getCardList().get(index);
+        if (card.getCardNum() == 3) {
+            Three three = (Three) card;
+            three.setNewSuit(suit);
+            player.viewHand().getCardList().set(index, three);
             playCard(getCurrentPlayer(), index);
         } else {
             throw new InvalidCardException();
