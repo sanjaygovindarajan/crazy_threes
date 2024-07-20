@@ -1,5 +1,6 @@
-package use_case.player_actions;
+package use_case.player_actions.draw_card;
 
+import entity.Game;
 import entity.MissingCardException;
 
 /**
@@ -16,6 +17,8 @@ public interface DrawCardInputBoundary {
      * @throws MissingCardException if there are no cards left in the deck to draw
      */
     void handleDrawCard() throws MissingCardException;
+
+    void setGame(Game game);
 }
 
 

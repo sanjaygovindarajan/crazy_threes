@@ -37,7 +37,7 @@ class DataAccessTest {
         dataAccess.saveGame(mockGameStr1);
         dataAccess.saveGame(mockGameStr2);
         dataAccess.saveGame(mockGameStr3);
-        assertEquals(String.join(",,,",mockGameStr1,mockGameStr2,mockGameStr3), Files.readString(Path.of(file.getPath())));
+        assertEquals(String.join(",,,",mockGameStr3,mockGameStr2,mockGameStr1), Files.readString(Path.of(file.getPath())));
     }
 
     @AfterEach
