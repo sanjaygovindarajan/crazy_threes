@@ -91,4 +91,8 @@ public class Player {
 
     public void drawUntilPlayable(Deck deck, Card topCard) {
     }
+
+    public void playThree(int index)  {
+        cards.playThree(index);
+    }
 }

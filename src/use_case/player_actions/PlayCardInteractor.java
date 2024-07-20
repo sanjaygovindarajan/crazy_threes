@@ -1,6 +1,5 @@
 package use_case.player_actions;
 
-import entity.DeckDisposed;
 import entity.Game;
 import entity.InvalidCardException;
 import entity.Player;
@@ -10,22 +9,21 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
 
     @Override
     public void playCard(int number, char suit) throws InvalidCardException {
-        DeckDisposed disposed = game.getDiscard();
         Player player = game.getCurrentPlayer();
-        char currSuit = disposed.getSuit();
-        int currNum = disposed.getNum();
         boolean threeCase = number == 3;
-        boolean yesSuit = currSuit == suit;
-        boolean yesNum = currNum == number;
-        if (!threeCase & (yesSuit || yesNum)) {
-            game.playCard(player, number);
-        } else if (threeCase) {
+        if (!threeCase) {
             game.playCard(player, number);
         }
     }
+    public void playThree(char suit, char newSuit) throws InvalidCardException {
+        Player player = game.getCurrentPlayer();
+            game.playThree(suit, newSuit);
+        }
 
     @Override
     public void setGame(Game game) {
         this.game = game;
     }
 }
+
+// load request suit view
