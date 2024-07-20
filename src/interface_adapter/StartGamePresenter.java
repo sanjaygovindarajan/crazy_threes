@@ -1,6 +1,15 @@
 package interface_adapter;
 
 public class StartGamePresenter implements StartGameOutputBoundary{
+    private StartGameViewModel startGameViewModel;
+    private ViewManagerModel viewManagerModel;
+    public StartGamePresenter(ViewManagerModel viewManagerModel, StartGameViewModel startGameViewModel){
+        this.startGameViewModel = startGameViewModel;
+        this.viewManagerModel = viewManagerModel;
+
+    }
+    public StartGamePresenter(){
+    }
     @Override
     public void loadSuccessView(StartGameOutputData data) {
         System.out.println("It's " + data.getPlayerName() + "'s turn!");
