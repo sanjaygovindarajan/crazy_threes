@@ -1,8 +1,8 @@
 package use_case.player_actions.draw_card;
 
-import entity.Card;
-import entity.MissingCardException;
-import entity.Player;
+import entity.*;
+import interface_adapter.DrawCardOutputBoundary;
+import use_case.player_actions.DrawCardOutputData;
 
 /**
  * Handles the logic for drawing a card in the game.
@@ -21,8 +21,7 @@ public class DrawCardInteractor implements DrawCardInputBoundary {
      * @param playCardInteractor the interactor used to play cards
      */
 Game game;
-OutputBoundary outputBoundary;
-PlayCardInputBoundary playCardInteractor
+DrawCardOutputBoundary outputBoundary;
     /**
      * Handles the process of drawing a card for the current player. If the player does not
      * have a playable card, the method draws cards from the deck until a playable card is found.

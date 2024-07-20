@@ -1,5 +1,6 @@
 package interface_adapter;
-package use_case.player_actions;
+
+import use_case.player_actions.DrawCardOutputData;
 
 /**
  * Output boundary interface for presenting draw card operation results.
@@ -9,11 +10,10 @@ public interface DrawCardOutputBoundary {
     /**
      * Presents the result of the draw card operation.
      *
-     * @param responseModel the response model containing the result of the operation
+     * @param outputData the output data containing the result of the operation
      */
         void presentDrawCard(DrawCardOutputData outputData);
     }
-}
 
 
 
