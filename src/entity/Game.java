@@ -187,4 +187,17 @@ public class Game implements GameInterface{
         String playerListStr = String.join(",",playerList);
         return String.join(":",deck.toString(),discard.toString(),playerListStr,Integer.toString(turn));
     }
+
+    public void playThree(int index, char suit) {
+        Player player = this.getCurrentPlayer();
+        Three card = (Three) player.viewHand().getCardList().get(index);
+        player.playThree(index);
+        discard.addCard(card);
+        if (player.hasWin()) {
+            isGameOver = true;
+        } else {
+            advanceTurn();
+        }
+        card.setNewSuit(suit);
+    }
 }
