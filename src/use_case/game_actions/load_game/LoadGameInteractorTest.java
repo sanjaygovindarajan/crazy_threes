@@ -32,7 +32,6 @@ public class LoadGameInteractorTest {
         Files.writeString(Path.of(file.getPath()), "");
         output = new SaveGamePresenter();
         interactor = new SaveGameInteractor(dataAccess, output);
-        interactor = new SaveGameInteractor(dataAccess, output);
         List<String> players = new ArrayList<>(3);
         players.add("player1");
         players.add("player2");
