@@ -3,8 +3,9 @@ package data_access;
 import entity.Game;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface DataAccessInterface {
-    Game loadGameByName(String name) throws IOException;
+    List<String> loadGames() throws IOException;
     void saveGame(String game) throws IOException;
 }

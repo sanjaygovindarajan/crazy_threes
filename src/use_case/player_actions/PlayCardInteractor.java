@@ -19,6 +19,11 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
         Player player = game.getCurrentPlayer();
             game.playThree(suit, newSuit);
         }
+
+    @Override
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }
 
 // load request suit view

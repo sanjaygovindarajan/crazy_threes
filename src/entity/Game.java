@@ -184,8 +184,8 @@ public class Game implements GameInterface{
         for(Player player : players){
             playerList.add(player.toString());
         }
-        String playerListStr = String.join(",",playerList);
-        return String.join(":",deck.toString(),discard.toString(),playerListStr,Integer.toString(turn));
+        String playerListStr = String.join("/",playerList);
+        return String.join(":",deck.toString(),discard.toString(),playerListStr, turn + "\n");
     }
 
     public void playThree(int index, char suit) {
