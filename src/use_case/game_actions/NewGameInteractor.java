@@ -18,6 +18,7 @@ public class NewGameInteractor {
     private final SaveGameInputBoundary saveGame;
     private final PlayCardInputBoundary playCard;
     private final DrawCardInputBoundary drawCard;
+    private final ReadRulesInputBoundary readRule;
     private ShuffleInteractor shuffle;
 
     public NewGameInteractor(DataAccessInterface dataAccess, TemporaryTurnView view, TemporaryShuffleView shuffleView){
@@ -27,6 +28,8 @@ public class NewGameInteractor {
         drawCard.getPresenter().setShuffle(shuffleView);
         startGame = new StartGameInteractor(new StartGamePresenter(view));
         loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view), new StartGamePresenter(view));
+        readRule = new ReadRulesInteractor(new ReadRulesPresenter(view));
+
     }
 
     public void startGame(StartGameInputData inputData){

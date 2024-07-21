@@ -1,4 +1,4 @@
-package use_case.game_actions.load_game;
+package interface_adapter;
 
 public interface LoadGameOutputBoundary {
 
