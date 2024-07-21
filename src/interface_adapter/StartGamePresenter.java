@@ -43,18 +43,33 @@ public class StartGamePresenter implements StartGameOutputBoundary{
             suit = suit.replace("D", "diamonds");
             System.out.println("However, the suit was changed to " + suit);
         }
-        view.requestAction();
+        try {
+            this.view.requestAction();
+        } catch(NullPointerException e){
+            //Test mode, there is no view
+            System.out.println("Test completed");
+        }
     }
 
     @Override
     public void loadInvalidCardView() {
         System.out.println("You are not allowed to play that card!");
-        view.requestAction();
+        try {
+            this.view.requestAction();
+        } catch(NullPointerException e){
+            //Test mode, there is no view
+            System.out.println("Test completed");
+        }
     }
 
     public void loadMissingCardView(){
         System.out.println("You don't have this card!");
-        view.requestAction();
+        try {
+            this.view.requestAction();
+        } catch(NullPointerException e){
+            //Test mode, there is no view
+            System.out.println("Test completed");
+        }
     }
 
     @Override
@@ -74,7 +89,12 @@ public class StartGamePresenter implements StartGameOutputBoundary{
     @Override
     public void loadUnableToDrawCard() {
         System.out.println("You are not allowed to draw a card if you have a playable card.");
-        this.view.requestAction();
+        try {
+            this.view.requestAction();
+        } catch(NullPointerException e){
+            //Test mode, there is no view
+            System.out.println("Test completed");
+        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 package entity;
 
-public class Three extends Card implements ThreeInterface {
+public class Three extends Card {
     private char newSuit;
 
     public Three(char cardSuit) {

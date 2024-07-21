@@ -135,16 +135,6 @@ public class Game implements GameInterface{
         }
     }
 
-
-    /**
-     * Sets the new suit, if possible
-     * @param c The new suit
-     */
-    public void setCurrentSuit(char c){
-        discard.getCard().setNewSuit(c);
-    }
-
-
     /**
      * Checks whether a Card object can be played.
      * @param card The Card object to check whether it can be played
