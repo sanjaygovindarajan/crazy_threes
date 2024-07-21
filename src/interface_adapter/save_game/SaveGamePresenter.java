@@ -1,6 +1,6 @@
-package interface_adapter;
+package interface_adapter.save_game;
 
-public class SaveGamePresenter implements SaveGameOutputBoundary{
+public class SaveGamePresenter implements SaveGameOutputBoundary {
 
     /**
      * Prints a success message

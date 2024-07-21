@@ -1,6 +1,6 @@
 package use_case.game_actions.read_rules;
 
-import interface_adapter.ReadRulesOutputBoundary;
+import interface_adapter.view_rules.ReadRulesOutputBoundary;
 
 public class ReadRulesInteractor implements ReadRulesInputBoundary {
     final ReadRulesOutputBoundary presenter;

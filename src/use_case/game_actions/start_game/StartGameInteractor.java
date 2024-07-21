@@ -2,9 +2,8 @@ package use_case.game_actions.start_game;
 
 import entity.Card;
 import entity.Game;
-import interface_adapter.StartGameOutputBoundary;
-import interface_adapter.StartGameOutputData;
-import interface_adapter.StartGamePresenter;
+import interface_adapter.start_game.StartGameOutputBoundary;
+import interface_adapter.start_game.StartGameOutputData;
 
 public class StartGameInteractor implements StartGameInputBoundary {
     private Game game;

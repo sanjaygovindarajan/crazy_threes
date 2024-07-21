@@ -3,6 +3,9 @@ package view;
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
 import interface_adapter.*;
+import interface_adapter.load_game.LoadGameController;
+import interface_adapter.load_game.LoadGamePresenter;
+import interface_adapter.load_game.LoadGameViewModel;
 import use_case.game_actions.load_game.LoadGameInputBoundary;
 import use_case.game_actions.load_game.LoadGameInteractor;
 import use_case.game_actions.load_game.LoadGameOutputBoundary;
@@ -10,6 +13,9 @@ import use_case.game_actions.load_game.LoadGameOutputBoundary;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * Not used in Phase 1
+ */
 public class LoadGameUseCaseFactory {
     /** Prevent instantiation. */
     private LoadGameUseCaseFactory() {}

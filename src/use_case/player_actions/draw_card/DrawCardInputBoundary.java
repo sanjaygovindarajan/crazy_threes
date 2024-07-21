@@ -1,7 +1,7 @@
 package use_case.player_actions.draw_card;
 
 import entity.GameInterface;
-import interface_adapter.*;
+import interface_adapter.start_game.StartGameOutputBoundary;
 
 /**
  * Input boundary interface for handling draw card operations.

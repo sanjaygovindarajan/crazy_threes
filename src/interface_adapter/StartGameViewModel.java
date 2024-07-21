@@ -3,6 +3,9 @@ package interface_adapter;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * Not used in Phase 1
+ */
 public class StartGameViewModel extends ViewModel{
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private StartGameState state;

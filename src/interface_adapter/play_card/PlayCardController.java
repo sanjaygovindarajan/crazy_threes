@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.play_card;
 
 import use_case.player_actions.play_card.PlayCardInputData;
 import use_case.player_actions.play_card.PlayCardInputBoundary;

@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.draw_card;
 
 import use_case.player_actions.draw_card.DrawCardInputBoundary;
 

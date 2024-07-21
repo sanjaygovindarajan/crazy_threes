@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.view_rules;
 
 import use_case.game_actions.read_rules.ReadRulesInputBoundary;
 

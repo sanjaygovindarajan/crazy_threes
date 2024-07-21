@@ -1,8 +1,6 @@
-package interface_adapter;
+package interface_adapter.save_game;
 import use_case.game_actions.save_game.SaveGameInputBoundary;
 import use_case.game_actions.save_game.SaveGameInputData;
-
-import java.io.IOException;
 
 public class SaveGameController {
     final SaveGameInputBoundary saveGameInputBoundary;
