@@ -3,6 +3,7 @@ package use_case.game_actions;
 import data_access.DataAccessInterface;
 import entity.Game;
 import interface_adapter.*;
+import use_case.deck_actions.ShuffleInputBoundary;
 import use_case.deck_actions.ShuffleInteractor;
 import use_case.game_actions.load_game.LoadGameInputBoundary;
 import use_case.game_actions.load_game.LoadGameInputData;
@@ -27,7 +28,7 @@ public class NewGameInteractor {
     private final SaveGameInputBoundary saveGame;
     private final PlayCardInputBoundary playCard;
     private final DrawCardInputBoundary drawCard;
-    private ShuffleInteractor shuffle;
+    private final ShuffleInputBoundary shuffle;
 
     public NewGameInteractor(DataAccessInterface dataAccess, TemporaryTurnView view, TemporaryShuffleView shuffleView){
         saveGame = new SaveGameInteractor(dataAccess, new SaveGamePresenter());
@@ -36,6 +37,7 @@ public class NewGameInteractor {
         drawCard.getPresenter().setShuffle(shuffleView);
         startGame = new StartGameInteractor(new StartGamePresenter(view));
         loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view), new StartGamePresenter(view));
+        shuffle = new ShuffleInteractor(new ShufflePresenter(view));
     }
 
     public void startGame(StartGameInputData inputData){
@@ -44,6 +46,7 @@ public class NewGameInteractor {
         saveGame.setGame(this.game);
         playCard.setGame(this.game);
         drawCard.setGame(this.game);
+        shuffle.setGame(this.game);
         startGame.present();
     }
 
@@ -57,7 +60,8 @@ public class NewGameInteractor {
         this.game = loadGame.getGame();
         saveGame.setGame(this.game);
         playCard.setGame(this.game);
-        // drawCard.setGame(this.game);
+        drawCard.setGame(this.game);
+        shuffle.setGame(this.game);
         loadGame.present(inputData);
     }
 
@@ -71,7 +75,7 @@ public class NewGameInteractor {
         return loadGame;
     }
     public DrawCardInputBoundary getDrawCard() { return drawCard; }
-    public ShuffleInteractor getShuffle() {
+    public ShuffleInputBoundary getShuffle() {
         return shuffle;
     }
 

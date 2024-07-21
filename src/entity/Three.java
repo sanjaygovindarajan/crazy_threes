@@ -5,6 +5,7 @@ public class Three extends Card implements ThreeInterface {
 
     public Three(char cardSuit) {
         super(3, cardSuit);
+        this.newSuit = cardSuit;
     }
 
     public void setNewSuit(char newSuit) {

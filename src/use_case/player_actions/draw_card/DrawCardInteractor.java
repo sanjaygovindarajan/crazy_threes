@@ -39,7 +39,7 @@ public class DrawCardInteractor implements DrawCardInputBoundary {
                 presenter.loadShuffleView();
             }
             StartGameOutputData data = new StartGameOutputData(
-                    player.viewHand().getCardList().toString(),
+                    player.viewHand().toString(),
                     player.getName(),
                     game.getDiscard().getCard().toString(),
                     game.getDiscard().getSuit());
