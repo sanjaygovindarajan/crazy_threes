@@ -1,7 +1,5 @@
 package interface_adapter;
 
-import use_case.game_actions.load_game.LoadGameOutputBoundary;
-import use_case.game_actions.load_game.LoadGameOutputData;
 import view.TemporaryTurnView;
 
 public class LoadGamePresenter implements LoadGameOutputBoundary {
