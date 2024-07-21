@@ -1,5 +1,6 @@
 package interface_adapter;
 
+import view.TemporaryShuffleView;
 import view.TemporaryThreeView;
 
 public interface StartGameOutputBoundary {
@@ -8,4 +9,10 @@ public interface StartGameOutputBoundary {
     void loadThreeView(char suit);
     void loadMissingCardView();
     void setThreeView(TemporaryThreeView threeView);
+
+    void loadUnableToDrawCard();
+
+    void loadShuffleView();
+
+    void setShuffle(TemporaryShuffleView shuffleView);
 }

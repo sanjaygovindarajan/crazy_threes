@@ -1,8 +1,11 @@
-/* package use_case.player_actions.draw_card;
+package use_case.player_actions.draw_card;
 
 import entity.*;
-import interface_adapter.DrawCardOutputBoundary;
-import use_case.player_actions.DrawCardOutputData;
+
+import interface_adapter.SaveGameOutputBoundary;
+import interface_adapter.StartGameOutputBoundary;
+import interface_adapter.StartGameOutputData;
+
 
 /**
  * Handles the logic for drawing a card in the game.
@@ -12,63 +15,47 @@ import use_case.player_actions.DrawCardOutputData;
  * to the output boundary.
  */
 
-/* public class DrawCardInteractor implements DrawCardInputBoundary {
-    /**
-     * Constructs a new DrawCardInteractor with the specified game and output boundary.
-     *
-     * @param game the game instance to interact with
-     * @param outputBoundary the boundary used to present results
-     * @param playCardInteractor the interactor used to play cards
-     */
-/* Game game;
-DrawCardOutputBoundary outputBoundary;
+public class DrawCardInteractor implements DrawCardInputBoundary {
+
+    Game game;
+    StartGameOutputBoundary presenter;
+
+    public DrawCardInteractor(StartGameOutputBoundary presenter){
+        this.presenter = presenter;
+    }
+
     /**
      * Handles the process of drawing a card for the current player. If the player does not
      * have a playable card, the method draws cards from the deck until a playable card is found.
      * It then prepares a response model and passes it to the output boundary for presentation.
-     *
-     * @throws MissingCardException if there are no cards left in the deck to draw
      */
-/*     @Override
-    public void handleDrawCard() throws MissingCardException {
+    @Override
+    public void handleDrawCard(){
         Player player = game.getCurrentPlayer();
-        Card drawnCard = player.drawCard(game.getDeck());
-        Card playedCard = null;
-        boolean cardPlayedSuccessfully = false;
-
-        // Check if the drawn card is playable
-        if (game.isValidPlay(drawnCard)) {
+        if(!game.hasPlayableCard()) {
             try {
-                playCardInteractor.playCard(drawnCard.getNumber(), drawnCard.getSuit());
-                playedCard = drawnCard; // The card drawn was played
-                cardPlayedSuccessfully = true;
-            } catch (InvalidCardException e) {
-                cardPlayedSuccessfully = false;
+                player.drawCard(game.getDeck());
+            } catch (MissingCardException e) {
+                presenter.loadShuffleView();
             }
-        }
-
-        // Prepare the result message and details
-        String message = "Player drew a card: " + drawnCard.getNumber() + drawnCard.getSuit();
-        if (cardPlayedSuccessfully) {
-            message += " and played it.";
+            StartGameOutputData data = new StartGameOutputData(
+                    player.viewHand().getCardList().toString(),
+                    player.getName(),
+                    game.getDiscard().getCard().toString(),
+                    game.getDiscard().getSuit());
+            presenter.loadSuccessView(data);
         } else {
-            message += " but could not play it.";
+            presenter.loadUnableToDrawCard();
         }
-
-        // Notify the presenter with the details
-        outputBoundary.presentDrawCard(new DrawCardOutputData(
-                message,
-                cardPlayedSuccessfully,
-                drawnCard,
-                playedCard,
-                game.getNextPlayer()
-        ));
     }
 
     @Override
     public void setGame(Game game) {
         this.game = game;
     }
-}
 
-*/
+    @Override
+    public StartGameOutputBoundary getPresenter() {
+        return this.presenter;
+    }
+}

@@ -23,31 +23,30 @@ public class Main {
         DataAccessInterface dataAccess = new DataAccess();
 
         TemporaryTurnView view = new TemporaryTurnView();
+        TemporaryShuffleView shuffleView = new TemporaryShuffleView();
 
-        NewGameInteractor newGame = new NewGameInteractor(dataAccess, view);
+        NewGameInteractor newGame = new NewGameInteractor(dataAccess, view, shuffleView);
         StartGameInputBoundary startGame = newGame.getStartGame();
         LoadGameInputBoundary loadGame = newGame.getLoadGame();
         PlayCardInputBoundary playCard = newGame.getPlayCard();
-        // DrawCardInputBoundary drawCard = newGame.getDrawCard();
+        DrawCardInputBoundary drawCard = newGame.getDrawCard();
         SaveGameInputBoundary saveGame = newGame.getSaveGame();
         SaveGameController sg = new SaveGameController(saveGame);
         LoadGameController lg = new LoadGameController(newGame);
         interface_adapter.PlayCardController pc = new interface_adapter.PlayCardController(playCard);
-        // DrawCardController dc = new DrawCardController(drawCard);
+        DrawCardController dc = new DrawCardController(drawCard);
 
         StartGameController ng = new StartGameController(newGame);
 
         ShuffleInputBoundary shuffle = new ShuffleInteractor(new ShufflePresenter(view));
         ShuffleController sh = new ShuffleController(shuffle);
-        TemporaryShuffleView shuffleView = new TemporaryShuffleView(sh);
+        shuffleView.setController(sh);
 
         TemporaryDefaultView defaultView = new TemporaryDefaultView(ng, lg);
         ReadRulesInputBoundary viewRules = new ReadRulesInteractor(new ReadRulesPresenter(view, defaultView));
         ReadRulesController vr = new ReadRulesController(viewRules);
         defaultView.setViewRules(vr);
-        // view.setControllers(pc, sg, dc);
-        view.setControllers(pc, sg);
-        view.setViewRules(vr);
+        view.setControllers(pc, sg, dc);
 
         playCard.getPresenter().setThreeView(new TemporaryThreeView(pc));
 

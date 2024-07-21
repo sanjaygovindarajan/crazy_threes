@@ -63,7 +63,7 @@ public class Player {
      * Draws a Card from the deck.
      * @param d The deck we want to draw from
      */
-    public void drawCard(Deck d) {
+    public void drawCard(Deck d) throws MissingCardException {
 
         cards.addCard(d.dealCard());
     }
@@ -87,10 +87,5 @@ public class Player {
 
     public Hand getHand() {
         return cards;
-    }
-
-
-    public void playThree(int index)  {
-        cards.playThree(index);
     }
 }

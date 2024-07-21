@@ -14,8 +14,9 @@ import use_case.game_actions.start_game.StartGameInputData;
 import use_case.game_actions.start_game.StartGameInteractor;
 import use_case.player_actions.PlayCardInputBoundary;
 import use_case.player_actions.PlayCardInteractor;
-// import use_case.player_actions.draw_card.DrawCardInputBoundary;
-// import use_case.player_actions.draw_card.DrawCardInteractor;
+import use_case.player_actions.draw_card.DrawCardInputBoundary;
+import use_case.player_actions.draw_card.DrawCardInteractor;
+import view.TemporaryShuffleView;
 import view.TemporaryThreeView;
 import view.TemporaryTurnView;
 
@@ -25,13 +26,14 @@ public class NewGameInteractor {
     private final LoadGameInputBoundary loadGame;
     private final SaveGameInputBoundary saveGame;
     private final PlayCardInputBoundary playCard;
-    // private final DrawCardInputBoundary drawCard;
+    private final DrawCardInputBoundary drawCard;
     private ShuffleInteractor shuffle;
 
-    public NewGameInteractor(DataAccessInterface dataAccess, TemporaryTurnView view){
+    public NewGameInteractor(DataAccessInterface dataAccess, TemporaryTurnView view, TemporaryShuffleView shuffleView){
         saveGame = new SaveGameInteractor(dataAccess, new SaveGamePresenter());
         playCard = new PlayCardInteractor(new StartGamePresenter(view));
-        // drawCard = new DrawCardInteractor();
+        drawCard = new DrawCardInteractor(new StartGamePresenter(view));
+        drawCard.getPresenter().setShuffle(shuffleView);
         startGame = new StartGameInteractor(new StartGamePresenter(view));
         loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view));
     }
@@ -41,7 +43,7 @@ public class NewGameInteractor {
         this.game = startGame.getGame();
         saveGame.setGame(this.game);
         playCard.setGame(this.game);
-        // drawCard.setGame(this.game);
+        drawCard.setGame(this.game);
         startGame.present();
     }
 
@@ -68,7 +70,7 @@ public class NewGameInteractor {
     public LoadGameInputBoundary getLoadGame() {
         return loadGame;
     }
-    // public DrawCardInputBoundary getDrawCard() { return drawCard; }
+    public DrawCardInputBoundary getDrawCard() { return drawCard; }
     public ShuffleInteractor getShuffle() {
         return shuffle;
     }

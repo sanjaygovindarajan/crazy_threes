@@ -23,10 +23,8 @@ public class DrawCardController {
     /**
      * Executes the draw card operation using the interactor.
      * Handles if there are no cards left in deck.
-     *
-     * @throws MissingCardException if there are no cards left in the deck to draw
      */
-    public void drawCard() throws MissingCardException {
+    public void drawCard() {
         drawCardInteractor.handleDrawCard();
     }
 }
