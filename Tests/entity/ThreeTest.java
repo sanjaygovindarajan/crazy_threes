@@ -11,11 +11,11 @@ class ThreeTest {
      */
     @Test
     void setNewSuit() {
-        Three three = new Three('s');
-        assertEquals('s', three.getCurrentSuit());
+        Three three = new Three('S');
+        assertEquals('S', three.getCurrentSuit());
 
-        three.setNewSuit('h');
-        assertEquals('h', three.getCurrentSuit());
+        three.setNewSuit('H');
+        assertEquals('H', three.getCurrentSuit());
     }
 
     /**
@@ -23,10 +23,10 @@ class ThreeTest {
      */
     @Test
     void getCurrentSuit() {
-        Three three = new Three('c');
-        assertEquals('c', three.getCurrentSuit());
+        Three three = new Three('C');
+        assertEquals('C', three.getCurrentSuit());
 
-        three.setNewSuit('d');
-        assertEquals('d', three.getCurrentSuit());
+        three.setNewSuit('D');
+        assertEquals('D', three.getCurrentSuit());
     }
 }
