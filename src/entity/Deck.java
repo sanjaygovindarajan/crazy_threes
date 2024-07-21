@@ -3,6 +3,7 @@ package entity;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Deck extends CardCollection {
 
@@ -20,12 +21,17 @@ public class Deck extends CardCollection {
     /**
      * Removes card from top of deck to be given to player.
      * @return A Card object from top of deck.
+     * @Throws MissingCardException of there are no cards in the deck.
      */
-    public Card dealCard(){
+    public Card dealCard() throws MissingCardException {
         Card top;
-        top = cardList.getFirst();
-        cardList.removeFirst();
-        return top;
+        try {
+            top = cardList.getFirst();
+            cardList.removeFirst();
+            return top;
+        } catch(NoSuchElementException e){
+            throw new MissingCardException();
+        }
     }
 
     /**

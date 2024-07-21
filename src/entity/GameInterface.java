@@ -51,4 +51,6 @@ public interface GameInterface {
     void setDeck(Deck deck);
 
     void setDiscard(DeckDisposed deckDisposed);
+
+    boolean hasPlayableCard();
 }

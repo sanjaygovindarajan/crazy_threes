@@ -50,7 +50,11 @@ public class Game implements GameInterface{
     private void startGame() {
         deck.shuffle();
         dealCards(9);
-        discard.addCard(deck.dealCard());
+        try {
+            discard.addCard(deck.dealCard());
+        } catch (MissingCardException e){
+            return;
+        }
     }
 
     /**
@@ -60,7 +64,11 @@ public class Game implements GameInterface{
     private void dealCards(int numCards) {
         for (Player player : players) {
             for (int i = 0; i < numCards; i++) {
-                player.drawCard(deck);
+                try {
+                    player.drawCard(deck);
+                } catch(MissingCardException e){
+                    break;
+                }
             }
         }
     }
@@ -91,6 +99,16 @@ public class Game implements GameInterface{
     @Override
     public void setDiscard(DeckDisposed deckDisposed) {
         this.discard = deckDisposed;
+    }
+
+    @Override
+    public boolean hasPlayableCard() {
+        for(Card card: getCurrentPlayer().viewHand().getCardList()){
+            if(isValidPlay(card)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

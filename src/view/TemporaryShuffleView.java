@@ -11,6 +11,10 @@ public class TemporaryShuffleView {
         this.sh = controller;
     }
 
+    public TemporaryShuffleView() {
+
+    }
+
     /**
      * Prompts the user to shuffle the deck.
      * @param input The Scanner used to prompt the user.
@@ -19,5 +23,9 @@ public class TemporaryShuffleView {
         System.out.println("Type anything to shuffle.");
         input.nextLine();
         sh.execute();
+    }
+
+    public void setController(ShuffleController controller){
+        this.sh = controller;
     }
 }

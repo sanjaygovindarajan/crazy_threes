@@ -2,6 +2,7 @@ package use_case.player_actions.draw_card;
 
 import entity.Game;
 import entity.MissingCardException;
+import interface_adapter.*;
 
 /**
  * Input boundary interface for handling draw card operations.
@@ -16,9 +17,11 @@ public interface DrawCardInputBoundary {
      *
      * @throws MissingCardException if there are no cards left in the deck to draw
      */
-    void handleDrawCard() throws MissingCardException;
+    void handleDrawCard();
 
     void setGame(Game game);
+
+    StartGameOutputBoundary getPresenter();
 }
 
 

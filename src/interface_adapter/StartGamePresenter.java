@@ -1,13 +1,16 @@
 package interface_adapter;
 
-import view.TemporaryThreeView;
-import view.TemporaryTurnView;
+import view.*;
+
+import java.util.Scanner;
 
 public class StartGamePresenter implements StartGameOutputBoundary{
     private TemporaryThreeView threeView;
     private StartGameViewModel startGameViewModel;
     private ViewManagerModel viewManagerModel;
     private TemporaryTurnView view;
+    private TemporaryShuffleView shuffle;
+
     public StartGamePresenter(ViewManagerModel viewManagerModel, StartGameViewModel startGameViewModel){
         this.startGameViewModel = startGameViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -62,6 +65,22 @@ public class StartGamePresenter implements StartGameOutputBoundary{
 
     public void setThreeView(TemporaryThreeView view){
         this.threeView = view;
+    }
+
+    @Override
+    public void loadUnableToDrawCard() {
+        System.out.println("You are not allowed to draw a card if you have a playable card.");
+        this.view.requestAction();
+    }
+
+    @Override
+    public void loadShuffleView() {
+        this.shuffle.shuffle(new Scanner(System.in));
+    }
+
+    @Override
+    public void setShuffle(TemporaryShuffleView shuffleView) {
+        this.shuffle = shuffleView;
     }
 
     private String printCard(String card){
