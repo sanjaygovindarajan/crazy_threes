@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
-    Card testCard = new Card(5, 'h');
+    Card testCard = new Card(5, 'H');
 
     @Test
     void getCurrentSuit() {
-        assertEquals('h', testCard.getCurrentSuit());
+        assertEquals('H', testCard.getCurrentSuit());
     }
 
     @Test
     void getDisplaySuit() {
-        assertEquals('h', testCard.getDisplaySuit());
+        assertEquals('H', testCard.getDisplaySuit());
     }
 
     @Test
