@@ -46,7 +46,7 @@ public class TemporaryTurnView {
     public void requestAction(){
         System.out.println("Type 'Play card' to play a card.");
         System.out.println("Type 'Draw card' to draw a card.");
-        System.out.println("Type 'Save game' to save the current gam.");
+        System.out.println("Type 'Save game' to save the current game.");
         System.out.println("Type 'View rules' to review the rules.");
         Scanner input = new Scanner(System.in);
         char action = input.nextLine().toLowerCase().charAt(0);

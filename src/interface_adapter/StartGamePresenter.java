@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 /**
  * The presenter for the start game, play card, draw card, and load game user stories.
- * Not located in start_game package because it is used by many.
+ * Not located in start_game package because it is used by many use cases.
  */
 public class StartGamePresenter implements StartGameOutputBoundary {
     private TemporaryThreeView threeView;
