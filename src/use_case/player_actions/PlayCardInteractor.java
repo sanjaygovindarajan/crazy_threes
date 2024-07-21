@@ -47,6 +47,10 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
             presenter.loadSuccessView(outputData);
         } catch (InvalidCardException e) {
             presenter.loadInvalidCardView();
+        } finally {
+            if (game.isGameOver()) {
+                presenter.winMessage(game.getCurrentPlayer().getName());
+            }
         }
     }
     public void playThree(char suit, char newSuit){
@@ -67,6 +71,10 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
         }
         catch(InvalidCardException e){
             presenter.loadInvalidCardView();
+        } finally {
+            if (game.isGameOver()) {
+                presenter.winMessage(game.getCurrentPlayer().getName());
+            }
         }
     }
 

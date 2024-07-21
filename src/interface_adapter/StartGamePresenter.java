@@ -63,6 +63,10 @@ public class StartGamePresenter implements StartGameOutputBoundary{
 
     }
 
+    public void winMessage(String player){
+        System.out.println("Congratulations " + player + " wins!");
+    }
+
     public void setThreeView(TemporaryThreeView view){
         this.threeView = view;
     }

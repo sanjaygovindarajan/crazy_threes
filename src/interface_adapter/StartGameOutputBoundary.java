@@ -9,6 +9,7 @@ public interface StartGameOutputBoundary {
     void loadThreeView(char suit);
     void loadMissingCardView();
     void setThreeView(TemporaryThreeView threeView);
+    void winMessage(String player);
 
     void loadUnableToDrawCard();
 
