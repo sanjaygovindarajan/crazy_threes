@@ -9,7 +9,7 @@ import java.io.IOException;
 public class SaveGameInteractor implements SaveGameInputBoundary {
     final DataAccessInterface dataAccessObject;
     final SaveGameOutputBoundary presenter;
-    Game game;
+    GameInterface game;
 
     public SaveGameInteractor(DataAccessInterface dataAccessObject, SaveGameOutputBoundary presenter) {
         this.dataAccessObject = dataAccessObject;
@@ -34,7 +34,7 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
      * Sets the current game being played.
      * @param game The game currently being played.
      */
-    public void setGame(Game game){
+    public void setGame(GameInterface game){
         this.game = game;
     }
 }

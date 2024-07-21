@@ -1,15 +1,12 @@
 package use_case.player_actions;
 
-import entity.Card;
-import entity.Game;
-import entity.InvalidCardException;
-import entity.Player;
+import entity.*;
 import interface_adapter.StartGameOutputBoundary;
 import interface_adapter.StartGameOutputData;
 import interface_adapter.StartGamePresenter;
 
 public class PlayCardInteractor implements PlayCardInputBoundary {
-    Game game;
+    GameInterface game;
     StartGameOutputBoundary presenter;
 
     public PlayCardInteractor(StartGameOutputBoundary presenter){
@@ -84,9 +81,7 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
     }
 
     @Override
-    public void setGame(Game game) {
+    public void setGame(GameInterface game) {
         this.game = game;
     }
 }
-
-// load request suit view

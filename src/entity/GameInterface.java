@@ -2,8 +2,9 @@ package entity;
 
 import java.util.List;
 
-
-
+/**
+ * A simple interface that allows for playing cards and getting and setting certain instance variables.
+ */
 public interface GameInterface {
     /**
      * Gets the player whose turn it is
@@ -44,13 +45,29 @@ public interface GameInterface {
      */
     DeckDisposed getDiscard();
 
-    public default void playThree(char oldSuit, char suit) {
+    /**
+     * Plays a three and changes the suit
+     * @param index The index of the three
+     * @param suit The new suit
+     * @throws InvalidCardException The card at the index is not actually a three
+     */
+    void playThree(int index, char suit) throws InvalidCardException;
 
-    }
-
+    /**
+     * Sets the deck to a new deck.
+     * @param deck The new deck
+     */
     void setDeck(Deck deck);
 
+    /**
+     * Sets the discard to a new pile.
+     * @param deckDisposed The new discard pile
+     */
     void setDiscard(DeckDisposed deckDisposed);
 
+    /**
+     * Returns whether the current player has a playable card.
+     * @return Whether the current player has a playable card.
+     */
     boolean hasPlayableCard();
 }

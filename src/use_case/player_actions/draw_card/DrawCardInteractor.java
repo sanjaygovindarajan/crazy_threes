@@ -17,7 +17,7 @@ import interface_adapter.StartGameOutputData;
 
 public class DrawCardInteractor implements DrawCardInputBoundary {
 
-    Game game;
+    GameInterface game;
     StartGameOutputBoundary presenter;
 
     public DrawCardInteractor(StartGameOutputBoundary presenter){
@@ -25,9 +25,10 @@ public class DrawCardInteractor implements DrawCardInputBoundary {
     }
 
     /**
-     * Handles the process of drawing a card for the current player. If the player does not
-     * have a playable card, the method draws cards from the deck until a playable card is found.
-     * It then prepares a response model and passes it to the output boundary for presentation.
+     * Draws a single card if the player is allowed to do so and if there is a card in the deck.
+     * If there is no card in the deck, prompts the player to shuffle the deck.
+     * If the player is not allowed to draw a card, prompts the player to choose a different action.
+     * If a card is drawn successfully, prompts the player to choose the next action.
      */
     @Override
     public void handleDrawCard(){
@@ -35,25 +36,34 @@ public class DrawCardInteractor implements DrawCardInputBoundary {
         if(!game.hasPlayableCard()) {
             try {
                 player.drawCard(game.getDeck());
+                StartGameOutputData data = new StartGameOutputData(
+                        player.viewHand().toString(),
+                        player.getName(),
+                        game.getDiscard().getCard().toString(),
+                        game.getDiscard().getSuit());
+                presenter.loadSuccessView(data);
             } catch (MissingCardException e) {
                 presenter.loadShuffleView();
             }
-            StartGameOutputData data = new StartGameOutputData(
-                    player.viewHand().toString(),
-                    player.getName(),
-                    game.getDiscard().getCard().toString(),
-                    game.getDiscard().getSuit());
-            presenter.loadSuccessView(data);
+
         } else {
             presenter.loadUnableToDrawCard();
         }
     }
 
+    /**
+     * Sets the game that the interactor modifies.
+     * @param game The game
+     */
     @Override
-    public void setGame(Game game) {
+    public void setGame(GameInterface game) {
         this.game = game;
     }
 
+    /**
+     * Gets the presenter for the draw card user story.
+     * @return The presenter
+     */
     @Override
     public StartGameOutputBoundary getPresenter() {
         return this.presenter;
