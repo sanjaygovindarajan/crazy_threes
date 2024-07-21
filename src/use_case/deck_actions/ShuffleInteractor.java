@@ -28,7 +28,7 @@ public class ShuffleInteractor implements ShuffleInputBoundary {
         presenter.loadSuccessful();
     }
 
-    public void setGame(Game game) {
+    public void setGame(GameInterface game) {
         this.game = game;
     }
 }

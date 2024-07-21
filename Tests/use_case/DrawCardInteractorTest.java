@@ -1,6 +1,7 @@
-/* package use_case.player_actions.draw_card;
+package use_case.player_actions.draw_card;
 
 import entity.*;
+import interface_adapter.StartGamePresenter;
 import org.junit.jupiter.api.Test;
 import use_case.player_actions.draw_card.DrawCardInputBoundary;
 import use_case.player_actions.draw_card.DrawCardInteractor;
@@ -15,7 +16,7 @@ import java.util.List;
  * This test class verifies the correct functionality of the handleDrawCard method,
  * ensuring that cards are drawn and played as expected.
  */
-/* public class DrawCardInteractorTest {
+public class DrawCardInteractorTest {
 
     /**
      * Tests the handleDrawCard method of the DrawCardInteractor.
@@ -25,7 +26,7 @@ import java.util.List;
      *
      * @throws MissingCardException if there are no cards left in the deck to draw
      */
-/*     @Test
+     @Test
     public void testHandleDrawCard() throws MissingCardException {
         // Setup
         List<Card> initialDeck = new ArrayList<>();
@@ -35,42 +36,27 @@ import java.util.List;
             }
         }
         Deck deck = new Deck(initialDeck);
-        List<String> playerNames = new ArrayList<>();
-        playerNames.add(new Player("TestName").getName());
-        Game game = new Game(playerNames);
+        List<Player> players = new ArrayList<>();
+        players.add(new Player("TestName"));
+        DeckDisposed discard = new DeckDisposed();
+        discard.addCard(new Three('S'));
+        Game game = new Game(deck, players, 0,discard);
 
-//        // Setup the interactor with the necessary dependencies
-//        DrawCardInteractor interactor = new DrawCardInteractor(game, new DrawCardOutputBoundary() {
-//            @Override
-//            public void presentDrawCard(DrawCardOutputData outputData) {
-//                // Mock implementation for testing
-//            }
-//        });
-        // idk if the above 6 lines are better than the 1 below, tbd, learning if the above is more efficient/nec
-
-        DrawCardInputBoundary interactor = new DrawCardInteractor();
+        // Setup the interactor with the necessary dependencies
+        DrawCardInputBoundary interactor = new DrawCardInteractor(new StartGamePresenter());
+        interactor.setGame(game);
 
         // Test
         Player player = game.getCurrentPlayer();
         interactor.handleDrawCard();
 
-        // Verify
-        Card topCard = game.getDiscard().getCard();
-        boolean hasPlayableCard = false;
-        for (Card card : player.viewHand().getCardList()) {
-            if (game.isValidPlay(card)) {
-                hasPlayableCard = true;
-                break;
-            }
-        }
-        if (!hasPlayableCard) {
-            throw new AssertionError("Player should have drawn a playable card");
-        }
+        //Ensure player has one more card than before
+        assertEquals(player.viewHand().getCardList().size(), 1);
 
-        // Ensure a card was played
-        if (game.getDiscard().getCard() == topCard) {
-            throw new AssertionError("A card should have been played");
-        }
+        //Ensure deck size has decreased by 1
+        assertEquals(deck.getCardList().size(), 47);
+
+        //Ensure the top card is no longer in the deck
+        assertNotEquals(player.viewHand().getCardList().getFirst(), deck.getCardList().getFirst());
     }
 }
-*/

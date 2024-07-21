@@ -1,10 +1,6 @@
 package use_case.game_actions.start_game;
 
 import entity.Game;
-import use_case.game_actions.load_game.LoadGameInputBoundary;
-import use_case.game_actions.save_game.SaveGameInputBoundary;
-import use_case.player_actions.draw_card.DrawCardInputBoundary;
-import use_case.player_actions.PlayCardInputBoundary;
 
 public interface StartGameInputBoundary {
     /**

@@ -4,15 +4,12 @@ import data_access.DataAccess;
 import data_access.DataAccessInterface;
 import interface_adapter.*;
 import use_case.deck_actions.ShuffleInputBoundary;
-import use_case.deck_actions.ShuffleInteractor;
 import use_case.game_actions.NewGameInteractor;
-import use_case.game_actions.load_game.LoadGameInputBoundary;
 import use_case.game_actions.read_rules.ReadRulesInputBoundary;
 import use_case.game_actions.read_rules.ReadRulesInteractor;
 import use_case.game_actions.save_game.SaveGameInputBoundary;
-import use_case.game_actions.start_game.*;
-import use_case.player_actions.*;
 import use_case.player_actions.draw_card.DrawCardInputBoundary;
+import use_case.player_actions.play_card.PlayCardInputBoundary;
 import view.TemporaryDefaultView;
 import view.TemporaryShuffleView;
 import view.TemporaryThreeView;
@@ -26,8 +23,6 @@ public class Main {
         TemporaryShuffleView shuffleView = new TemporaryShuffleView();
 
         NewGameInteractor newGame = new NewGameInteractor(dataAccess, view, shuffleView);
-        StartGameInputBoundary startGame = newGame.getStartGame();
-        LoadGameInputBoundary loadGame = newGame.getLoadGame();
         PlayCardInputBoundary playCard = newGame.getPlayCard();
         DrawCardInputBoundary drawCard = newGame.getDrawCard();
         SaveGameInputBoundary saveGame = newGame.getSaveGame();

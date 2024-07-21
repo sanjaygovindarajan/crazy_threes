@@ -1,7 +1,6 @@
 package use_case.player_actions.draw_card;
 
-import entity.Game;
-import entity.MissingCardException;
+import entity.GameInterface;
 import interface_adapter.*;
 
 /**
@@ -10,17 +9,23 @@ import interface_adapter.*;
  */
 public interface DrawCardInputBoundary {
     /**
-     * Handles the logic for drawing a card for current player.
-     * Checks if the player has a playable card; if not, draws cards from the deck until
-     * a playable card is found. This method may throw an exception if there are no cards left
-     * in the deck.
-     *
-     * @throws MissingCardException if there are no cards left in the deck to draw
+     * Draws a single card if the player is allowed to do so and if there is a card in the deck.
+     * If there is no card in the deck, prompts the player to shuffle the deck.
+     * If the player is not allowed to draw a card, prompts the player to choose a different action.
+     * If a card is drawn successfully, prompts the player to choose the next action.
      */
     void handleDrawCard();
 
-    void setGame(Game game);
+    /**
+     * Sets the game that the interactor modifies.
+     * @param game The game
+     */
+    void setGame(GameInterface game);
 
+    /**
+     * Gets the presenter for the draw card user story.
+     * @return The presenter
+     */
     StartGameOutputBoundary getPresenter();
 }
 

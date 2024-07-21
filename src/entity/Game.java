@@ -1,5 +1,8 @@
 package entity;
 
+import entity.exceptions.InvalidCardException;
+import entity.exceptions.MissingCardException;
+
 import java.util.*;
 
 public class Game implements GameInterface{
@@ -49,21 +52,19 @@ public class Game implements GameInterface{
      */
     private void startGame() {
         deck.shuffle();
-        dealCards(9);
+        dealCards();
         try {
             discard.addCard(deck.dealCard());
-        } catch (MissingCardException e){
-            return;
+        } catch (MissingCardException _){
         }
     }
 
     /**
      * Deals a set number of cards to every Player in the Game
-     * @param numCards The number of cards to be dealt to each Player
      */
-    private void dealCards(int numCards) {
+    private void dealCards() {
         for (Player player : players) {
-            for (int i = 0; i < numCards; i++) {
+            for (int i = 0; i < 9; i++) {
                 try {
                     player.drawCard(deck);
                 } catch(MissingCardException e){
@@ -77,7 +78,7 @@ public class Game implements GameInterface{
      * Gets the player whose turn it is
      * @return The player whose turn it is
      */
-
+    @Override
     public Player getCurrentPlayer() {
         return players.get(turn);
     }
@@ -86,6 +87,7 @@ public class Game implements GameInterface{
      * Gets the discard pile
      * @return The discard pile
      */
+    @Override
     public DeckDisposed getDiscard() {
         return this.discard;
 
@@ -117,7 +119,7 @@ public class Game implements GameInterface{
      * @param cardIndex The index of the card they are playing
      * @throws InvalidCardException The card is not allowed to be played since it is not the right suit or number.
      */
-
+    @Override
     public void playCard(Player player, int cardIndex) throws InvalidCardException {
         Card card = player.viewHand().getCardList().get(cardIndex);
 
@@ -135,23 +137,12 @@ public class Game implements GameInterface{
         }
     }
 
-
-    /**
-     * Sets the new suit, if possible
-     * @param c The new suit
-     */
-    public void setCurrentSuit(char c){
-        discard.getCard().setNewSuit(c);
-    }
-
-
     /**
      * Checks whether a Card object can be played.
      * @param card The Card object to check whether it can be played
      * @return Whether the card can be played
      */
-
-    public boolean isValidPlay(Card card) {
+    private boolean isValidPlay(Card card) {
         if (discard.getCardList().isEmpty()) {
             return true;
         } else {
@@ -165,15 +156,13 @@ public class Game implements GameInterface{
      */
     private void advanceTurn() {
         this.turn = (this.turn + 1) % players.size();
-
     }
 
     /**
      * Getter method for isGameOver instance variable.
      * @return Whether the Game is over or not
      */
-
-
+    @Override
     public boolean isGameOver() {
         return this.isGameOver;
     }
@@ -182,6 +171,7 @@ public class Game implements GameInterface{
      * Getter method for the list of players.
      * @return The list of players in the game, expressed as a List
      */
+    @Override
     public List<Player> getPlayers() {
         return this.players;
     }
@@ -190,6 +180,7 @@ public class Game implements GameInterface{
      * Getter method for the deck in the game
      * @return The deck for the game
      */
+    @Override
     public Deck getDeck() {
         return this.deck;
     }
@@ -198,6 +189,7 @@ public class Game implements GameInterface{
      * Getter method for the current turn in the game.
      * @return The current turn number, expressed as an integer
      */
+    @Override
     public int getTurn(){
         return this.turn;
     }
@@ -207,6 +199,7 @@ public class Game implements GameInterface{
      * and gives the game a name.
      * @return The game in string format, with the name
      */
+    @Override
     public String toString(){
         List<String> playerList = new ArrayList<>(players.size());
         for(Player player : players){
@@ -216,6 +209,13 @@ public class Game implements GameInterface{
         return String.join(":",deck.toString(),discard.toString(),playerListStr, turn + "\n");
     }
 
+    /**
+     * Plays a three
+     * @param index The index of the three
+     * @param suit The new suit
+     * @throws InvalidCardException The card cannot be found, or it is not a three
+     */
+    @Override
     public void playThree(int index, char suit) throws InvalidCardException {
         Player player = this.getCurrentPlayer();
         Card card = player.viewHand().getCardList().get(index);

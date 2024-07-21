@@ -1,6 +1,5 @@
 package interface_adapter;
 
-import entity.MissingCardException;
 import use_case.player_actions.draw_card.DrawCardInputBoundary;
 
 /**

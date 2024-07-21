@@ -1,12 +1,10 @@
 package view;
 
-import entity.MissingCardException;
 import interface_adapter.DrawCardController;
 import interface_adapter.PlayCardController;
 import interface_adapter.ReadRulesController;
 import interface_adapter.SaveGameController;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class TemporaryTurnView {
@@ -31,12 +29,12 @@ public class TemporaryTurnView {
         System.out.println("Type 'Save game' to save the current gam.");
         System.out.println("Type 'View rules' to review the rules.");
         Scanner input = new Scanner(System.in);
-        String action = input.nextLine().toLowerCase();
+        char action = input.nextLine().toLowerCase().charAt(0);
         switch (action) {
-            case "play card" -> playCard(input);
-            case "draw card" -> drawCard();
-            case "save game" -> saveGame(input);
-            case "view rules" -> viewRules();
+            case 'p' -> playCard(input);
+            case 'd' -> drawCard();
+            case 's' -> saveGame(input);
+            case 'v' -> viewRules();
         }
     }
 

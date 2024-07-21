@@ -14,7 +14,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     private final DataAccessInterface userDataAccessObject;
     private final LoadGameOutputBoundary userPresenter;
     private final StartGameOutputBoundary presenter;
-    private Game currentGame;
+    private GameInterface currentGame;
 
     public LoadGameInteractor(DataAccessInterface userDataAccessObject,
                               LoadGameOutputBoundary userPresenter,
@@ -27,7 +27,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     @Override
     public void execute(LoadGameInputData loadGameInputData) throws IllegalStateException {
 
-        Game game = null;
+        GameInterface game = null;
         String name = loadGameInputData.getGameName();
         try {
             if (userDataAccessObject != null) {
@@ -74,7 +74,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     }
 
     @Override
-    public Game getGame() {
+    public GameInterface getGame() {
         return currentGame;
     }
 
@@ -83,7 +83,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
      * @param gameString A String in the proper format
      * @return A Game object with attributes based on the input
      */
-    private Game readGame(String gameString){
+    private GameInterface readGame(String gameString){
         String[] gameArray = gameString.split(":");
         Deck deck = new Deck(readCardCollection(gameArray[1]));
         DeckDisposed discard = new DeckDisposed(readCardCollection(gameArray[2]));
