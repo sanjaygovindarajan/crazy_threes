@@ -10,7 +10,6 @@ class ThreeTest {
      * Verifies that the suit of the card can be changed and retrieved correctly.
      */
     @Test
-    @Test
     void setNewSuit() {
         Three three = new Three('s');
         assertEquals('s', three.getCurrentSuit());
