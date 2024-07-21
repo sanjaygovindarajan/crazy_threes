@@ -27,7 +27,7 @@ public class Main {
         DrawCardInputBoundary drawCard = newGame.getDrawCard();
         SaveGameInputBoundary saveGame = newGame.getSaveGame();
         SaveGameController sg = new SaveGameController(saveGame);
-        LoadGameController lg = new LoadGameController(newGame);
+        LoadGameController lg = new LoadGameController(newGame, newGame.getLoadGame());
         interface_adapter.PlayCardController pc = new interface_adapter.PlayCardController(playCard);
         DrawCardController dc = new DrawCardController(drawCard);
 

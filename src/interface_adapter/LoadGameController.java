@@ -8,9 +8,9 @@ public class LoadGameController {
     LoadGameInputBoundary loadGameInteractor;
     NewGameInteractor newGame;
 
-    public LoadGameController(NewGameInteractor newGame) {
+    public LoadGameController(NewGameInteractor newGame, LoadGameInputBoundary loadGameInteractor) {
         this.newGame = newGame;
-        this.loadGameInteractor = newGame.getLoadGame();
+        this.loadGameInteractor = loadGameInteractor;
     }
 
     public LoadGameController(LoadGameInputBoundary loadGameInteractor) {
