@@ -2,7 +2,13 @@ package app;
 
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
-import interface_adapter.*;
+import interface_adapter.load_game.*;
+import interface_adapter.save_game.*;
+import interface_adapter.play_card.*;
+import interface_adapter.draw_card.*;
+import interface_adapter.view_rules.*;
+import interface_adapter.start_game.*;
+import interface_adapter.shuffle.*;
 import use_case.deck_actions.ShuffleInputBoundary;
 import use_case.game_actions.NewGameInteractor;
 import use_case.game_actions.read_rules.ReadRulesInputBoundary;
@@ -28,7 +34,7 @@ public class Main {
         SaveGameInputBoundary saveGame = newGame.getSaveGame();
         SaveGameController sg = new SaveGameController(saveGame);
         LoadGameController lg = new LoadGameController(newGame);
-        interface_adapter.PlayCardController pc = new interface_adapter.PlayCardController(playCard);
+        PlayCardController pc = new PlayCardController(playCard);
         DrawCardController dc = new DrawCardController(drawCard);
 
         StartGameController ng = new StartGameController(newGame);
