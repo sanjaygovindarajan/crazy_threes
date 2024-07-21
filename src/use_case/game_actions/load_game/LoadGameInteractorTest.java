@@ -7,6 +7,7 @@ import entity.Game;
 import interface_adapter.LoadGamePresenter;
 import interface_adapter.SaveGameOutputBoundary;
 import interface_adapter.SaveGamePresenter;
+import interface_adapter.StartGamePresenter;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import use_case.game_actions.save_game.SaveGameInputBoundary;
@@ -56,7 +57,7 @@ public class LoadGameInteractorTest {
         };
 
         LoadGameInputData inputData1 = new LoadGameInputData("game1");
-        LoadGameInputBoundary interactor = new LoadGameInteractor(dataAccess, successPresenter);
+        LoadGameInputBoundary interactor = new LoadGameInteractor(dataAccess, successPresenter, new StartGamePresenter());
         interactor.execute(inputData1);
     }
 
@@ -74,7 +75,7 @@ public class LoadGameInteractorTest {
             }
         };
         LoadGameInputData inputData2 = new LoadGameInputData("game2");
-        LoadGameInputBoundary interactor = new LoadGameInteractor(dataAccess, successPresenter);
+        LoadGameInputBoundary interactor = new LoadGameInteractor(dataAccess, successPresenter, new StartGamePresenter());
         interactor.execute(inputData2);
     }
 

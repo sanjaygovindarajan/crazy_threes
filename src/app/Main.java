@@ -46,6 +46,7 @@ public class Main {
         ReadRulesInputBoundary viewRules = new ReadRulesInteractor(new ReadRulesPresenter(view, defaultView));
         ReadRulesController vr = new ReadRulesController(viewRules);
         defaultView.setViewRules(vr);
+        view.setViewRules(vr);
         view.setControllers(pc, sg, dc);
 
         playCard.getPresenter().setThreeView(new TemporaryThreeView(pc));

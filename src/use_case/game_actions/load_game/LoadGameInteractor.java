@@ -2,6 +2,8 @@ package use_case.game_actions.load_game;
 
 import data_access.DataAccessInterface;
 import entity.*;
+import interface_adapter.StartGameOutputBoundary;
+import interface_adapter.StartGameOutputData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,12 +13,15 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
 
     private final DataAccessInterface userDataAccessObject;
     private final LoadGameOutputBoundary userPresenter;
+    private final StartGameOutputBoundary presenter;
     private Game currentGame;
 
     public LoadGameInteractor(DataAccessInterface userDataAccessObject,
-                              LoadGameOutputBoundary userPresenter) {
+                              LoadGameOutputBoundary userPresenter,
+                              StartGameOutputBoundary presenter) {
         this.userDataAccessObject = userDataAccessObject;
         this.userPresenter = userPresenter;
+        this.presenter = presenter;
     }
 
     @Override
@@ -43,7 +48,6 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
             } else {
 
                 this.currentGame = game;
-                System.out.println(currentGame);
             }
         } catch (Exception e) {
             if (e.getMessage() == null) {
@@ -58,8 +62,15 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     }
 
     public void present(LoadGameInputData loadGameInputData){
-        LoadGameOutputData loadGameOutputData = new LoadGameOutputData(currentGame, loadGameInputData.getGameName(), false);
-        userPresenter.prepareSuccessView(loadGameOutputData);
+        // LoadGameOutputData loadGameOutputData = new LoadGameOutputData(currentGame, loadGameInputData.getGameName(), false);
+        // userPresenter.prepareSuccessView(loadGameOutputData);
+        StartGameOutputData outputData = new StartGameOutputData(
+                currentGame.getCurrentPlayer().viewHand().toString(),
+                currentGame.getCurrentPlayer().getName(),
+                currentGame.getDiscard().getCard().toString(),
+                currentGame.getDiscard().getSuit()
+        );
+        presenter.loadSuccessView(outputData);
     }
 
     @Override
@@ -118,8 +129,13 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
      * @return A Card object with suit and number based on the input.
      */
     private Card readCard(String cardString){
-
-        return new Card(Integer.parseInt(cardString.substring(1)), cardString.charAt(0));
+        int cardNum = Integer.parseInt(cardString.substring(1));
+        if(cardNum == 3){
+            return new Three(cardString.charAt(0));
+        }
+        else {
+            return new Card(Integer.parseInt(cardString.substring(1)), cardString.charAt(0));
+        }
     }
 
 

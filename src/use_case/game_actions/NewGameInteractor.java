@@ -35,7 +35,7 @@ public class NewGameInteractor {
         drawCard = new DrawCardInteractor(new StartGamePresenter(view));
         drawCard.getPresenter().setShuffle(shuffleView);
         startGame = new StartGameInteractor(new StartGamePresenter(view));
-        loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view));
+        loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view), new StartGamePresenter(view));
     }
 
     public void startGame(StartGameInputData inputData){

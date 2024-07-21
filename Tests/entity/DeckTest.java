@@ -16,7 +16,7 @@ class DeckTest {
     }
 
     @Test
-    void dealCard() {
+    void dealCard() throws MissingCardException {
         Card test = deck.cardList.getFirst();
         assertEquals(test, deck.dealCard());
     }

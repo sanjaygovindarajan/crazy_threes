@@ -2,10 +2,7 @@ package view;
 
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
-import interface_adapter.LoadGameController;
-import interface_adapter.LoadGamePresenter;
-import interface_adapter.LoadGameViewModel;
-import interface_adapter.ViewManagerModel;
+import interface_adapter.*;
 import use_case.game_actions.load_game.LoadGameInputBoundary;
 import use_case.game_actions.load_game.LoadGameInteractor;
 import use_case.game_actions.load_game.LoadGameOutputBoundary;
@@ -32,7 +29,7 @@ public class LoadGameUseCaseFactory {
         };
         LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, loadGameViewModel);
         LoadGameInputBoundary loadGameInteractor = new LoadGameInteractor(
-                userDataAccessObject, loadGameOutputBoundary);
+                userDataAccessObject, loadGameOutputBoundary, new StartGamePresenter());
         return new LoadGameController(loadGameInteractor);
     }
 }
