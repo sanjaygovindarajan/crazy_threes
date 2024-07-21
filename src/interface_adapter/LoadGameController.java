@@ -14,13 +14,15 @@ public class LoadGameController {
     }
 
     public LoadGameController(LoadGameInputBoundary loadGameInteractor) {
+        this.loadGameInteractor = loadGameInteractor;
     }
 
     public void execute(String gameName){
         LoadGameInputData loadGameInputData = new LoadGameInputData(
                 gameName);
 
-        newGame.loadGame(loadGameInputData);
+        loadGameInteractor.execute(loadGameInputData);
+
     }
 }
 

@@ -4,18 +4,17 @@ import data_access.DataAccess;
 import data_access.DataAccessInterface;
 
 import entity.Game;
-import interface_adapter.LoadGamePresenter;
+import interface_adapter.LoadGameOutputBoundary;
+import interface_adapter.LoadGameOutputData;
 import interface_adapter.SaveGameOutputBoundary;
 import interface_adapter.SaveGamePresenter;
 import interface_adapter.StartGamePresenter;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import use_case.game_actions.save_game.SaveGameInputBoundary;
 import use_case.game_actions.save_game.SaveGameInputData;
 import use_case.game_actions.save_game.SaveGameInteractor;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -41,6 +40,8 @@ public class LoadGameInteractorTest {
 
         SaveGameInputData inputData = new SaveGameInputData("game1");
 
+
+
         interactor.setGame(game);
         interactor.execute(inputData);
 
@@ -55,7 +56,6 @@ public class LoadGameInteractorTest {
             }
 
         };
-
         LoadGameInputData inputData1 = new LoadGameInputData("game1");
         LoadGameInputBoundary interactor = new LoadGameInteractor(dataAccess, successPresenter, new StartGamePresenter());
         interactor.execute(inputData1);
