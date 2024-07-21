@@ -15,10 +15,11 @@ public class TemporaryTurnView {
     DrawCardController drawCard;
     ReadRulesController viewRules;
 
-    public void setControllers(PlayCardController playCard, SaveGameController saveGame, DrawCardController drawCard){
+    public void setControllers(PlayCardController playCard, SaveGameController saveGame, DrawCardController drawCard, ReadRulesController readRule){
         this.playCard = playCard;
         this.saveGame = saveGame;
         this.drawCard = drawCard;
+        this.viewRules = readRule;
     }
 
     public void setViewRules(ReadRulesController viewRules){

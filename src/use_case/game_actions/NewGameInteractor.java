@@ -7,6 +7,8 @@ import use_case.deck_actions.ShuffleInteractor;
 import use_case.game_actions.load_game.LoadGameInputBoundary;
 import use_case.game_actions.load_game.LoadGameInputData;
 import use_case.game_actions.load_game.LoadGameInteractor;
+import use_case.game_actions.read_rules.ReadRulesInputBoundary;
+import use_case.game_actions.read_rules.ReadRulesInteractor;
 import use_case.game_actions.save_game.SaveGameInputBoundary;
 import use_case.game_actions.save_game.SaveGameInteractor;
 import use_case.game_actions.start_game.StartGameInputBoundary;
@@ -27,6 +29,7 @@ public class NewGameInteractor {
     private final SaveGameInputBoundary saveGame;
     private final PlayCardInputBoundary playCard;
     private final DrawCardInputBoundary drawCard;
+    private final ReadRulesInputBoundary readRule;
     private ShuffleInteractor shuffle;
 
     public NewGameInteractor(DataAccessInterface dataAccess, TemporaryTurnView view, TemporaryShuffleView shuffleView){
@@ -36,6 +39,8 @@ public class NewGameInteractor {
         drawCard.getPresenter().setShuffle(shuffleView);
         startGame = new StartGameInteractor(new StartGamePresenter(view));
         loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view));
+        readRule = new ReadRulesInteractor(new ReadRulesPresenter(view));
+
     }
 
     public void startGame(StartGameInputData inputData){
