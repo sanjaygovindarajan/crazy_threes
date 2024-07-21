@@ -1,13 +1,16 @@
 package entity;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
-    Card testCard = new Card(5, 'h');
+    CardInterface testCard;
 
+    @BeforeEach
+    void setUp() {
+        testCard = new Card(5, 'h');
+    }
     @Test
     void getCurrentSuit() {
         assertEquals('h', testCard.getCurrentSuit());
