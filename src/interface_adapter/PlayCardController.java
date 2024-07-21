@@ -1,8 +1,7 @@
 package interface_adapter;
 
-import entity.InvalidCardException;
-import use_case.player_actions.PlayCardInputData;
-import use_case.player_actions.PlayCardInputBoundary;
+import use_case.player_actions.play_card.PlayCardInputData;
+import use_case.player_actions.play_card.PlayCardInputBoundary;
 
 import java.util.Objects;
 

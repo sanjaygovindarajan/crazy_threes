@@ -1,5 +1,7 @@
 package entity;
 
+import entity.exceptions.MissingCardException;
+
 public class Player {
     private final Hand cards;
     private final String name;

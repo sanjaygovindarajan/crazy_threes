@@ -7,8 +7,9 @@ import use_case.deck_actions.*; //Shuffle user story
 import use_case.game_actions.load_game.*; //Load game user story
 import use_case.game_actions.save_game.*; //Save game user story
 import use_case.game_actions.start_game.*; //Start game user story
-import use_case.player_actions.*; //Play card user story
 import use_case.player_actions.draw_card.*; //Draw card user story
+import use_case.player_actions.play_card.PlayCardInputBoundary;
+import use_case.player_actions.play_card.PlayCardInteractor;
 import view.*;
 
 public class NewGameInteractor {

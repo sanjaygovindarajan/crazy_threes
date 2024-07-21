@@ -1,4 +1,4 @@
-package use_case.player_actions;
+package use_case.player_actions.play_card;
 
 public class PlayCardInputData {
     private final int number;

@@ -1,5 +1,8 @@
 package entity;
 
+import entity.exceptions.InvalidCardException;
+import entity.exceptions.MissingCardException;
+
 import java.util.List;
 
 /**

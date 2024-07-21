@@ -1,12 +1,10 @@
 package view;
 
-import entity.MissingCardException;
 import interface_adapter.DrawCardController;
 import interface_adapter.PlayCardController;
 import interface_adapter.ReadRulesController;
 import interface_adapter.SaveGameController;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class TemporaryTurnView {
