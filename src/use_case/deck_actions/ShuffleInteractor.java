@@ -1,8 +1,8 @@
 package use_case.deck_actions;
 
 import entity.*;
-import interface_adapter.ShuffleOutputBoundary;
-import interface_adapter.ShufflePresenter;
+import interface_adapter.shuffle.ShuffleOutputBoundary;
+import interface_adapter.shuffle.ShufflePresenter;
 
 import java.util.List;
 

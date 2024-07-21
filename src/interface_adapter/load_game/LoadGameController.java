@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.load_game;
 
 import use_case.game_actions.NewGameInteractor;
 import use_case.game_actions.load_game.LoadGameInputBoundary;

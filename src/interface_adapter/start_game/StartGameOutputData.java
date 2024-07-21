@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.start_game;
 
 public class StartGameOutputData {
     private final String playerCards;

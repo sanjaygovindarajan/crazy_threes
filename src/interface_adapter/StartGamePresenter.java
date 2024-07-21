@@ -1,13 +1,16 @@
 package interface_adapter;
 
+import interface_adapter.start_game.StartGameOutputBoundary;
+import interface_adapter.start_game.StartGameOutputData;
 import view.*;
 
 import java.util.Scanner;
 
 /**
  * The presenter for the start game, play card, draw card, and load game user stories.
+ * Not located in start_game package because it is used by many.
  */
-public class StartGamePresenter implements StartGameOutputBoundary{
+public class StartGamePresenter implements StartGameOutputBoundary {
     private TemporaryThreeView threeView;
     private StartGameViewModel startGameViewModel;
     private ViewManagerModel viewManagerModel;

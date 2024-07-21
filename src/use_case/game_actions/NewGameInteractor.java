@@ -3,6 +3,9 @@ package use_case.game_actions;
 import data_access.DataAccessInterface;
 import entity.GameInterface;
 import interface_adapter.*;
+import interface_adapter.load_game.LoadGamePresenter;
+import interface_adapter.save_game.SaveGamePresenter;
+import interface_adapter.shuffle.ShufflePresenter;
 import use_case.deck_actions.*; //Shuffle user story
 import use_case.game_actions.load_game.*; //Load game user story
 import use_case.game_actions.save_game.*; //Save game user story

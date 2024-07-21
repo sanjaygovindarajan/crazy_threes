@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.shuffle;
 
 /**
  * Output boundary interface for presenting draw card operation results.

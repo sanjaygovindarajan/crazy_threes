@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.shuffle;
 
 import use_case.deck_actions.ShuffleInputBoundary;
 

@@ -1,8 +1,8 @@
 package use_case.game_actions.save_game;
 
 import data_access.*;
-import interface_adapter.*;
 import entity.*;
+import interface_adapter.save_game.SaveGameOutputBoundary;
 
 import java.io.IOException;
 

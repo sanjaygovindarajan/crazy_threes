@@ -1,7 +1,7 @@
 package use_case.player_actions.play_card;
 
 import entity.GameInterface;
-import interface_adapter.StartGameOutputBoundary;
+import interface_adapter.start_game.StartGameOutputBoundary;
 
 public interface PlayCardInputBoundary {
     void playCard(int number, char suit);

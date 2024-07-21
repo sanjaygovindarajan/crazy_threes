@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.start_game;
 
 import view.TemporaryShuffleView;
 import view.TemporaryThreeView;

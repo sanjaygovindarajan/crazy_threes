@@ -1,7 +1,7 @@
 package view;
 
-import interface_adapter.LoadGameController;
-import interface_adapter.LoadGameViewModel;
+import interface_adapter.load_game.LoadGameController;
+import interface_adapter.load_game.LoadGameViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +9,9 @@ import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Not used in Phase 1
+ */
 public class LoadGameView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Load Game";
 

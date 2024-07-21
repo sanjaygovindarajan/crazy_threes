@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Not used in Phase 1
+ */
 public class GamePanel extends JPanel {
     public GamePanel() {
         setLayout(new GridLayout(5, 1));

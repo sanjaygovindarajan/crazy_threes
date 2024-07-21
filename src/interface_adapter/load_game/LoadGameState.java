@@ -1,5 +1,8 @@
-package interface_adapter;
+package interface_adapter.load_game;
 
+/**
+ * Not used in Phase 1
+ */
 public class LoadGameState {
     private String gameName = "";
 

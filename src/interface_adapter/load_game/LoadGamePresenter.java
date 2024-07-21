@@ -1,5 +1,6 @@
-package interface_adapter;
+package interface_adapter.load_game;
 
+import interface_adapter.ViewManagerModel;
 import use_case.game_actions.load_game.LoadGameOutputBoundary;
 import use_case.game_actions.load_game.LoadGameOutputData;
 import view.TemporaryTurnView;

@@ -1,11 +1,14 @@
 package view;
 
-import interface_adapter.LoadGameViewModel;
+import interface_adapter.load_game.LoadGameViewModel;
 import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Not used in Phase 1
+ */
 public class LoadGameMain {
     public static void main(String[] args) {
 
