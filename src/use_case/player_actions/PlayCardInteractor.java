@@ -38,19 +38,19 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
             } else {
                 presenter.loadThreeView(suit);
             }
-            player = game.getCurrentPlayer();
-            StartGameOutputData outputData = new StartGameOutputData(
-                    player.viewHand().toString(),
-                    player.getName(),
-                    game.getDiscard().getCard().toString(),
-                    game.getDiscard().getSuit());
-            presenter.loadSuccessView(outputData);
-        } catch (InvalidCardException e) {
-            presenter.loadInvalidCardView();
-        } finally {
             if (game.isGameOver()) {
                 presenter.winMessage(game.getCurrentPlayer().getName());
+            } else {
+                player = game.getCurrentPlayer();
+                StartGameOutputData outputData = new StartGameOutputData(
+                        player.viewHand().toString(),
+                        player.getName(),
+                        game.getDiscard().getCard().toString(),
+                        game.getDiscard().getSuit());
+                presenter.loadSuccessView(outputData);
             }
+        } catch (InvalidCardException e) {
+            presenter.loadInvalidCardView();
         }
     }
     public void playThree(char suit, char newSuit){

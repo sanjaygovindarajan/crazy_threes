@@ -38,7 +38,7 @@ public class Main {
 
         StartGameController ng = new StartGameController(newGame);
 
-        ShuffleInputBoundary shuffle = new ShuffleInteractor(new ShufflePresenter(view));
+        ShuffleInputBoundary shuffle = newGame.getShuffle();
         ShuffleController sh = new ShuffleController(shuffle);
         shuffleView.setController(sh);
 
