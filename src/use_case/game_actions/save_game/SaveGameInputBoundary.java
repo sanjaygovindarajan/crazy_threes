@@ -1,6 +1,7 @@
 package use_case.game_actions.save_game;
 
 import entity.Game;
+import entity.GameInterface;
 
 import java.io.IOException;
 
@@ -14,5 +15,5 @@ public interface SaveGameInputBoundary {
      * Sets the current game being played.
      * @param game The game currently being played.
      */
-    void setGame(Game game);
+    void setGame(GameInterface game);
 }

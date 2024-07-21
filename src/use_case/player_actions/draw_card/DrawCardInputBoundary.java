@@ -1,6 +1,7 @@
 package use_case.player_actions.draw_card;
 
 import entity.Game;
+import entity.GameInterface;
 import entity.MissingCardException;
 import interface_adapter.*;
 
@@ -19,7 +20,7 @@ public interface DrawCardInputBoundary {
      */
     void handleDrawCard();
 
-    void setGame(Game game);
+    void setGame(GameInterface game);
 
     StartGameOutputBoundary getPresenter();
 }

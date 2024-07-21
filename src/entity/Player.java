@@ -84,8 +84,4 @@ public class Player {
     public String toString(){
         return String.join( ";",name,cards.toString());
     }
-
-    public Hand getHand() {
-        return cards;
-    }
 }

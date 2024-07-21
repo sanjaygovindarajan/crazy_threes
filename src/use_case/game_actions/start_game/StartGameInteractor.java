@@ -2,12 +2,12 @@ package use_case.game_actions.start_game;
 
 import entity.Card;
 import entity.Game;
+import entity.GameInterface;
 import interface_adapter.StartGameOutputBoundary;
 import interface_adapter.StartGameOutputData;
-import interface_adapter.StartGamePresenter;
 
 public class StartGameInteractor implements StartGameInputBoundary {
-    private Game game;
+    private GameInterface game;
     private final StartGameOutputBoundary presenter;
 
     public StartGameInteractor(StartGameOutputBoundary presenter){
@@ -25,7 +25,11 @@ public class StartGameInteractor implements StartGameInputBoundary {
 
     public void present(){
         Card card = game.getDiscard().getCard();
-        StartGameOutputData data = new StartGameOutputData(game.getCurrentPlayer().getHand().toString(), game.getCurrentPlayer().getName(), card.toString(), card.getCurrentSuit());
+        StartGameOutputData data = new StartGameOutputData(
+                game.getCurrentPlayer().viewHand().toString(),
+                game.getCurrentPlayer().getName(),
+                card.toString(),
+                card.getCurrentSuit());
         presenter.loadSuccessView(data);
     }
 
@@ -33,7 +37,7 @@ public class StartGameInteractor implements StartGameInputBoundary {
         this.game = game;
     }
 
-    public Game getGame(){
+    public GameInterface getGame(){
         return game;
     }
 }

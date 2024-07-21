@@ -11,7 +11,7 @@ public class ReadRulesInteractor implements ReadRulesInputBoundary {
     }
 
     /**
-     * Displays rules based on a fixed string.
+     * Displays rules.
      */
     @Override
     public void execute(boolean gameStarted){

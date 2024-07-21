@@ -44,9 +44,7 @@ public interface GameInterface {
      */
     DeckDisposed getDiscard();
 
-    public default void playThree(char oldSuit, char suit) {
-
-    }
+    void playThree(int index, char suit) throws InvalidCardException;
 
     void setDeck(Deck deck);
 

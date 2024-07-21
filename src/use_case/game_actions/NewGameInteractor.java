@@ -1,27 +1,18 @@
 package use_case.game_actions;
 
 import data_access.DataAccessInterface;
-import entity.Game;
+import entity.*;
 import interface_adapter.*;
 import use_case.deck_actions.ShuffleInteractor;
-import use_case.game_actions.load_game.LoadGameInputBoundary;
-import use_case.game_actions.load_game.LoadGameInputData;
-import use_case.game_actions.load_game.LoadGameInteractor;
-import use_case.game_actions.save_game.SaveGameInputBoundary;
-import use_case.game_actions.save_game.SaveGameInteractor;
-import use_case.game_actions.start_game.StartGameInputBoundary;
-import use_case.game_actions.start_game.StartGameInputData;
-import use_case.game_actions.start_game.StartGameInteractor;
-import use_case.player_actions.PlayCardInputBoundary;
-import use_case.player_actions.PlayCardInteractor;
-import use_case.player_actions.draw_card.DrawCardInputBoundary;
-import use_case.player_actions.draw_card.DrawCardInteractor;
-import view.TemporaryShuffleView;
-import view.TemporaryThreeView;
-import view.TemporaryTurnView;
+import use_case.game_actions.load_game.*;
+import use_case.game_actions.save_game.*;
+import use_case.game_actions.start_game.*;
+import use_case.player_actions.*;
+import use_case.player_actions.draw_card.*;
+import view.*;
 
 public class NewGameInteractor {
-    private Game game;
+    private GameInterface game;
     private final StartGameInputBoundary startGame;
     private final LoadGameInputBoundary loadGame;
     private final SaveGameInputBoundary saveGame;
@@ -35,7 +26,7 @@ public class NewGameInteractor {
         drawCard = new DrawCardInteractor(new StartGamePresenter(view));
         drawCard.getPresenter().setShuffle(shuffleView);
         startGame = new StartGameInteractor(new StartGamePresenter(view));
-        loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view));
+        loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view), new StartGamePresenter(view));
     }
 
     public void startGame(StartGameInputData inputData){
@@ -57,8 +48,8 @@ public class NewGameInteractor {
         this.game = loadGame.getGame();
         saveGame.setGame(this.game);
         playCard.setGame(this.game);
-        // drawCard.setGame(this.game);
-        loadGame.present(inputData);
+        drawCard.setGame(this.game);
+        loadGame.present();
     }
 
     public SaveGameInputBoundary getSaveGame() {

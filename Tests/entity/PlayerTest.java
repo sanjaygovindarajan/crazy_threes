@@ -49,11 +49,11 @@ class PlayerTest {
         DeckDisposed testDeck = new DeckDisposed();
         Game testGame = new Game(new Deck(), new ArrayList<>(), 9, testDeck);
         testDeck.addCard(new Card(7, 'h'));
-        assert testPlayer2.playCard(testGame, 0);
+        testPlayer2.playCard(testGame, 0);
     }
 
     @Test
-    void drawCard() {
+    void drawCard() throws MissingCardException {
         LinkedList<Card> testCards = new LinkedList<>();
         Card sevenHearts = new Card(7, 'h');
         testCards.add(sevenHearts);

@@ -2,7 +2,6 @@ package use_case.player_actions.draw_card;
 
 import entity.*;
 
-import interface_adapter.SaveGameOutputBoundary;
 import interface_adapter.StartGameOutputBoundary;
 import interface_adapter.StartGameOutputData;
 
@@ -17,7 +16,7 @@ import interface_adapter.StartGameOutputData;
 
 public class DrawCardInteractor implements DrawCardInputBoundary {
 
-    Game game;
+    GameInterface game;
     StartGameOutputBoundary presenter;
 
     public DrawCardInteractor(StartGameOutputBoundary presenter){
@@ -50,7 +49,7 @@ public class DrawCardInteractor implements DrawCardInputBoundary {
     }
 
     @Override
-    public void setGame(Game game) {
+    public void setGame(GameInterface game) {
         this.game = game;
     }
 

@@ -2,6 +2,7 @@ package use_case.game_actions.load_game;
 
 import data_access.DataAccessInterface;
 import entity.*;
+import interface_adapter.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,14 +12,26 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
 
     private final DataAccessInterface userDataAccessObject;
     private final LoadGameOutputBoundary userPresenter;
-    private Game currentGame;
+    private StartGameOutputBoundary presenter;
+    private GameInterface currentGame;
 
+    public LoadGameInteractor(DataAccessInterface userDataAccessObject,
+                              LoadGameOutputBoundary userPresenter, StartGameOutputBoundary presenter) {
+        this.userDataAccessObject = userDataAccessObject;
+        this.userPresenter = userPresenter;
+        this.presenter = presenter;
+    }
     public LoadGameInteractor(DataAccessInterface userDataAccessObject,
                               LoadGameOutputBoundary userPresenter) {
         this.userDataAccessObject = userDataAccessObject;
         this.userPresenter = userPresenter;
     }
 
+    /**
+     * Loads a game from input data.
+     * @param loadGameInputData The game name
+     * @throws IllegalStateException If the data access object is invalid
+     */
     @Override
     public void execute(LoadGameInputData loadGameInputData) throws IllegalStateException {
 
@@ -32,8 +45,6 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
                         game = readGame(gameStr);
                     }
                 }
-                // throw new IndexOutOfBoundsException();
-                // game = userDataAccessObject.loadGameByName(loadGameInputData.getGameName());
             } else {
                 throw new IllegalStateException("Data access object is not initialized.");
             }
@@ -41,9 +52,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
             if (game == null) {
                 userPresenter.prepareFailView("This game doesn't exist.");
             } else {
-
                 this.currentGame = game;
-                System.out.println(currentGame);
             }
         } catch (Exception e) {
             if (e.getMessage() == null) {
@@ -57,13 +66,17 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
 
     }
 
-    public void present(LoadGameInputData loadGameInputData){
-        LoadGameOutputData loadGameOutputData = new LoadGameOutputData(currentGame, loadGameInputData.getGameName(), false);
-        userPresenter.prepareSuccessView(loadGameOutputData);
+    public void present(){
+        StartGameOutputData startGameOutputData = new StartGameOutputData(
+                currentGame.getCurrentPlayer().viewHand().toString(),
+                currentGame.getCurrentPlayer().getName(),
+                currentGame.getDiscard().getCard().toString(),
+                currentGame.getDiscard().getSuit());
+        presenter.loadSuccessView(startGameOutputData);
     }
 
     @Override
-    public Game getGame() {
+    public GameInterface getGame() {
         return currentGame;
     }
 
@@ -117,9 +130,13 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
      *                   characters refer to the number of the card
      * @return A Card object with suit and number based on the input.
      */
-    private Card readCard(String cardString){
-
-        return new Card(Integer.parseInt(cardString.substring(1)), cardString.charAt(0));
+    private Card readCard(String cardString) {
+        int cardNum = Integer.parseInt(cardString.substring(1));
+        if (cardNum == 3) {
+            return new Three(cardString.charAt(0));
+        } else {
+            return new Card(cardNum, cardString.charAt(0));
+        }
     }
 
 
