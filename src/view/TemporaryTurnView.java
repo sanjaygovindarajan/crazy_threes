@@ -31,12 +31,12 @@ public class TemporaryTurnView {
         System.out.println("Type 'Save game' to save the current gam.");
         System.out.println("Type 'View rules' to review the rules.");
         Scanner input = new Scanner(System.in);
-        String action = input.nextLine();
+        String action = input.nextLine().toLowerCase();
         switch (action) {
-            case "Play card" -> playCard(input);
-            case "Draw card" -> drawCard();
-            case "Save game" -> saveGame(input);
-            case "View rules" -> viewRules();
+            case "play card" -> playCard(input);
+            case "draw card" -> drawCard();
+            case "save game" -> saveGame(input);
+            case "view rules" -> viewRules();
         }
     }
 

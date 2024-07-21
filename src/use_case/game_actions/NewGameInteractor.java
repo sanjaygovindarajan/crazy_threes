@@ -57,7 +57,7 @@ public class NewGameInteractor {
         this.game = loadGame.getGame();
         saveGame.setGame(this.game);
         playCard.setGame(this.game);
-        // drawCard.setGame(this.game);
+        drawCard.setGame(this.game);
         loadGame.present(inputData);
     }
 
