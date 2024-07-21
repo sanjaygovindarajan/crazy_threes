@@ -9,7 +9,7 @@ public class SaveGameController {
     public SaveGameController(SaveGameInputBoundary saveGameInputBoundary) {
         this.saveGameInputBoundary = saveGameInputBoundary;
     }
-    public void execute(String gameName) throws IOException {
+    public void execute(String gameName) {
         SaveGameInputData inputData = new SaveGameInputData(gameName);
         saveGameInputBoundary.execute(inputData);
     }

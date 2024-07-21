@@ -14,10 +14,10 @@ public class PlayCardController {
         this.playCardInteractor = playCardInteractor;
     }
 
-    public void playCard(String number, String suit) throws InvalidCardException {
+    public void playCard(String number, String suit){
         int newNumber = 0;
         if (Objects.equals(number, "ace")) {
-            newNumber = 1;
+            newNumber = 14;
         } else if (Objects.equals(number, "jack")) {
             newNumber = 11;
         } else if (Objects.equals(number, "queen")) {
@@ -27,9 +27,13 @@ public class PlayCardController {
         } else {
             newNumber = Integer.parseInt(number);
         }
-        char newSuit = suit.charAt(0);
+        char newSuit = suit.toUpperCase().charAt(0);
         PlayCardInputData newData = new PlayCardInputData(newNumber, newSuit);
 
         playCardInteractor.playCard(newData.getCardNum(), newData.getSuit());
+    }
+
+    public void playThree(char suit, String newSuit) {
+        playCardInteractor.playThree(suit, newSuit.toUpperCase().charAt(0));
     }
 }

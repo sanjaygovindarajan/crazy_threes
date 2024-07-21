@@ -15,9 +15,8 @@ import use_case.player_actions.*;
 import use_case.player_actions.draw_card.DrawCardInputBoundary;
 import view.TemporaryDefaultView;
 import view.TemporaryShuffleView;
+import view.TemporaryThreeView;
 import view.TemporaryTurnView;
-
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,12 +28,13 @@ public class Main {
         StartGameInputBoundary startGame = newGame.getStartGame();
         LoadGameInputBoundary loadGame = newGame.getLoadGame();
         PlayCardInputBoundary playCard = newGame.getPlayCard();
-        DrawCardInputBoundary drawCard = newGame.getDrawCard();
+        // DrawCardInputBoundary drawCard = newGame.getDrawCard();
         SaveGameInputBoundary saveGame = newGame.getSaveGame();
         SaveGameController sg = new SaveGameController(saveGame);
         LoadGameController lg = new LoadGameController(newGame);
-        PlayCardController pc = new PlayCardController(playCard);
-        DrawCardController dc = new DrawCardController(drawCard);
+        interface_adapter.PlayCardController pc = new interface_adapter.PlayCardController(playCard);
+        // DrawCardController dc = new DrawCardController(drawCard);
+
         StartGameController ng = new StartGameController(newGame);
 
         ShuffleInputBoundary shuffle = new ShuffleInteractor(new ShufflePresenter(view));
@@ -45,7 +45,11 @@ public class Main {
         ReadRulesInputBoundary viewRules = new ReadRulesInteractor(new ReadRulesPresenter(view, defaultView));
         ReadRulesController vr = new ReadRulesController(viewRules);
         defaultView.setViewRules(vr);
-        view.setControllers(pc, sg, dc);
+        // view.setControllers(pc, sg, dc);
+        view.setControllers(pc, sg);
+        view.setViewRules(vr);
+
+        playCard.getPresenter().setThreeView(new TemporaryThreeView(pc));
 
         defaultView.requestAction();
     }
