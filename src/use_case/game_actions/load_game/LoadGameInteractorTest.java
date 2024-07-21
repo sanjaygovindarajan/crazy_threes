@@ -39,6 +39,8 @@ public class LoadGameInteractorTest {
 
         SaveGameInputData inputData = new SaveGameInputData("game1");
 
+
+
         interactor.setGame(game);
         interactor.execute(inputData);
 
@@ -53,7 +55,6 @@ public class LoadGameInteractorTest {
             }
 
         };
-
         LoadGameInputData inputData1 = new LoadGameInputData("game1");
         LoadGameInputBoundary interactor = new LoadGameInteractor(dataAccess, successPresenter);
         interactor.execute(inputData1);

@@ -4,7 +4,11 @@ import data_access.DataAccessInterface;
 import entity.*;
 import interface_adapter.LoadGameOutputBoundary;
 import interface_adapter.LoadGameOutputData;
+import use_case.game_actions.NewGameInteractor;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +18,8 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     private final DataAccessInterface userDataAccessObject;
     private final LoadGameOutputBoundary userPresenter;
     private Game currentGame;
+    NewGameInteractor newGame;
+
 
     public LoadGameInteractor(DataAccessInterface userDataAccessObject,
                               LoadGameOutputBoundary userPresenter) {
@@ -25,6 +31,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     public void execute(LoadGameInputData loadGameInputData) throws IllegalStateException {
 
         Game game = null;
+
         String name = loadGameInputData.getGameName();
         try {
             if (userDataAccessObject != null) {
@@ -32,6 +39,8 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
                 for(String gameStr : gamesList) {
                     if(gameStr.split(":")[0].equals(name)){
                         game = readGame(gameStr);
+
+
                     }
                 }
                 // throw new IndexOutOfBoundsException();
@@ -46,6 +55,10 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
 
                 this.currentGame = game;
                 System.out.println(currentGame);
+
+                LoadGameOutputData loadGameOutputData = new LoadGameOutputData(currentGame, loadGameInputData.getGameName(), false);
+
+                userPresenter.prepareSuccessView(loadGameOutputData);
             }
         } catch (Exception e) {
             if (e.getMessage() == null) {
@@ -60,8 +73,11 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
     }
 
     public void present(LoadGameInputData loadGameInputData){
-        LoadGameOutputData loadGameOutputData = new LoadGameOutputData(currentGame, loadGameInputData.getGameName(), false);
-        userPresenter.prepareSuccessView(loadGameOutputData);
+
+
+
+
+
     }
 
     @Override
@@ -86,6 +102,14 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
         int turn = Integer.parseInt(gameArray[4].trim());
         return new Game(deck, playerList, turn, discard); //Add once constructor is complete
     }
+
+    /**
+     * Retrieves the names of all saved games from the database.
+     *
+     * @return A List containing the names of all saved games
+     * @throws IOException If an I/O error occurs while reading the database file
+     */
+
 
     /**
      * Creates a new player based on a String.

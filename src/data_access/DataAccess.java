@@ -2,6 +2,7 @@ package data_access;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 public class DataAccess implements DataAccessInterface {
@@ -11,9 +12,6 @@ public class DataAccess implements DataAccessInterface {
     }
     public DataAccess(File databaseFile) {
         this.databaseFile = databaseFile;
-    }
-    public DataAccess(String databaseFile) {
-        this.databaseFile = new File(databaseFile);
     }
 
     /**
@@ -37,19 +35,44 @@ public class DataAccess implements DataAccessInterface {
      * @param game The string of the game to be saved in the database
      */
     public void saveGame(String game) throws IOException{
+//        String existing = Files.readString(Path.of(this.databaseFile.getPath()));
+//        String db;
+//        if(existing.isEmpty()) {
+//            db = game;
+//        } else {
+//            db = game + ",,," + existing;
+//        };
+//        Files.writeString(Path.of(this.databaseFile.getPath()), db);
         String existing = Files.readString(Path.of(this.databaseFile.getPath()));
         String db;
-        if(existing.isEmpty()) {
+        if (existing.isEmpty()) {
             db = game;
         } else {
-            db = game + ",,," + existing;
-        };
-        Files.writeString(Path.of(this.databaseFile.getPath()), db);
+            db = existing + ",,," + game;
+        }
+        Files.write(Path.of(this.databaseFile.getPath()), db.getBytes(), StandardOpenOption.WRITE);
+
     }
 
-
-
-
-
-
+    public List<String> getAllGames() throws IOException {
+        List<String> gameNames = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(databaseFile.getPath()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length > 0) {
+                    String gameName = parts[0].trim();
+                    gameNames.add(gameName);
+                }
+            }
+        }
+        return gameNames;
+    }
 }
+
+
+
+
+
+
+

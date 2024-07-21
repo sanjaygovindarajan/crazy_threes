@@ -63,7 +63,7 @@ public class NewGameInteractor {
         saveGame.setGame(this.game);
         playCard.setGame(this.game);
         // drawCard.setGame(this.game);
-        loadGame.present(inputData);
+        loadGame.execute(inputData);
     }
 
     public SaveGameInputBoundary getSaveGame() {
