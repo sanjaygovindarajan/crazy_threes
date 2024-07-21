@@ -19,7 +19,7 @@ class PlayerTest {
     public void setUp() {
         hand1 = new Hand();
         cards2 = new ArrayList<>();
-        Card sevenHearts = new Card(7, 'h');
+        Card sevenHearts = new Card(7, 'H');
         cards2.add(sevenHearts);
         hand2 = new Hand(cards2);
         testPlayer1 = new Player("Tester1", hand1);
@@ -40,7 +40,7 @@ class PlayerTest {
 
     @Test
     void hasCard() {
-        Card sevenHearts = new Card(7, 'h');
+        Card sevenHearts = new Card(7, 'H');
         assert testPlayer2.hasCard(sevenHearts);
     }
 
@@ -48,18 +48,18 @@ class PlayerTest {
     void playCard() {
         DeckDisposed testDeck = new DeckDisposed();
         Game testGame = new Game(new Deck(), new ArrayList<>(), 9, testDeck);
-        testDeck.addCard(new Card(7, 'h'));
+        testDeck.addCard(new Card(7, 'H'));
         testPlayer2.playCard(testGame, 0);
     }
 
     @Test
     void drawCard() throws MissingCardException {
         LinkedList<Card> testCards = new LinkedList<>();
-        Card sevenHearts = new Card(7, 'h');
+        Card sevenHearts = new Card(7, 'H');
         testCards.add(sevenHearts);
         Deck testDeck = new Deck(testCards);
         testPlayer1.drawCard(testDeck);
-        testPlayer1.hasCard(new Card(7, 'h'));
+        testPlayer1.hasCard(new Card(7, 'H'));
     }
 
     @Test

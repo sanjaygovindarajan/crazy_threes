@@ -11,7 +11,7 @@ class DeckTest {
     void setUp() {
         deck = new Deck();
         for (int i = 1; i < 10; i++) {
-            deck.addCard(new Card(i, 'h'));
+            deck.addCard(new Card(i, 'H'));
         }
     }
 
@@ -25,7 +25,7 @@ class DeckTest {
     void shuffle() {
         Deck unshuffled = new Deck();
         for (int i = 1; i < 10; i++) {
-            unshuffled.addCard(new Card(i, 'h'));
+            unshuffled.addCard(new Card(i, 'H'));
         }
         deck.shuffle();
         assertNotEquals(unshuffled, deck);

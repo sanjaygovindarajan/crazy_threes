@@ -9,16 +9,16 @@ class CardTest {
 
     @BeforeEach
     void setUp() {
-        testCard = new Card(5, 'h');
+        testCard = new Card(5, 'H');
     }
     @Test
     void getCurrentSuit() {
-        assertEquals('h', testCard.getCurrentSuit());
+        assertEquals('H', testCard.getCurrentSuit());
     }
 
     @Test
     void getDisplaySuit() {
-        assertEquals('h', testCard.getDisplaySuit());
+        assertEquals('H', testCard.getDisplaySuit());
     }
 
     @Test
