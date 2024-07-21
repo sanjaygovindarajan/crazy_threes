@@ -9,7 +9,7 @@ public interface SaveGameInputBoundary {
      * Saves a game based on input data.
      * @param inputData The game name
      */
-    void execute(SaveGameInputData inputData) throws IOException;
+    void execute(SaveGameInputData inputData);
     /**
      * Sets the current game being played.
      * @param game The game currently being played.

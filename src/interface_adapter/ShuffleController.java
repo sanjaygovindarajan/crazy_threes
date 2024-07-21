@@ -18,4 +18,8 @@ public class ShuffleController {
 
         this.shuffleInteractor = shuffleInteractor;
     }
+
+    public void execute(){
+        shuffleInteractor.shuffle();
+    }
 }

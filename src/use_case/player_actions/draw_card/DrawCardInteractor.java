@@ -1,4 +1,4 @@
-package use_case.player_actions.draw_card;
+/* package use_case.player_actions.draw_card;
 
 import entity.*;
 import interface_adapter.DrawCardOutputBoundary;
@@ -12,7 +12,7 @@ import use_case.player_actions.DrawCardOutputData;
  * to the output boundary.
  */
 
-public class DrawCardInteractor implements DrawCardInputBoundary {
+/* public class DrawCardInteractor implements DrawCardInputBoundary {
     /**
      * Constructs a new DrawCardInteractor with the specified game and output boundary.
      *
@@ -20,7 +20,7 @@ public class DrawCardInteractor implements DrawCardInputBoundary {
      * @param outputBoundary the boundary used to present results
      * @param playCardInteractor the interactor used to play cards
      */
-Game game;
+/* Game game;
 DrawCardOutputBoundary outputBoundary;
     /**
      * Handles the process of drawing a card for the current player. If the player does not
@@ -29,7 +29,7 @@ DrawCardOutputBoundary outputBoundary;
      *
      * @throws MissingCardException if there are no cards left in the deck to draw
      */
-    @Override
+/*     @Override
     public void handleDrawCard() throws MissingCardException {
         Player player = game.getCurrentPlayer();
         Card drawnCard = player.drawCard(game.getDeck());
@@ -71,4 +71,4 @@ DrawCardOutputBoundary outputBoundary;
     }
 }
 
-
+*/

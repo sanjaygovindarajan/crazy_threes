@@ -34,7 +34,7 @@ public class TemporaryTurnView {
         String action = input.nextLine();
         switch (action) {
             case "Play card" -> playCard(input);
-            case "Draw card" -> drawCard();
+            // case "Draw card" -> drawCard();
             case "Save game" -> saveGame(input);
             case "View rules" -> viewRules();
         }
@@ -49,9 +49,9 @@ public class TemporaryTurnView {
         saveGame.execute(input.nextLine());
     }
 
-    private void drawCard() {
-        drawCard.drawCard();
-    }
+    // private void drawCard() {
+    //    drawCard.drawCard();
+    //}
 
     private void playCard(Scanner input) {
         System.out.println("Which suit would you like to play?");
@@ -62,4 +62,8 @@ public class TemporaryTurnView {
     }
 
 
+    public void setControllers(PlayCardController pc, SaveGameController sg) {
+        this.playCard = pc;
+        this.saveGame = sg;
+    }
 }

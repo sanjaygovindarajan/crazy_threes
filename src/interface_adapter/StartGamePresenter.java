@@ -1,8 +1,10 @@
 package interface_adapter;
 
+import view.TemporaryThreeView;
 import view.TemporaryTurnView;
 
 public class StartGamePresenter implements StartGameOutputBoundary{
+    private TemporaryThreeView threeView;
     private StartGameViewModel startGameViewModel;
     private ViewManagerModel viewManagerModel;
     private TemporaryTurnView view;
@@ -17,6 +19,10 @@ public class StartGamePresenter implements StartGameOutputBoundary{
     public StartGamePresenter(TemporaryTurnView view){
         this.view = view;
     }
+    public StartGamePresenter(TemporaryTurnView view, TemporaryThreeView threeView){
+        this.view = view;
+        this.threeView = threeView;
+    }
 
     @Override
     public void loadSuccessView(StartGameOutputData data) {
@@ -26,7 +32,7 @@ public class StartGamePresenter implements StartGameOutputBoundary{
             System.out.println(printCard(card));
         }
         System.out.println("The previous card was the " + printCard(data.getCard()));
-        if(data.getCard().charAt(0) == '3'){
+        if(data.getCard().charAt(1) == '3'){
             String suit = Character.toString(data.getCurrentSuit());
             suit = suit.replace("S", "spades");
             suit = suit.replace("C", "clubs");
@@ -35,6 +41,27 @@ public class StartGamePresenter implements StartGameOutputBoundary{
             System.out.println("However, the suit was changed to " + suit);
         }
         view.requestAction();
+    }
+
+    @Override
+    public void loadInvalidCardView() {
+        System.out.println("You are not allowed to play that card!");
+        view.requestAction();
+    }
+
+    public void loadMissingCardView(){
+        System.out.println("You don't have this card!");
+        view.requestAction();
+    }
+
+    @Override
+    public void loadThreeView(char suit) {
+        threeView.requestAction(suit);
+
+    }
+
+    public void setThreeView(TemporaryThreeView view){
+        this.threeView = view;
     }
 
     private String printCard(String card){
