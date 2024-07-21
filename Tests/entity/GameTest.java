@@ -1,5 +1,7 @@
 package entity;
 
+import entity.exceptions.InvalidCardException;
+import entity.exceptions.MissingCardException;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
@@ -28,7 +30,7 @@ class GameTest {
     }
 
     @Test
-    void testPlayCardSameNumNoWin() throws MissingCardException, InvalidCardException {
+    void testPlayCardSameNumNoWin() throws InvalidCardException {
         List<Player> players = Arrays.asList(new Player("1"), new Player("2"), new Player("3"));
         Deck deck = new Deck();
         players.getFirst().viewHand().addCard(new Card(9, 'S'));

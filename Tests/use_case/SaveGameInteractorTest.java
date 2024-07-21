@@ -1,11 +1,13 @@
-package use_case.game_actions.save_game;
+package use_case;
 
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
 import entity.*;
-import interface_adapter.SaveGameOutputBoundary;
-import interface_adapter.SaveGamePresenter;
+import interface_adapter.save_game.*;
 import org.junit.jupiter.api.*;
+import use_case.game_actions.save_game.SaveGameInputBoundary;
+import use_case.game_actions.save_game.SaveGameInputData;
+import use_case.game_actions.save_game.SaveGameInteractor;
 
 import java.io.File;
 import java.io.IOException;
