@@ -16,7 +16,6 @@ To return, you just need to type the name of the game that you entered when it w
 If you want to play a card, the program will first ask you for the suit of the card you want to play, then it will ask you to type the number or the name of the face card.
 The program will also show you a list of your cards and the last one played, so you can decide which card you want to / are allowed to play.
 However, if you enter a command that is not allowed (like playing the 2 of diamonds when the previous played card was 6 of spades), the program will inform you in the console that the command was not accepted and allow you to make a new play.
-***One thing to note is when typing in the suit of the card you want to play or the name of a face card you want to play (king, queen, jack, ace), please use lowercases!!!***
 Once a player plays every card in their hand, the game ends and they win!!!
 ## How can I learn the rules?
 After running the program, type "View rules"
