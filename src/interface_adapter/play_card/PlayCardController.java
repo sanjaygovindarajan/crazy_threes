@@ -13,6 +13,11 @@ public class PlayCardController {
         this.playCardInteractor = playCardInteractor;
     }
 
+    /**
+     * Allows for a card to be played in the game.
+     * @param number the number of the card to be played (user input).
+     * @param suit the suit of the card to be played (user input).
+     */
     public void playCard(String number, String suit){
         int newNumber = 0;
         if (Objects.equals(number, "ace")) {
@@ -32,6 +37,11 @@ public class PlayCardController {
         playCardInteractor.playCard(newData.getCardNum(), newData.getSuit());
     }
 
+    /**
+     * Allows for a three to be played in the game and for the suit of the disposal deck to be set.
+     * @param suit the suit of the card being played (user input).
+     * @param newSuit the suit the disposal deck will begin accepting (user input).
+     */
     public void playThree(char suit, String newSuit) {
         playCardInteractor.playThree(suit, newSuit.toUpperCase().charAt(0));
     }

@@ -13,6 +13,11 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
         this.presenter = presenter;
     }
 
+    /**
+     * Allows for a card to be played in the game.
+     * @param number the number of the card to be played.
+     * @param suit the suit of the card to be played.
+     */
     @Override
     public void playCard(int number, char suit){
         Player player = game.getCurrentPlayer();
@@ -50,6 +55,12 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
             presenter.loadInvalidCardView();
         }
     }
+
+    /**
+     * Allows for a three to be played in the game and for the suit of the disposal deck to be set.
+     * @param suit the suit of the card being played.
+     * @param newSuit the suit the disposal deck will begin accepting.
+     */
     public void playThree(char suit, char newSuit){
         int index = -1;
         int count = 0;
@@ -75,11 +86,19 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
         }
     }
 
+    /**
+     * Getter method for the presenter.
+     * @return presenter the presenter.
+     */
     @Override
     public StartGameOutputBoundary getPresenter() {
         return presenter;
     }
 
+    /**
+     * Sets the current game being played.
+     * @param game The game currently being played.
+     */
     @Override
     public void setGame(GameInterface game) {
         this.game = game;

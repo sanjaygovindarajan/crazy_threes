@@ -8,10 +8,18 @@ public class PlayCardInputData {
         this.suit = suit;
     }
 
+    /**
+     * Gets the number of the card.
+     * @return The number of the card
+     */
     public int getCardNum() {
         return number;
     }
 
+    /**
+     * Gets the suit of the card.
+     * @return The suit of the card.
+     */
     public char getSuit() {
         return suit;
     }
