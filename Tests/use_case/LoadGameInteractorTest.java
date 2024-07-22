@@ -1,4 +1,4 @@
-package use_case;
+package use_case.player_actions.draw_card;
 
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
@@ -12,6 +12,7 @@ import use_case.game_actions.load_game.*;
 import use_case.game_actions.save_game.SaveGameInputBoundary;
 import use_case.game_actions.save_game.SaveGameInputData;
 import use_case.game_actions.save_game.SaveGameInteractor;
+import view.TemporaryTurnView;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -27,11 +28,12 @@ public class LoadGameInteractorTest {
     private SaveGameOutputBoundary output;
     private File file = new File("src/data_access/database.txt");
     private DataAccessInterface dataAccess = new DataAccess(file);
+
     @Test
     public void successTest() throws Exception {
-
+        TemporaryTurnView view = new TemporaryTurnView();
         Files.writeString(Path.of(file.getPath()), "");
-        output = new SaveGamePresenter();
+        output = new SaveGamePresenter(view);
         interactor = new SaveGameInteractor(dataAccess, output);
         List<String> players = new ArrayList<>(3);
         players.add("player1");

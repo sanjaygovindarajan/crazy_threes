@@ -31,7 +31,7 @@ public class NewGameInteractor {
      * @param shuffleView The view signifying that the deck needs to be shuffled
      */
     public NewGameInteractor(DataAccessInterface dataAccess, TemporaryTurnView view, TemporaryShuffleView shuffleView){
-        saveGame = new SaveGameInteractor(dataAccess, new SaveGamePresenter());
+        saveGame = new SaveGameInteractor(dataAccess, new SaveGamePresenter(view));
         playCard = new PlayCardInteractor(new StartGamePresenter(view));
         drawCard = new DrawCardInteractor(new StartGamePresenter(view));
         drawCard.getPresenter().setShuffle(shuffleView);

@@ -1,4 +1,4 @@
-package use_case;
+package use_case.player_actions.draw_card;
 import entity.*;
 import entity.exceptions.InvalidCardException;
 import entity.exceptions.MissingCardException;
