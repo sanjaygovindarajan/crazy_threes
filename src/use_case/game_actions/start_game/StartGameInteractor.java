@@ -24,7 +24,7 @@ public class StartGameInteractor implements StartGameInputBoundary {
 
     public void present(){
         Card card = game.getDiscard().getCard();
-        StartGameOutputData data = new StartGameOutputData(game.getCurrentPlayer().getHand().toString(), game.getCurrentPlayer().getName(), card.toString(), card.getCurrentSuit());
+        StartGameOutputData data = new StartGameOutputData(game.getCurrentPlayer().viewHand().toString(), game.getCurrentPlayer().getName(), card.toString(), card.getCurrentSuit());
         presenter.loadSuccessView(data);
     }
 
