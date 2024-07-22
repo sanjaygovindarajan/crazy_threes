@@ -4,7 +4,7 @@ In short, it is objectively the best CSC207 project ever created.
 
 It is a multiplayer card game up to five users can play against each other on the same computer.
 ## How to run the program?
-Run the file src/app/Main.java.
+Compile and run the file src/app/Main.java.
 ## How can I learn the rules?
 After running the program, type "view rules"
 ## What features does the program have?
