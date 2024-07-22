@@ -1,9 +1,15 @@
 # Crazy three's
-Objectively the best CSC207 project ever created
-This is a multiplayer card game based on the same computer.
-The players can choose to play against each other and/or bots.
-Once the game starts, the program shuffles the deck and hands out the starting hands out the starign hands to the Players.
-Each player must play a card or draw a card from the Deck
-If th deck runs out of cards from the disposed cards pile would be returned to the deck except for the top card, and then
-the deck would be shuffled.  To win the game, one of the players must have discarded all their cards
-The history of wins would only be cataloged as long as the same conditions remain, if the user starts a new game with different players, the history will be reset to 0.
+## What is Crazy Threes?
+In short, it is objectively the best CSC207 project ever created.
+
+It is a multiplayer card game up to five users can play against each other on the same computer.
+## How to run the program?
+Run the file src/app/Main.java.
+## How can I learn the rules?
+After running the program, type "view rules"
+## What features does the program have?
+Currently, as of Phase 1, it is possible to save a game to a database
+and load a game from the database. Basic gameplay is also supported.
+It is possible to view the rules before the game or before your turn.
+
+
