@@ -8,7 +8,6 @@ import interface_adapter.load_game.LoadGamePresenter;
 import interface_adapter.load_game.LoadGameViewModel;
 import use_case.game_actions.load_game.LoadGameInputBoundary;
 import use_case.game_actions.load_game.LoadGameInteractor;
-import use_case.game_actions.load_game.LoadGameOutputBoundary;
 
 import javax.swing.*;
 import java.io.IOException;

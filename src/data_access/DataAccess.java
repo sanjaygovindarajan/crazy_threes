@@ -48,9 +48,4 @@ public class DataAccess implements DataAccessInterface {
         Files.writeString(Path.of(this.databaseFile.getPath()), db);
     }
 
-
-
-
-
-
 }

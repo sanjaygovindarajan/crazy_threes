@@ -22,7 +22,5 @@ public class SaveGamePresenter implements SaveGameOutputBoundary {
     public void prepareFailureView(String error) {
         System.out.println("Oh no! " + error);
         view.requestSaveGame();
-
-
     }
 }

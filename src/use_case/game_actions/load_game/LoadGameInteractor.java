@@ -2,6 +2,7 @@ package use_case.game_actions.load_game;
 
 import data_access.DataAccessInterface;
 import entity.*;
+import interface_adapter.LoadGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
 

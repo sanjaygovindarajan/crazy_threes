@@ -44,17 +44,17 @@ public class TemporaryTurnView {
      * after it is saved.
      */
     public void requestAction(){
-        System.out.println("Type 'Play card' to play a card.");
-        System.out.println("Type 'Draw card' to draw a card.");
-        System.out.println("Type 'Save game' to save the current game.");
-        System.out.println("Type 'View rules' to review the rules.");
+        System.out.println("Type '1' to play a card.");
+        System.out.println("Type '2' to draw a card.");
+        System.out.println("Type '3' to save the current game.");
+        System.out.println("Type '4' to review the rules.");
         Scanner input = new Scanner(System.in);
         char action = input.nextLine().toLowerCase().charAt(0);
         switch (action) {
-            case 'p' -> playCard(input);
-            case 'd' -> drawCard();
-            case 's' -> saveGame(input);
-            case 'v' -> viewRules();
+            case '1' -> playCard(input);
+            case '2' -> drawCard();
+            case '3' -> saveGame(input);
+            case '4' -> viewRules();
         }
     }
 

@@ -6,7 +6,7 @@ import view.TemporaryTurnView;
 public class ReadRulesPresenter implements ReadRulesOutputBoundary {
     TemporaryTurnView view;
     TemporaryDefaultView defaultView;
-    public ReadRulesPresenter(TemporaryTurnView view) {
+    public ReadRulesPresenter(TemporaryTurnView view, TemporaryDefaultView defaultView) {
         this.view = view;
         this.defaultView = defaultView;
     }

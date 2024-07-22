@@ -4,6 +4,8 @@ import data_access.DataAccess;
 import data_access.DataAccessInterface;
 
 import entity.Game;
+import interface_adapter.LoadGameOutputBoundary;
+import interface_adapter.LoadGameOutputData;
 import interface_adapter.save_game.SaveGameOutputBoundary;
 import interface_adapter.save_game.SaveGamePresenter;
 import interface_adapter.StartGamePresenter;
