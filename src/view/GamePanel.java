@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  */
 public class GamePanel extends JPanel {
     public GamePanel() {
-        setLayout(new GridLayout(5, 1));
+        setLayout(new GridLayout(4, 1));
 
 
         JLabel titleLabel = new JLabel("Crazy Threes");
@@ -20,7 +20,7 @@ public class GamePanel extends JPanel {
 
         JButton newGameButton = new JButton("New Game");
         JButton loadGameButton = new JButton("Load Game");
-        JButton saveGameButton = new JButton("Save Game");
+
         JButton accessRulesButton = new JButton("Access Rules");
 
         newGameButton.addActionListener(e -> {
@@ -30,11 +30,6 @@ public class GamePanel extends JPanel {
 
         loadGameButton.addActionListener(e -> LoadGameMain.main(new String[]{}));
 
-        saveGameButton.addActionListener(e -> {
-             //update this line after the view of SaveGame is implemented
-            JOptionPane.showMessageDialog(null, "Game saved!");
-        });
-
         accessRulesButton.addActionListener(e -> {
             //update this line after the view of AccessRules is implemented
             JOptionPane.showMessageDialog(null, "Accessing rules...");
@@ -42,7 +37,6 @@ public class GamePanel extends JPanel {
 
         add(newGameButton);
         add(loadGameButton);
-        add(saveGameButton);
         add(accessRulesButton);
     }
 

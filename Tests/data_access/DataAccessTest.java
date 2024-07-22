@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,6 +39,24 @@ class DataAccessTest {
         dataAccess.saveGame(mockGameStr3);
         assertEquals(String.join(",,,",mockGameStr3,mockGameStr2,mockGameStr1), Files.readString(Path.of(file.getPath())));
     }
+    @Test
+    void testMultipleEntriesGetAllGames() throws IOException {
+        String mockGameStr1 = "AB,AB,AB:AB,AB:AB,AB:AB,AB:AB,AB:AB";
+        String mockGameStr2 = "CD,CD,CD:CD,CD:CD,CD:CD,CD:CD,CD:CD";
+        String mockGameStr3 = "randomTestStr";
+        dataAccess.saveGame(mockGameStr1);
+        dataAccess.saveGame(mockGameStr2);
+        dataAccess.saveGame(mockGameStr3);
+        List<String> games = dataAccess.getAllGames();
+
+        // 断言：验证实际返回的游戏列表与预期的结果是否一致
+        Assertions.assertEquals(3, games.size()); // 预期结果有三个游戏
+        Assertions.assertTrue(games.contains("AB,AB,AB:AB,AB:AB,AB:AB,AB:AB,AB:AB")); // 检查是否包含第一个游戏
+        Assertions.assertTrue(games.contains("CD,CD,CD:CD,CD:CD,CD:CD,CD:CD,CD:CD")); // 检查是否包含第二个游戏
+        Assertions.assertTrue(games.contains("randomTestStr")); // 检查是否包含第三个游戏
+    }
+
+
 
     @AfterEach
     void tearDown() throws IOException {
