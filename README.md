@@ -19,7 +19,7 @@ However, if you enter a command that is not allowed (like playing the 2 of diamo
 ***One thing to note is when typing in the suit of the card you want to play or the name of a face card you want to play (king, queen, jack, ace), please use lowercases!!!***
 Once a player plays every card in their hand, the game ends and they win!!!
 ## How can I learn the rules?
-After running the program, type "view rules"
+After running the program, type "View rules"
 ## What features does the program have?
 Currently, as of Phase 1, it is possible to save a game to a database
 and load a game from the database. Basic gameplay is also supported.
