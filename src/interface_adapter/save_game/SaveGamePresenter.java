@@ -1,7 +1,10 @@
 package interface_adapter.save_game;
 
-public class SaveGamePresenter implements SaveGameOutputBoundary {
+import view.TemporaryTurnView;
 
+public class SaveGamePresenter implements SaveGameOutputBoundary {
+    TemporaryTurnView view;
+    public SaveGamePresenter(TemporaryTurnView view){this.view = view;}
     /**
      * Prints a success message
      * @param message The success message
@@ -18,6 +21,7 @@ public class SaveGamePresenter implements SaveGameOutputBoundary {
     @Override
     public void prepareFailureView(String error) {
         System.out.println("Oh no! " + error);
+        view.requestSaveGame();
 
     }
 }

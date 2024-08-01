@@ -1,4 +1,4 @@
-package use_case;
+package use_case.player_actions.draw_card;
 
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.*;
 import use_case.game_actions.save_game.SaveGameInputBoundary;
 import use_case.game_actions.save_game.SaveGameInputData;
 import use_case.game_actions.save_game.SaveGameInteractor;
+import view.TemporaryTurnView;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,8 +28,9 @@ public class SaveGameInteractorTest {
     public void setUp() throws IOException {
         file = new File("src/data_access/database.txt");
         dataAccess = new DataAccess(file);
+        TemporaryTurnView view = new TemporaryTurnView();
         Files.writeString(Path.of(file.getPath()), "");
-        output = new SaveGamePresenter();
+        output = new SaveGamePresenter(view);
         interactor = new SaveGameInteractor(dataAccess, output);
     }
 

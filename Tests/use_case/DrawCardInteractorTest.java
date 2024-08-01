@@ -2,10 +2,8 @@ package use_case.player_actions.draw_card;
 
 import entity.*;
 import entity.exceptions.MissingCardException;
-import interface_adapter.StartGamePresenter;
+import interface_adapter.start_game.StartGamePresenter;
 import org.junit.jupiter.api.Test;
-import use_case.player_actions.draw_card.DrawCardInputBoundary;
-import use_case.player_actions.draw_card.DrawCardInteractor;
 
 import static org.junit.jupiter.api.Assertions.*;
 

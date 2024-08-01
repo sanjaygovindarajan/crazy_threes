@@ -16,6 +16,10 @@ public class LoadGameController {
     public LoadGameController(LoadGameInputBoundary loadGameInteractor) {
     }
 
+    public LoadGameController(LoadGameInputBoundary loadGameInteractor, NewGameInteractor newGame) {
+        this.loadGameInteractor = loadGameInteractor;
+        this.newGame = newGame;
+    }
     public void execute(String gameName){
         LoadGameInputData loadGameInputData = new LoadGameInputData(
                 gameName);

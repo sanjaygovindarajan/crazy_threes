@@ -1,7 +1,6 @@
-package interface_adapter;
+package interface_adapter.start_game;
 
-import interface_adapter.start_game.StartGameOutputBoundary;
-import interface_adapter.start_game.StartGameOutputData;
+import interface_adapter.ViewManagerModel;
 import view.*;
 
 import java.util.Scanner;
@@ -11,20 +10,22 @@ import java.util.Scanner;
  * Not located in start_game package because it is used by many use cases.
  */
 public class StartGamePresenter implements StartGameOutputBoundary {
+//    private final LoadSuccessViewModel loadSuccessViewModel;
     private TemporaryThreeView threeView;
-    private StartGameViewModel startGameViewModel;
+//    private StartGameViewModel startGameViewModel;
     private ViewManagerModel viewManagerModel;
     private TemporaryTurnView view;
     private TemporaryShuffleView shuffle;
+    private LoadSuccessViewModel loadSuccessViewModel = new LoadSuccessViewModel();
 
     /**
      * Constructor for Phase 2. Not currently used.
      * @param viewManagerModel View manager model
-     * @param startGameViewModel Start Game View Model
      */
-    public StartGamePresenter(ViewManagerModel viewManagerModel, StartGameViewModel startGameViewModel){
-        this.startGameViewModel = startGameViewModel;
+    public StartGamePresenter(TemporaryTurnView view, ViewManagerModel viewManagerModel, LoadSuccessViewModel loadSuccessViewModel){
+        this.view = view;
         this.viewManagerModel = viewManagerModel;
+        this.loadSuccessViewModel = loadSuccessViewModel;
 
     }
 
@@ -60,27 +61,39 @@ public class StartGamePresenter implements StartGameOutputBoundary {
      */
     @Override
     public void loadSuccessView(StartGameOutputData data) {
-        System.out.println("It's " + data.getPlayerName() + "'s turn!");
+        System.out.println("ViewManagerModel initialized: " + viewManagerModel);
+        System.out.println("LoadSuccessViewModel initialized: " + loadSuccessViewModel);
+        System.out.println("StartGameData: " + data);
+
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+
+        loadSuccessViewModel.setStateFromStartGameData(data);
+        LoadSuccessState state = loadSuccessViewModel.getState();
+
+        this.loadSuccessViewModel.setState(state);
+        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setActiveView(loadSuccessViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+
+
+
+        System.out.println("It's " + state.getPlayerName() + "'s turn!");
         System.out.println("Their cards:");
-        for(String card : data.getPlayerCards().split(",")){
+        for (String card : state.getPlayerCards()) {
             System.out.println(printCard(card));
         }
-        System.out.println("The previous card was the " + printCard(data.getCard()));
-        if(data.getCard().charAt(1) == '3'){
-            String suit = Character.toString(data.getCurrentSuit());
-            suit = suit.replace("S", "spades");
-            suit = suit.replace("C", "clubs");
-            suit = suit.replace("H", "hearts");
-            suit = suit.replace("D", "diamonds");
-            System.out.println("However, the suit was changed to " + suit);
+        System.out.println("The previous card was the " + state.getPreviousCard());
+        if (state.getCurrentSuit() != null) {
+            System.out.println("However, the suit was changed to " + state.getCurrentSuit());
         }
         try {
-            this.view.requestAction();
-        } catch(NullPointerException e){
-            //Test mode, there is no view
+            int i=0;
+        } catch (NullPointerException e) {
+            // Test mode, there is no view
             System.out.println("Test completed");
         }
-    }
+}
 
     /**
      * Prints a message declaring the card invalid and requests the player choose a different action.
@@ -187,4 +200,5 @@ public class StartGamePresenter implements StartGameOutputBoundary {
         suit = suit.replace("D", "diamonds");
         return (num + " of " + suit);
     }
+
 }

@@ -48,6 +48,12 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
             } else {
 
                 this.currentGame = game;
+//                StartGameOutputData outputData = new StartGameOutputData(
+//                        currentGame.getCurrentPlayer().viewHand().toString(),
+//                        currentGame.getCurrentPlayer().getName(),
+//                        currentGame.getDiscard().getCard().toString(),
+//                        currentGame.getDiscard().getSuit());
+//                        presenter.loadSuccessView(outputData);
             }
         } catch (Exception e) {
             if (e.getMessage() == null) {

@@ -3,20 +3,19 @@ package interface_adapter;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-/**
- * Not used in Phase 1
- */
-public class StartGameViewModel extends ViewModel{
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private StartGameState state;
+public class LoadGameViewModel extends ViewModel {
+    private final LoadGameState state = new LoadGameState();
 
-    @Override
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    // This is what the Signup Presenter will call to let the ViewModel know
+    // to alert the View
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
 
-    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
+
 }

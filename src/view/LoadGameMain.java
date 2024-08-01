@@ -2,6 +2,7 @@ package view;
 
 import interface_adapter.load_game.LoadGameViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.start_game.LoadSuccessViewModel;
 
 import javax.swing.*;
 import java.awt.*;
