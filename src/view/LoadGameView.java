@@ -13,7 +13,7 @@ import java.beans.PropertyChangeListener;
  * Not used in Phase 1
  */
 public class LoadGameView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "Load Game";
+    private final String viewName = "Load Game";
 
     private final JTextField gameNameInputField = new JTextField(15);
     private final LoadGameController loadGameController;
@@ -43,7 +43,7 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
 
         // Add key listener to the text field
         gameNameInputField.addKeyListener(new KeyAdapter() {
-            @Override
+             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     String gameName = gameNameInputField.getText().trim();
@@ -73,5 +73,9 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("not implemented yet");
+    }
+
+    public LoadGameController getController() {
+        return this.loadGameController;
     }
 }

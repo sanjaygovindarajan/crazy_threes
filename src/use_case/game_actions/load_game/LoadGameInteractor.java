@@ -12,16 +12,13 @@ import java.util.List;
 public class LoadGameInteractor implements LoadGameInputBoundary {
 
     private final DataAccessInterface userDataAccessObject;
-    private final LoadGameOutputBoundary userPresenter;
-    private final StartGameOutputBoundary presenter;
+    private final LoadGameOutputBoundary presenter;
     private GameInterface currentGame;
 
     public LoadGameInteractor(DataAccessInterface userDataAccessObject,
-                              LoadGameOutputBoundary userPresenter,
-                              StartGameOutputBoundary presenter) {
+                              LoadGameOutputBoundary userPresenter) {
         this.userDataAccessObject = userDataAccessObject;
-        this.userPresenter = userPresenter;
-        this.presenter = presenter;
+        this.presenter = userPresenter;
     }
 
     @Override
@@ -44,18 +41,18 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
             }
 
             if (game == null) {
-                userPresenter.prepareFailView("This game doesn't exist.");
+                presenter.prepareFailView("This game doesn't exist.");
             } else {
 
                 this.currentGame = game;
             }
         } catch (Exception e) {
             if (e.getMessage() == null) {
-                userPresenter.prepareFailView("This game doesn't exist.");
+                presenter.prepareFailView("This game doesn't exist.");
             }
             else {
 
-                userPresenter.prepareFailView(e.getMessage());}
+                presenter.prepareFailView(e.getMessage());}
 
             }
 

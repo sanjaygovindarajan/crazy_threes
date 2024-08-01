@@ -2,14 +2,15 @@ package use_case.player_actions.play_card;
 
 import entity.*;
 import entity.exceptions.InvalidCardException;
+import interface_adapter.PlayCardOutputBoundary;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
 
 public class PlayCardInteractor implements PlayCardInputBoundary {
     GameInterface game;
-    StartGameOutputBoundary presenter;
+    PlayCardOutputBoundary presenter;
 
-    public PlayCardInteractor(StartGameOutputBoundary presenter){
+    public PlayCardInteractor(PlayCardOutputBoundary presenter){
         this.presenter = presenter;
     }
 
@@ -93,6 +94,11 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
     @Override
     public StartGameOutputBoundary getPresenter() {
         return presenter;
+    }
+
+    @Override
+    public void switchView() {
+        presenter.switchView();
     }
 
     /**

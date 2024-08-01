@@ -1,4 +1,5 @@
 package interface_adapter.save_game;
+import javax.swing.JOptionPane;
 
 public class SaveGamePresenter implements SaveGameOutputBoundary {
 
@@ -8,7 +9,7 @@ public class SaveGamePresenter implements SaveGameOutputBoundary {
      */
     @Override
     public void prepareSuccessView(String message) {
-        System.out.println("Success! " + message);
+        JOptionPane.showMessageDialog(null, "Success! " + message);
     }
 
     /**

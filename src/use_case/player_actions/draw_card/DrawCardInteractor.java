@@ -3,6 +3,7 @@ package use_case.player_actions.draw_card;
 import entity.*;
 
 import entity.exceptions.MissingCardException;
+import interface_adapter.DrawCardOutputBoundary;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
 
@@ -18,9 +19,9 @@ import interface_adapter.start_game.StartGameOutputData;
 public class DrawCardInteractor implements DrawCardInputBoundary {
 
     GameInterface game;
-    StartGameOutputBoundary presenter;
+    DrawCardOutputBoundary presenter;
 
-    public DrawCardInteractor(StartGameOutputBoundary presenter){
+    public DrawCardInteractor(DrawCardOutputBoundary presenter){
         this.presenter = presenter;
     }
 

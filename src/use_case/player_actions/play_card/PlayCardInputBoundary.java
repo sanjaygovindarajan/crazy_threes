@@ -26,4 +26,6 @@ public interface PlayCardInputBoundary {
     void playThree(char suit, char newSuit);
 
     StartGameOutputBoundary getPresenter();
+
+    void switchView();
 }

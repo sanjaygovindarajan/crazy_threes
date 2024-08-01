@@ -1,3 +1,8 @@
+/**
+ * This is the Main file for Phase 1.
+ * See the Main file for Phase 2 in the view package.
+ */
+
 package app;
 
 import data_access.DataAccess;
@@ -11,18 +16,15 @@ import interface_adapter.start_game.*;
 import interface_adapter.shuffle.*;
 import use_case.deck_actions.ShuffleInputBoundary;
 import use_case.game_actions.NewGameInteractor;
-import use_case.game_actions.read_rules.ReadRulesInputBoundary;
-import use_case.game_actions.read_rules.ReadRulesInteractor;
+import use_case.game_actions.read_rules.*;
 import use_case.game_actions.save_game.SaveGameInputBoundary;
 import use_case.player_actions.draw_card.DrawCardInputBoundary;
 import use_case.player_actions.play_card.PlayCardInputBoundary;
-import view.TemporaryDefaultView;
-import view.TemporaryShuffleView;
-import view.TemporaryThreeView;
-import view.TemporaryTurnView;
+import view.*;
 
 public class Main {
     public static void main(String[] args) {
+
         DataAccessInterface dataAccess = new DataAccess();
 
         TemporaryTurnView view = new TemporaryTurnView();

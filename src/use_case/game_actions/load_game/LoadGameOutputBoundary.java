@@ -1,8 +1,8 @@
 package use_case.game_actions.load_game;
 
-public interface LoadGameOutputBoundary {
+import interface_adapter.start_game.StartGameOutputBoundary;
 
-    void prepareSuccessView(LoadGameOutputData loadGameOutputData);
+public interface LoadGameOutputBoundary extends StartGameOutputBoundary {
 
     void prepareFailView(String error);
 }
