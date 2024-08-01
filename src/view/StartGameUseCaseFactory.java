@@ -11,7 +11,7 @@ import interface_adapter.start_game.StartGamePresenter;
 import use_case.game_actions.NewGameInteractor;
 import use_case.game_actions.load_game.LoadGameInputBoundary;
 import use_case.game_actions.load_game.LoadGameInteractor;
-import use_case.game_actions.load_game.LoadGameOutputBoundary;
+
 
 import javax.swing.*;
 import java.io.IOException;

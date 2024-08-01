@@ -58,6 +58,12 @@ public class TemporaryTurnView {
         }
     }
 
+    public void requestSaveGame(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Type a new name to save the current game.");
+        saveGame(input);
+    }
+
     /**
      * Implements the use case involving viewing the rules.
      * As of Phase 1 it currently prints out the rules, rather than open a new window with the rules
@@ -107,7 +113,7 @@ public class TemporaryTurnView {
         this.saveGame = sg;
     }
 
-    public void requestSaveGame() {
+    public void drequestSaveGame() {
         Scanner input = new Scanner(System.in);
         System.out.println("Type a new name to save the current game.");
         saveGame(input);

@@ -19,7 +19,7 @@ import use_case.deck_actions.ShuffleInputBoundary;
 import use_case.game_actions.NewGameInteractor;
 import use_case.game_actions.load_game.LoadGameInputBoundary;
 import use_case.game_actions.load_game.LoadGameInteractor;
-import use_case.game_actions.load_game.LoadGameOutputBoundary;
+
 import use_case.game_actions.read_rules.ReadRulesInputBoundary;
 import use_case.game_actions.read_rules.ReadRulesInteractor;
 import use_case.game_actions.save_game.SaveGameInputBoundary;

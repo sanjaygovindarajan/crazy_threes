@@ -37,6 +37,7 @@ public class DataAccess implements DataAccessInterface {
      * @param game The string of the game to be saved in the database
      */
     public void saveGame(String game) throws IOException{
+
         String existing = Files.readString(Path.of(this.databaseFile.getPath()));
         String db;
         if(existing.isEmpty()) {
@@ -46,10 +47,5 @@ public class DataAccess implements DataAccessInterface {
         };
         Files.writeString(Path.of(this.databaseFile.getPath()), db);
     }
-
-
-
-
-
 
 }

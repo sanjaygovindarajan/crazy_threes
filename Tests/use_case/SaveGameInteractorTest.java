@@ -36,6 +36,7 @@ public class SaveGameInteractorTest {
 
     @Test
     public void testSaveGame() throws IOException {
+
         List<String> players = new ArrayList<>(3);
         players.add("player1");
         players.add("player2");
