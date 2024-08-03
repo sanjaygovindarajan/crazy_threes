@@ -2,9 +2,11 @@ package use_case.player_actions.play_card;
 
 import entity.*;
 import entity.exceptions.InvalidCardException;
-import interface_adapter.PlayCardOutputBoundary;
+import interface_adapter.play_card.PlayCardOutputBoundary;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
+
+import javax.swing.*;
 
 public class PlayCardInteractor implements PlayCardInputBoundary {
     GameInterface game;
@@ -16,30 +18,28 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
 
     /**
      * Allows for a card to be played in the game.
-     * @param number the number of the card to be played.
-     * @param suit the suit of the card to be played.
+     * @param index The index of the card
      */
     @Override
-    public void playCard(int number, char suit){
+    public void playCard(int index){
         Player player = game.getCurrentPlayer();
-        boolean threeCase = (number == 3);
-        int index = -1;
-        int count = 0;
-        for(Card card: player.viewHand().getCardList()){
-            if(card.getCardNum() == number && card.getDisplaySuit() == suit){
-                index = count;
-            }
-            count++;
-        }
-        if(index == -1){
-            presenter.loadMissingCardView();
-            return;
-        }
+        boolean threeCase = (player.viewHand().getCardList().get(index).getCardNum() == 3);
+
         try {
             if (!threeCase) {
                 game.playCard(player, index);
             } else {
-                presenter.loadThreeView(suit);
+                String[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
+                int response = JOptionPane.showOptionDialog(null,
+                        "Looks like you played a three! Pick a new suit",
+                        "Three played",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        suits,
+                        suits[0]);
+                Character[] suitChar = {'S','H','D','C'};
+                playThree(player.viewHand().getCardList().get(index).getDisplaySuit(), suitChar[response]);
             }
             if (game.isGameOver()) {
                 presenter.winMessage(game.getCurrentPlayer().getName());
@@ -94,11 +94,6 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
     @Override
     public StartGameOutputBoundary getPresenter() {
         return presenter;
-    }
-
-    @Override
-    public void switchView() {
-        presenter.switchView();
     }
 
     /**

@@ -48,22 +48,14 @@ public class StartGamePresenter implements StartGameOutputBoundary {
         List<Character> cardNum = new ArrayList<>();
         for(String card : data.getPlayerCards().split(",")){
             cardSuits.add(card.charAt(0));
-            char num = card.charAt(1);
-            if(num == 1){
-                cardNum.add('0');
-            } else {
-                cardNum.add(num);
-            }
+            char num = changeCardNumber(card).charAt(1);
+            cardNum.add(num);
         }
         turnViewModel.setCardSuits(cardSuits);
         turnViewModel.setCardNums(cardNum);
         turnViewModel.setDiscardSuit(data.getCard().charAt(0));
-        char num = data.getCard().charAt(1);
-        if(num == 1){
-            turnViewModel.setDiscardNum('0');
-        } else {
-            turnViewModel.setDiscardNum(num);
-        }
+        char num = changeCardNumber(data.getCard()).charAt(1);
+        turnViewModel.setDiscardNum(num);
         if(data.getCard().charAt(1) == '3'){
             String suit = Character.toString(data.getCurrentSuit());
             suit = suit.replace("S", "spades");
@@ -72,9 +64,29 @@ public class StartGamePresenter implements StartGameOutputBoundary {
             suit = suit.replace("D", "diamonds");
             JOptionPane.showMessageDialog(null, "The suit was changed to " + suit);
         }
+        updateView();
+    }
+
+    /**
+     * Helper method to update the view
+     */
+    protected void updateView(){
         this.viewManagerModel.setActiveView("Turn View");
         this.turnViewModel.firePropertyChanged();
         this.viewManagerModel.firePropertyChanged();
+    }
+
+    /**
+     * Changes the card number to match the format of the API
+     * @param card The card in string format
+     * @return A new card in string format with numbers >10 replaced with a single character
+     */
+    protected String changeCardNumber(String card){
+        return card.replace("10","0")
+                .replace("11","J")
+                .replace("12","Q")
+                .replace("13","Q")
+                .replace("14","A");
     }
 
 }

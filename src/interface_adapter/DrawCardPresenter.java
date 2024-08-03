@@ -3,6 +3,9 @@ package interface_adapter;
 import javax.swing.*;
 
 public class DrawCardPresenter extends StartGamePresenter implements DrawCardOutputBoundary{
+    public DrawCardPresenter(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel){
+        super(viewManagerModel, turnViewModel);
+    }
     /**
      * Requests that the user shuffle the deck.
      */

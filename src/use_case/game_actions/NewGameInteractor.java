@@ -3,10 +3,8 @@ package use_case.game_actions;
 import data_access.DataAccessInterface;
 import entity.GameInterface;
 import interface_adapter.*;
-import interface_adapter.load_game.LoadGamePresenter;
+import interface_adapter.play_card.PlayCardOutputBoundary;
 import interface_adapter.save_game.SaveGameOutputBoundary;
-import interface_adapter.save_game.SaveGamePresenter;
-import interface_adapter.shuffle.ShufflePresenter;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import use_case.deck_actions.*; //Shuffle user story
 import use_case.game_actions.load_game.*; //Load game user story
@@ -15,7 +13,6 @@ import use_case.game_actions.start_game.*; //Start game user story
 import use_case.player_actions.draw_card.*; //Draw card user story
 import use_case.player_actions.play_card.PlayCardInputBoundary;
 import use_case.player_actions.play_card.PlayCardInteractor;
-import view.*;
 
 public class NewGameInteractor {
 
@@ -28,20 +25,14 @@ public class NewGameInteractor {
     private ShuffleInputBoundary shuffle; //Shuffle user story
 
     /**
-     * Initializes all the use case interactors.
+     * Initializes all use case interactors.
      * @param dataAccess The data access object
-     * @param view The view signifying that it is a player's turn
-     * @param shuffleView The view signifying that the deck needs to be shuffled
+     * @param loadGamePresenter The load game presenter
+     * @param saveGamePresenter The save game presenter
+     * @param playCardPresenter The play card presenter
+     * @param startGamePresenter The start game presenter
+     * @param drawCardPresenter The draw card presenter
      */
-    public NewGameInteractor(DataAccessInterface dataAccess, TemporaryTurnView view, TemporaryShuffleView shuffleView){
-        saveGame = new SaveGameInteractor(dataAccess, new SaveGamePresenter());
-        playCard = new PlayCardInteractor(new PlayCardPresenter());
-        drawCard = new DrawCardInteractor(new DrawCardPresenter());
-        drawCard.getPresenter().setShuffle(shuffleView);
-        startGame = new StartGameInteractor(new StartGamePresenter(view));
-        loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view));
-        shuffle = new ShuffleInteractor(new ShufflePresenter(view));
-    }
 
     public NewGameInteractor(
             DataAccessInterface dataAccess,

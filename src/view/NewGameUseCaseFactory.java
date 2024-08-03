@@ -8,13 +8,13 @@ import interface_adapter.load_game.LoadGameController;
 import interface_adapter.load_game.LoadGamePresenter;
 import interface_adapter.load_game.LoadGameViewModel;
 import interface_adapter.play_card.PlayCardController;
+import interface_adapter.play_card.PlayCardOutputBoundary;
+import interface_adapter.play_card.PlayCardPresenter;
 import interface_adapter.save_game.SaveGameController;
 import interface_adapter.save_game.SaveGameOutputBoundary;
 import interface_adapter.save_game.SaveGamePresenter;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import use_case.game_actions.NewGameInteractor;
-import use_case.game_actions.load_game.LoadGameInputBoundary;
-import use_case.game_actions.load_game.LoadGameInteractor;
 import use_case.game_actions.load_game.LoadGameOutputBoundary;
 
 import javax.swing.*;
@@ -34,9 +34,9 @@ public class NewGameUseCaseFactory {
         return new TurnView(saveGameController, playCardController, drawCardController, turnViewModel);
     }
 
-    public static LoadGameView create(ViewManagerModel viewManagerModel, LoadGameViewModel loadGameViewModel) {
+    public static LoadGameView create(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, LoadGameViewModel loadGameViewModel) {
         try {
-            LoadGameController loadGameController = createUserLoadGameUseCase(viewManagerModel, loadGameViewModel);
+            LoadGameController loadGameController = createUserLoadGameUseCase(viewManagerModel, turnViewModel);
             return new LoadGameView(loadGameController, loadGameViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -44,14 +44,14 @@ public class NewGameUseCaseFactory {
         return null;
     }
 
-    private static LoadGameController createUserLoadGameUseCase(ViewManagerModel viewManagerModel, LoadGameViewModel loadGameViewModel) throws IOException {
+    private static LoadGameController createUserLoadGameUseCase(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel) throws IOException {
         DataAccessInterface userDataAccessObject = new DataAccess() {
         };
-        LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, loadGameViewModel);
+        LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, turnViewModel);
         SaveGameOutputBoundary saveGameOutputBoundary = new SaveGamePresenter();
-        PlayCardOutputBoundary playCardOutputBoundary = new PlayCardPresenter();
-        StartGameOutputBoundary startGameOutputBoundary = new StartGamePresenter();
-        DrawCardOutputBoundary drawCardOutputBoundary = new DrawCardPresenter();
+        PlayCardOutputBoundary playCardOutputBoundary = new PlayCardPresenter(viewManagerModel, turnViewModel);
+        StartGameOutputBoundary startGameOutputBoundary = new StartGamePresenter(viewManagerModel, turnViewModel);
+        DrawCardOutputBoundary drawCardOutputBoundary = new DrawCardPresenter(viewManagerModel, turnViewModel);
         NewGameInteractor newGame = new NewGameInteractor(
                 userDataAccessObject,
                 loadGameOutputBoundary,

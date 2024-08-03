@@ -53,8 +53,7 @@ public class TurnViewModel {
 
     public void firePropertyChanged() {
 
-        support.firePropertyChange("state", null, this.cardNums);
-        support.firePropertyChange("state", null, this.cardSuits);
+        support.firePropertyChange("state", null, this);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

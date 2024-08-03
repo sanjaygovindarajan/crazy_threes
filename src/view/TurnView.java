@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.beans.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -18,10 +19,10 @@ import java.util.List;
 public class TurnView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private final JButton saveButton;
-    private final JButton playButton;
     private final JButton drawButton;
     private final JButton rulesButton;
     private final JTextField gameName;
+    private final JPanel cardsPanel;
     private List<JButton> buttonList;
     private JLabel discard;
     private final TurnViewModel viewModel;
@@ -41,17 +42,13 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        buttonList = new ArrayList<>();
+        discard = new JLabel();
         saveButton = new JButton("Save game");
-        playButton = new JButton("Play card");
         drawButton = new JButton("Draw card");
         rulesButton = new JButton("View Rules");
         gameName = new JTextField(25);
         JLabel instructions = new JLabel("Give the game a name before saving it.");
-
-        saveButton.setBounds(250, 30, 100, 50);
-        playButton.setBounds(250, 50, 100, 50);
-        drawButton.setBounds(300, 30, 100, 50);
-        rulesButton.setBounds(300, 50, 100, 50);
 
         saveGameController = saveController;
         playCardController = playController;
@@ -62,31 +59,39 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         savePanel.add(gameName);
         savePanel.add(saveButton);
 
-        JPanel playPanel = new JPanel();
-        playPanel.add(playButton);
-        playPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         JPanel drawPanel = new JPanel();
         drawPanel.add(drawButton);
-        drawPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        drawPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        JPanel discardPanel = new JPanel();
+        discardPanel.add(discard);
+        discardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        this.cardsPanel = new JPanel();
+        cardsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         saveButton.addActionListener(this);
-        playButton.addActionListener(this);
         drawButton.addActionListener(this);
 
         add(savePanel);
-        add(playPanel);
+        add(discardPanel);
+        add(cardsPanel);
         add(drawPanel);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == saveButton){
+        Object source = e.getSource();
+        if(source == saveButton){
             saveGameController.execute(gameName.getText());
-        } else if(e.getSource() == playButton){
-            playCardController.switchView();
-        } else if(e.getSource() == drawButton){
+        } else if(source == drawButton){
             drawCardController.drawCard();
-        }
+        } else if(source instanceof JButton){
+            if(buttonList.contains((JButton) source)){
+                int index = buttonList.indexOf((JButton) source);
+                playCardController.playCard(index);
+            }
+        };
     }
 
     @Override
@@ -104,20 +109,38 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
             JButton button = new JButton(getIcon(viewModel.getCardSuits().get(i), viewModel.getCardNums().get(i)));
             button.addActionListener(this);
             buttonList.add(button);
-            add(button);
+            cardsPanel.add(button);
         }
-        //Add new discard
+
         discard.setIcon(getIcon(viewModel.getDiscardSuit(), viewModel.getDiscardNum()));
+        revalidate();
+        repaint();
     }
 
     private ImageIcon getIcon(char suit, char num){
-        return new ImageIcon(APIAccess.getCard(suit, num));
+        BufferedImage image = resizeImage(APIAccess.getCard(suit, num), 226 / 2, 314 / 2);
+        return new ImageIcon(image);
     }
 
     private void clearCards(){
         for(JButton oldButton : buttonList){
-            remove(oldButton);
+            cardsPanel.remove(oldButton);
         }
         this.buttonList = new LinkedList<>();
+    }
+
+    /**
+     * Credits: https://www.baeldung.com/java-resize-image
+     * @param originalImage The original image
+     * @param targetWidth The new width of the image
+     * @param targetHeight The new height of the image
+     * @return The new BufferedImage
+     */
+    private static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight){
+        BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics2D = resizedImage.createGraphics();
+        graphics2D.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+        graphics2D.dispose();
+        return resizedImage;
     }
 }

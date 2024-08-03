@@ -34,10 +34,9 @@ public class Main {
         //Create view models
         LoadGameViewModel loadGameViewModel = new LoadGameViewModel();
         TurnViewModel turnViewModel = new TurnViewModel();
-        PlayCardViewModel playCardViewModel = new PlayCardViewModel();
 
         //Create views
-        LoadGameView loadGameView = NewGameUseCaseFactory.create(viewManagerModel, loadGameViewModel);
+        LoadGameView loadGameView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameViewModel);
         TurnView turnView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameView);
         PlayCardView playCardView = new PlayCardView();
 
