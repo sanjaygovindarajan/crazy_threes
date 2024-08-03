@@ -1,6 +1,5 @@
 package app;
 
-import interface_adapter.PlayCardViewModel;
 import interface_adapter.TurnViewModel;
 import interface_adapter.load_game.LoadGameViewModel;
 import interface_adapter.ViewManagerModel;
@@ -38,12 +37,10 @@ public class Main {
         //Create views
         LoadGameView loadGameView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameViewModel);
         TurnView turnView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameView);
-        PlayCardView playCardView = new PlayCardView();
 
         // Add views to the main panel
         mainPanel.add(loadGameView, "Load Game");
         mainPanel.add(turnView, "Turn View");
-        mainPanel.add(playCardView, "Play Card");
 
         // Sets the initial view
         viewManagerModel.setActiveView("Load Game");

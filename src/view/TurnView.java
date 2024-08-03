@@ -36,6 +36,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
     public TurnView(SaveGameController saveController,
                     PlayCardController playController,
                     DrawCardController drawController,
+                    ReadRulesController rulesController,
                     TurnViewModel viewModel){
         this.viewModel = viewModel;
         viewModel.addPropertyChangeListener(this);
@@ -53,6 +54,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         saveGameController = saveController;
         playCardController = playController;
         drawCardController = drawController;
+        readRulesController = rulesController;
 
         JPanel savePanel = new JPanel();
         savePanel.add(instructions);
@@ -62,6 +64,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
 
         JPanel drawPanel = new JPanel();
         drawPanel.add(drawButton);
+        drawPanel.add(rulesButton);
         drawPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         JPanel discardPanel = new JPanel();
@@ -73,6 +76,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
 
         saveButton.addActionListener(this);
         drawButton.addActionListener(this);
+        rulesButton.addActionListener(this);
 
         add(savePanel);
         add(discardPanel);
@@ -86,6 +90,8 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
             saveGameController.execute(gameName.getText());
         } else if(source == drawButton){
             drawCardController.drawCard();
+        }  else if(source == rulesButton){
+            readRulesController.execute();
         } else if(source instanceof JButton){
             if(buttonList.contains((JButton) source)){
                 int index = buttonList.indexOf((JButton) source);
