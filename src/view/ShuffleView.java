@@ -23,6 +23,7 @@ public class ShuffleView  extends JPanel implements ActionListener, PropertyChan
         JPanel shufflePanel = new JPanel();
         shufflePanel.add(shuffleButton);
         shufflePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        add(shufflePanel);
         shuffleButton.addActionListener(this);
 
     }
