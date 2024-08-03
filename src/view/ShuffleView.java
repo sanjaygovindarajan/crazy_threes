@@ -1,6 +1,5 @@
 package view;
 
-import entity.Deck;
 import entity.GameInterface;
 import interface_adapter.shuffle.ShuffleController;
 
