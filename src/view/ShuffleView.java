@@ -14,9 +14,8 @@ public class ShuffleView  extends JPanel implements ActionListener, PropertyChan
     private final JButton shuffleButton;
 
     private ShuffleController shuffleController;
-    private GameInterface gameInterface;
 
-    public ShuffleView(ShuffleController shuffleController, GameInterface gameInterface) {
+    public ShuffleView(ShuffleController shuffleController) {
         shuffleButton = new JButton("Shuffle Deck");
         JLabel instructions = new JLabel("You cannot shuffle the deck until it is empty.");
 

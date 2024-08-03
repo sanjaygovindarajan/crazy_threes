@@ -5,6 +5,7 @@ import entity.GameInterface;
 import interface_adapter.*;
 import interface_adapter.play_card.PlayCardOutputBoundary;
 import interface_adapter.save_game.SaveGameOutputBoundary;
+import interface_adapter.shuffle.ShuffleOutputBoundary;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import use_case.deck_actions.*; //Shuffle user story
 import use_case.game_actions.load_game.*; //Load game user story
@@ -40,12 +41,14 @@ public class NewGameInteractor {
             SaveGameOutputBoundary saveGamePresenter,
             PlayCardOutputBoundary playCardPresenter,
             StartGameOutputBoundary startGamePresenter,
-            DrawCardOutputBoundary drawCardPresenter){
+            DrawCardOutputBoundary drawCardPresenter,
+            ShuffleOutputBoundary shufflePresenter){
         loadGame = new LoadGameInteractor(dataAccess, loadGamePresenter);
         saveGame = new SaveGameInteractor(dataAccess, saveGamePresenter);
         playCard = new PlayCardInteractor(playCardPresenter);
         startGame = new StartGameInteractor(startGamePresenter);
         drawCard = new DrawCardInteractor(drawCardPresenter);
+        shuffle = new ShuffleInteractor(shufflePresenter);
     }
 
     /**
@@ -85,7 +88,7 @@ public class NewGameInteractor {
         saveGame.setGame(this.game);
         playCard.setGame(this.game);
         drawCard.setGame(this.game);
-        //shuffle.setGame(this.game);
+        shuffle.setGame(this.game);
         //Prepares to call presenter
         loadGame.present(inputData);
     }
