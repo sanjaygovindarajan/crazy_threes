@@ -17,6 +17,7 @@ public class ShuffleView  extends JPanel implements ActionListener, PropertyChan
 
     public ShuffleView(ShuffleController shuffleController) {
         this.shuffleController = shuffleController;
+
         shuffleButton = new JButton("Shuffle Deck");
 
         JPanel shufflePanel = new JPanel();

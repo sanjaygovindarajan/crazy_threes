@@ -27,20 +27,22 @@ public class Main {
 
         //Create view manager model
         ViewManagerModel viewManagerModel = new ViewManagerModel();
+        ViewManager viewManager = new ViewManager(mainPanel, cardLayout, viewManagerModel);
 
         //Create view models
         LoadGameViewModel loadGameViewModel = new LoadGameViewModel();
         TurnViewModel turnViewModel = new TurnViewModel();
 
         //Create views
-        LoadGameView loadGameView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameViewModel);
-        TurnView turnView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameView);
+        LoadGameView loadGameView = NewGameUseCaseFactory.createLoadGameView(viewManagerModel, turnViewModel, loadGameViewModel);
+        TurnView turnView = NewGameUseCaseFactory.createTurnView(viewManagerModel, turnViewModel, loadGameView.getController().getInteractor());
         NewGameView gameView = NewGameUseCaseFactory.createNewGame(viewManagerModel);
 
         // Add views to the main panel
+        mainPanel.add(gameView, "New Game");
         mainPanel.add(loadGameView, "Load Game");
         mainPanel.add(turnView, "Turn View");
-        mainPanel.add(gameView, "New Game");
+
 
         // Sets the initial view
         viewManagerModel.setActiveView("New Game");
