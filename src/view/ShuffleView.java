@@ -11,8 +11,8 @@ public class ShuffleView{
 
     public void displayShuffleView(){
         JOptionPane.showOptionDialog(null,
-                "Looks like you played a three! Pick a new suit",
-                "Three played",
+                "The discard pile is out of cards! Please shuffle the deck.",
+                "Shuffle Deck",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 null,
