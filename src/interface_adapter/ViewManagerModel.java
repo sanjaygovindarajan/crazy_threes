@@ -11,15 +11,26 @@ public class ViewManagerModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
+    /**
+     * Gets the name of the current active view.
+     * @return The name of the current active view.
+     */
     public String getActiveView() {
             return activeViewName;
         }
 
+    /**
+     * Sets the active view and updates the application.
+     * @param activeView The name of the new active view.
+     */
     public void setActiveView(String activeView) {
         this.activeViewName = activeView;
+        firePropertyChanged();
     }
 
-    // This is what the Signup Presenter will call to let the ViewModel know to alert the View
+    /**
+     * Updates the application if the view name has changed.
+     */
     public void firePropertyChanged() {
         support.firePropertyChange("view", null, this.activeViewName);
     }

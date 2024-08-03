@@ -3,9 +3,9 @@ package use_case.game_actions;
 import data_access.DataAccessInterface;
 import entity.GameInterface;
 import interface_adapter.*;
-import interface_adapter.load_game.LoadGamePresenter;
-import interface_adapter.save_game.SaveGamePresenter;
-import interface_adapter.shuffle.ShufflePresenter;
+import interface_adapter.play_card.PlayCardOutputBoundary;
+import interface_adapter.save_game.SaveGameOutputBoundary;
+import interface_adapter.start_game.StartGameOutputBoundary;
 import use_case.deck_actions.*; //Shuffle user story
 import use_case.game_actions.load_game.*; //Load game user story
 import use_case.game_actions.save_game.*; //Save game user story
@@ -13,31 +13,39 @@ import use_case.game_actions.start_game.*; //Start game user story
 import use_case.player_actions.draw_card.*; //Draw card user story
 import use_case.player_actions.play_card.PlayCardInputBoundary;
 import use_case.player_actions.play_card.PlayCardInteractor;
-import view.*;
 
 public class NewGameInteractor {
+
     private GameInterface game;
-    private final StartGameInputBoundary startGame; //Start game user story
-    private final LoadGameInputBoundary loadGame; //Load game user story
-    private final SaveGameInputBoundary saveGame; ///Save game user story
-    private final PlayCardInputBoundary playCard; //Play card user story
-    private final DrawCardInputBoundary drawCard; //Draw card user story
-    private final ShuffleInputBoundary shuffle; //Shuffle user story
+    private StartGameInputBoundary startGame; //Start game user story
+    private LoadGameInputBoundary loadGame; //Load game user story
+    private SaveGameInputBoundary saveGame; ///Save game user story
+    private PlayCardInputBoundary playCard; //Play card user story
+    private DrawCardInputBoundary drawCard; //Draw card user story
+    private ShuffleInputBoundary shuffle; //Shuffle user story
 
     /**
-     * Initializes all the use case interactors.
+     * Initializes all use case interactors.
      * @param dataAccess The data access object
-     * @param view The view signifying that it is a player's turn
-     * @param shuffleView The view signifying that the deck needs to be shuffled
+     * @param loadGamePresenter The load game presenter
+     * @param saveGamePresenter The save game presenter
+     * @param playCardPresenter The play card presenter
+     * @param startGamePresenter The start game presenter
+     * @param drawCardPresenter The draw card presenter
      */
-    public NewGameInteractor(DataAccessInterface dataAccess, TemporaryTurnView view, TemporaryShuffleView shuffleView){
-        saveGame = new SaveGameInteractor(dataAccess, new SaveGamePresenter());
-        playCard = new PlayCardInteractor(new StartGamePresenter(view));
-        drawCard = new DrawCardInteractor(new StartGamePresenter(view));
-        drawCard.getPresenter().setShuffle(shuffleView);
-        startGame = new StartGameInteractor(new StartGamePresenter(view));
-        loadGame = new LoadGameInteractor(dataAccess, new LoadGamePresenter(view), new StartGamePresenter(view));
-        shuffle = new ShuffleInteractor(new ShufflePresenter(view));
+
+    public NewGameInteractor(
+            DataAccessInterface dataAccess,
+            LoadGameOutputBoundary loadGamePresenter,
+            SaveGameOutputBoundary saveGamePresenter,
+            PlayCardOutputBoundary playCardPresenter,
+            StartGameOutputBoundary startGamePresenter,
+            DrawCardOutputBoundary drawCardPresenter){
+        loadGame = new LoadGameInteractor(dataAccess, loadGamePresenter);
+        saveGame = new SaveGameInteractor(dataAccess, saveGamePresenter);
+        playCard = new PlayCardInteractor(playCardPresenter);
+        startGame = new StartGameInteractor(startGamePresenter);
+        drawCard = new DrawCardInteractor(drawCardPresenter);
     }
 
     /**
@@ -77,7 +85,7 @@ public class NewGameInteractor {
         saveGame.setGame(this.game);
         playCard.setGame(this.game);
         drawCard.setGame(this.game);
-        shuffle.setGame(this.game);
+        //shuffle.setGame(this.game);
         //Prepares to call presenter
         loadGame.present(inputData);
     }

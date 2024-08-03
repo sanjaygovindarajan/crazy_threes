@@ -15,26 +15,11 @@ public class PlayCardController {
 
     /**
      * Allows for a card to be played in the game.
-     * @param number the number of the card to be played (user input).
-     * @param suit the suit of the card to be played (user input).
+     * @param index The index of the card to be played
      */
-    public void playCard(String number, String suit){
-        int newNumber = 0;
-        if (Objects.equals(number, "ace")) {
-            newNumber = 14;
-        } else if (Objects.equals(number, "jack")) {
-            newNumber = 11;
-        } else if (Objects.equals(number, "queen")) {
-            newNumber = 12;
-        } else if (Objects.equals(number, "king")) {
-            newNumber = 13;
-        } else {
-            newNumber = Integer.parseInt(number);
-        }
-        char newSuit = suit.toUpperCase().charAt(0);
-        PlayCardInputData newData = new PlayCardInputData(newNumber, newSuit);
+    public void playCard(int index){
 
-        playCardInteractor.playCard(newData.getCardNum(), newData.getSuit());
+        playCardInteractor.playCard(index);
     }
 
     /**

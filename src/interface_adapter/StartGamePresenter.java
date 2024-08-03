@@ -1,9 +1,13 @@
 package interface_adapter;
 
+import interface_adapter.load_game.LoadGameViewModel;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
 import view.*;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -11,19 +15,16 @@ import java.util.Scanner;
  * Not located in start_game package because it is used by many use cases.
  */
 public class StartGamePresenter implements StartGameOutputBoundary {
-    private TemporaryThreeView threeView;
-    private StartGameViewModel startGameViewModel;
-    private ViewManagerModel viewManagerModel;
-    private TemporaryTurnView view;
-    private TemporaryShuffleView shuffle;
+    protected TurnViewModel turnViewModel;
+    protected ViewManagerModel viewManagerModel;
 
     /**
      * Constructor for Phase 2. Not currently used.
      * @param viewManagerModel View manager model
      * @param startGameViewModel Start Game View Model
      */
-    public StartGamePresenter(ViewManagerModel viewManagerModel, StartGameViewModel startGameViewModel){
-        this.startGameViewModel = startGameViewModel;
+    public StartGamePresenter(ViewManagerModel viewManagerModel, TurnViewModel startGameViewModel){
+        this.turnViewModel = startGameViewModel;
         this.viewManagerModel = viewManagerModel;
 
     }
@@ -35,24 +36,6 @@ public class StartGamePresenter implements StartGameOutputBoundary {
     }
 
     /**
-     * Constructor used in the case where the Three View is not needed, or will be added later.
-     * @param view The view
-     */
-    public StartGamePresenter(TemporaryTurnView view){
-        this.view = view;
-    }
-
-    /**
-     * General constructor
-     * @param view The main view
-     * @param threeView The view in the case a player plays a three
-     */
-    public StartGamePresenter(TemporaryTurnView view, TemporaryThreeView threeView){
-        this.view = view;
-        this.threeView = threeView;
-    }
-
-    /**
      * Prints the player whose turn it is, their cards, the face-up card, and the current suit.
      * Switches the view to the next player's turn.
      * If the method is called as a test and there is no view, prints out "Test completed."
@@ -60,131 +43,50 @@ public class StartGamePresenter implements StartGameOutputBoundary {
      */
     @Override
     public void loadSuccessView(StartGameOutputData data) {
-        System.out.println("It's " + data.getPlayerName() + "'s turn!");
-        System.out.println("Their cards:");
+        turnViewModel.setPlayerName(data.getPlayerName());
+        List<Character> cardSuits = new ArrayList<>();
+        List<Character> cardNum = new ArrayList<>();
         for(String card : data.getPlayerCards().split(",")){
-            System.out.println(printCard(card));
+            cardSuits.add(card.charAt(0));
+            char num = changeCardNumber(card).charAt(1);
+            cardNum.add(num);
         }
-        System.out.println("The previous card was the " + printCard(data.getCard()));
+        turnViewModel.setCardSuits(cardSuits);
+        turnViewModel.setCardNums(cardNum);
+        turnViewModel.setDiscardSuit(data.getCard().charAt(0));
+        char num = changeCardNumber(data.getCard()).charAt(1);
+        turnViewModel.setDiscardNum(num);
         if(data.getCard().charAt(1) == '3'){
             String suit = Character.toString(data.getCurrentSuit());
             suit = suit.replace("S", "spades");
             suit = suit.replace("C", "clubs");
             suit = suit.replace("H", "hearts");
             suit = suit.replace("D", "diamonds");
-            System.out.println("However, the suit was changed to " + suit);
+            JOptionPane.showMessageDialog(null, "The suit was changed to " + suit);
         }
-        try {
-            this.view.requestAction();
-        } catch(NullPointerException e){
-            //Test mode, there is no view
-            System.out.println("Test completed");
-        }
+        updateView();
     }
 
     /**
-     * Prints a message declaring the card invalid and requests the player choose a different action.
-     * If the method is called as a test and there is no view, prints out "Test completed."
+     * Helper method to update the view
      */
-    @Override
-    public void loadInvalidCardView() {
-        System.out.println("You are not allowed to play that card!");
-        try {
-            this.view.requestAction();
-        } catch(NullPointerException e){
-            //Test mode, there is no view
-            System.out.println("Test completed");
-        }
+    protected void updateView(){
+        this.viewManagerModel.setActiveView("Turn View");
+        this.turnViewModel.firePropertyChanged();
+        this.viewManagerModel.firePropertyChanged();
     }
 
     /**
-     * Prints a message declaring that the player does not have the card
-     * that they want to play and requests the player choose a different action.
-     * If the method is called as a test and there is no view, prints out "Test completed."
+     * Changes the card number to match the format of the API
+     * @param card The card in string format
+     * @return A new card in string format with numbers >10 replaced with a single character
      */
-    public void loadMissingCardView(){
-        System.out.println("You don't have this card!");
-        try {
-            this.view.requestAction();
-        } catch(NullPointerException e){
-            //Test mode, there is no view
-            System.out.println("Test completed");
-        }
+    protected String changeCardNumber(String card){
+        return card.replace("10","0")
+                .replace("11","J")
+                .replace("12","Q")
+                .replace("13","Q")
+                .replace("14","A");
     }
 
-    /**
-     * Requests that the player choose a different suit.
-     * @param suit The current suit
-     */
-    @Override
-    public void loadThreeView(char suit) {
-        threeView.requestAction(suit);
-
-    }
-
-    /**
-     * Displays a win message declaring that the player has won.
-     * @param player The name of the player that won
-     */
-    @Override
-    public void winMessage(String player){
-        System.out.println("Congratulations " + player + " wins!");
-    }
-
-    /**
-     * Sets the view in the case that the player played a three.
-     * @param view The three view
-     */
-    @Override
-    public void setThreeView(TemporaryThreeView view){
-        this.threeView = view;
-    }
-
-    @Override
-    public void loadUnableToDrawCard() {
-        System.out.println("You are not allowed to draw a card if you have a playable card.");
-        try {
-            this.view.requestAction();
-        } catch(NullPointerException e){
-            //Test mode, there is no view
-            System.out.println("Test completed");
-        }
-    }
-
-    /**
-     * Requests that the user shuffle the deck.
-     */
-    @Override
-    public void loadShuffleView() {
-        this.shuffle.shuffle(new Scanner(System.in));
-    }
-
-    /**
-     * Sets the shuffle view.
-     * @param shuffleView The shuffle view
-     */
-    @Override
-    public void setShuffle(TemporaryShuffleView shuffleView) {
-        this.shuffle = shuffleView;
-    }
-
-    /**
-     * Returns the card in a human-friendly string format.
-     * @param card The card as a string, but in the database format
-     *             (the char of the suit, and then the number)
-     * @return The card as a string, but in a human-friendly format.
-     */
-    private String printCard(String card){
-        String num = card.substring(1);
-        String suit = card.substring(0, 1);
-        num = num.replace("11","Jack");
-        num = num.replace("12","Queen");
-        num = num.replace("13","King");
-        num = num.replace("14","Ace");
-        suit = suit.replace("S", "spades");
-        suit = suit.replace("C", "clubs");
-        suit = suit.replace("H", "hearts");
-        suit = suit.replace("D", "diamonds");
-        return (num + " of " + suit);
-    }
 }

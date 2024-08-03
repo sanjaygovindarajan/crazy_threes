@@ -7,10 +7,9 @@ public interface PlayCardInputBoundary {
 
     /**
      * Allows for a card to be played in the game.
-     * @param number the number of the card to be played.
-     * @param suit the suit of the card to be played.
+     * @param index The index of the card to be played
      */
-    void playCard(int number, char suit);
+    void playCard(int index);
 
     /**
      * Sets the current game being played.

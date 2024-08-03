@@ -1,57 +1,57 @@
 package app;
 
-import data_access.DataAccess;
-import data_access.DataAccessInterface;
-import interface_adapter.load_game.*;
-import interface_adapter.save_game.*;
-import interface_adapter.play_card.*;
-import interface_adapter.draw_card.*;
-import interface_adapter.view_rules.*;
-import interface_adapter.start_game.*;
-import interface_adapter.shuffle.*;
-import use_case.deck_actions.ShuffleInputBoundary;
-import use_case.game_actions.NewGameInteractor;
-import use_case.game_actions.read_rules.ReadRulesInputBoundary;
-import use_case.game_actions.read_rules.ReadRulesInteractor;
-import use_case.game_actions.save_game.SaveGameInputBoundary;
-import use_case.player_actions.draw_card.DrawCardInputBoundary;
-import use_case.player_actions.play_card.PlayCardInputBoundary;
-import view.TemporaryDefaultView;
-import view.TemporaryShuffleView;
-import view.TemporaryThreeView;
-import view.TemporaryTurnView;
+import interface_adapter.PlayCardViewModel;
+import interface_adapter.TurnViewModel;
+import interface_adapter.load_game.LoadGameViewModel;
+import interface_adapter.ViewManagerModel;
+import view.*;
 
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * This is the Main file for Phase 2.
+ * See the Main file for Phase 1 in the app package.
+ */
 public class Main {
     public static void main(String[] args) {
-        DataAccessInterface dataAccess = new DataAccess();
+        //Create frame
+        JFrame application = new JFrame("Crazy Threes");
+        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        TemporaryTurnView view = new TemporaryTurnView();
-        TemporaryShuffleView shuffleView = new TemporaryShuffleView();
+        //Create panel
+        JPanel mainPanel = new JPanel();
+        CardLayout cardLayout = new CardLayout();
+        mainPanel.setLayout(cardLayout);
+        application.add(mainPanel);
 
-        NewGameInteractor newGame = new NewGameInteractor(dataAccess, view, shuffleView);
-        PlayCardInputBoundary playCard = newGame.getPlayCard();
-        DrawCardInputBoundary drawCard = newGame.getDrawCard();
-        SaveGameInputBoundary saveGame = newGame.getSaveGame();
-        SaveGameController sg = new SaveGameController(saveGame);
-        LoadGameController lg = new LoadGameController(newGame);
-        PlayCardController pc = new PlayCardController(playCard);
-        DrawCardController dc = new DrawCardController(drawCard);
 
-        StartGameController ng = new StartGameController(newGame);
+        //Create view manager
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        ViewManager viewManager = new ViewManager(mainPanel, cardLayout, viewManagerModel);
 
-        ShuffleInputBoundary shuffle = newGame.getShuffle();
-        ShuffleController sh = new ShuffleController(shuffle);
-        shuffleView.setController(sh);
 
-        TemporaryDefaultView defaultView = new TemporaryDefaultView(ng, lg);
-        ReadRulesInputBoundary viewRules = new ReadRulesInteractor(new ReadRulesPresenter());
-        ReadRulesController vr = new ReadRulesController(viewRules);
-        defaultView.setViewRules(vr);
-        view.setViewRules(vr);
-        view.setControllers(pc, sg, dc);
+        //Create view models
+        LoadGameViewModel loadGameViewModel = new LoadGameViewModel();
+        TurnViewModel turnViewModel = new TurnViewModel();
 
-        playCard.getPresenter().setThreeView(new TemporaryThreeView(pc));
+        //Create views
+        LoadGameView loadGameView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameViewModel);
+        TurnView turnView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameView);
+        PlayCardView playCardView = new PlayCardView();
 
-        defaultView.requestAction();
+        // Add views to the main panel
+        mainPanel.add(loadGameView, "Load Game");
+        mainPanel.add(turnView, "Turn View");
+        mainPanel.add(playCardView, "Play Card");
+
+        // Sets the initial view
+        viewManagerModel.setActiveView("Load Game");
+
+        //Loads the application
+        application.pack();
+        application.setVisible(true);
     }
 }
+
+
