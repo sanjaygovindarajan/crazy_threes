@@ -11,6 +11,7 @@ import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.view_rules.*;
 import use_case.game_actions.NewGameInteractor;
 import use_case.game_actions.load_game.LoadGameOutputBoundary;
+import use_case.game_actions.read_rules.ReadRulesInputBoundary;
 import use_case.game_actions.read_rules.ReadRulesInteractor;
 
 import javax.swing.*;
@@ -20,6 +21,8 @@ import java.io.IOException;
  * Not used in Phase 1
  */
 public class NewGameUseCaseFactory {
+
+
 
     public static TurnView create(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, LoadGameView loadGameView){
         LoadGameController loadGameController = loadGameView.getController();
@@ -39,6 +42,16 @@ public class NewGameUseCaseFactory {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
         return null;
+    }
+
+    public static GamePanel createNewGame(ViewManagerModel viewManagerModel){
+        return new GamePanel(viewManagerModel, createUserReadRulesUseCase());
+    }
+
+    private static ReadRulesController createUserReadRulesUseCase(){
+        ReadRulesOutputBoundary readRulesOutputBoundary = new ReadRulesPresenter();
+        ReadRulesInputBoundary readRules = new ReadRulesInteractor(readRulesOutputBoundary);
+        return new ReadRulesController(readRules);
     }
 
     private static LoadGameController createUserLoadGameUseCase(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel) throws IOException {

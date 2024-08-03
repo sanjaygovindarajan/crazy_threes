@@ -10,7 +10,7 @@ import java.awt.*;
 
 /**
  * This is the Main file for Phase 2.
- * See the Main file for Phase 1 in the app package.
+ * It creates the views and the controllers.
  */
 public class Main {
     public static void main(String[] args) {
@@ -25,10 +25,8 @@ public class Main {
         application.add(mainPanel);
 
 
-        //Create view manager
+        //Create view manager model
         ViewManagerModel viewManagerModel = new ViewManagerModel();
-        ViewManager viewManager = new ViewManager(mainPanel, cardLayout, viewManagerModel);
-
 
         //Create view models
         LoadGameViewModel loadGameViewModel = new LoadGameViewModel();
@@ -37,16 +35,19 @@ public class Main {
         //Create views
         LoadGameView loadGameView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameViewModel);
         TurnView turnView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameView);
+        GamePanel gameView = NewGameUseCaseFactory.createNewGame(viewManagerModel);
 
         // Add views to the main panel
         mainPanel.add(loadGameView, "Load Game");
         mainPanel.add(turnView, "Turn View");
+        mainPanel.add(gameView, "New Game");
 
         // Sets the initial view
-        viewManagerModel.setActiveView("Load Game");
+        viewManagerModel.setActiveView("New Game");
 
         //Loads the application
-        application.pack();
+        application.setSize(800, 800);
+        application.setLocationRelativeTo(null);
         application.setVisible(true);
     }
 }

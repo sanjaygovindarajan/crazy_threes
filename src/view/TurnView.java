@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The view when a player has to play their turn
+ */
 public class TurnView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private final JButton saveButton;
@@ -56,16 +59,14 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         drawCardController = drawController;
         readRulesController = rulesController;
 
-        JPanel savePanel = new JPanel();
-        savePanel.add(instructions);
-        savePanel.add(gameName);
-        savePanel.add(saveButton);
 
-
-        JPanel drawPanel = new JPanel();
-        drawPanel.add(drawButton);
-        drawPanel.add(rulesButton);
-        drawPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(drawButton);
+        buttonsPanel.add(rulesButton);
+        buttonsPanel.add(instructions);
+        buttonsPanel.add(gameName);
+        buttonsPanel.add(saveButton);
+        buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         JPanel discardPanel = new JPanel();
         discardPanel.add(discard);
@@ -78,11 +79,15 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         drawButton.addActionListener(this);
         rulesButton.addActionListener(this);
 
-        add(savePanel);
         add(discardPanel);
         add(cardsPanel);
-        add(drawPanel);
+        add(buttonsPanel);
     }
+
+    /**
+     * Handles buttons being clicked
+     * @param e The click event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -108,12 +113,17 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
 
     }
 
+    /**
+     * Reloads the player's cards as well as the discard based on the view model data.
+     */
     public void resetCards(){
         clearCards();
 
         for(int i = 0;i < viewModel.getCardSuits().size();i++){
             JButton button = new JButton(getIcon(viewModel.getCardSuits().get(i), viewModel.getCardNums().get(i)));
             button.addActionListener(this);
+            button.setContentAreaFilled(false);
+            button.setBorderPainted(false);
             buttonList.add(button);
             cardsPanel.add(button);
         }
@@ -123,11 +133,20 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         repaint();
     }
 
+    /**
+     * Gets the image of the card that will be displayed.
+     * @param suit The suit of the card
+     * @param num The number of the card, as used by the API
+     * @return An ImageIcon of the image
+     */
     private ImageIcon getIcon(char suit, char num){
         BufferedImage image = resizeImage(APIAccess.getCard(suit, num), 0.5F);
         return new ImageIcon(image);
     }
 
+    /**
+     * Removes all the cards currently displayed in the player's hand on the view.
+     */
     private void clearCards(){
         for(JButton oldButton : buttonList){
             cardsPanel.remove(oldButton);
@@ -136,6 +155,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
     /**
+     * Resizes an image based on a scale.
      * Inspired by https://www.baeldung.com/java-resize-image
      * @param originalImage The original image
      * @param scale The factor to scale the image by

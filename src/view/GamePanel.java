@@ -1,16 +1,27 @@
 package view;
 
-import app.Main;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.view_rules.ReadRulesController;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Not used in Phase 1
+ * The initial view the user sees when they run the application.
  */
 public class GamePanel extends JPanel {
-    public GamePanel() {
-        setLayout(new GridLayout(5, 1));
+    private final ViewManagerModel viewManagerModel;
+    private final ReadRulesController readRulesController;
+
+    /**
+     * Builds a new view based on the view manager model and a controller for reading the rules.
+     * @param viewManagerModel The view manager model
+     * @param readRulesController The controller for viewing the rules
+     */
+    public GamePanel(ViewManagerModel viewManagerModel, ReadRulesController readRulesController) {
+        this.viewManagerModel = viewManagerModel;
+        this.readRulesController = readRulesController;
+        setLayout(new GridLayout(4, 1));
 
 
         JLabel titleLabel = new JLabel("Crazy Threes");
@@ -20,42 +31,24 @@ public class GamePanel extends JPanel {
 
         JButton newGameButton = new JButton("New Game");
         JButton loadGameButton = new JButton("Load Game");
-        JButton saveGameButton = new JButton("Save Game");
         JButton accessRulesButton = new JButton("Access Rules");
 
-        newGameButton.addActionListener(e -> {
+        newGameButton.addActionListener(_ -> {
             //update this line after the view of NewGame is implemented
             JOptionPane.showMessageDialog(null, "Start a new game!");
         });
 
-        loadGameButton.addActionListener(e -> Main.main(new String[]{}));
-
-        saveGameButton.addActionListener(e -> {
-             //update this line after the view of SaveGame is implemented
-            JOptionPane.showMessageDialog(null, "Game saved!");
+        loadGameButton.addActionListener(_ -> {
+            this.viewManagerModel.setActiveView("Load Game");
+            this.viewManagerModel.firePropertyChanged();
         });
 
-        accessRulesButton.addActionListener(e -> {
-            //update this line after the view of AccessRules is implemented
-            JOptionPane.showMessageDialog(null, "Accessing rules...");
+        accessRulesButton.addActionListener(_ -> {
+            this.readRulesController.execute();
         });
 
         add(newGameButton);
         add(loadGameButton);
-        add(saveGameButton);
         add(accessRulesButton);
-    }
-
-    public static void main(String[] args) {
-
-        JFrame frame = new JFrame("Crazy Threes");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        GamePanel panel = new GamePanel();
-        frame.getContentPane().add(panel);
-
-        frame.setSize(300, 300);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
     }
 }
