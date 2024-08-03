@@ -118,7 +118,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
     private ImageIcon getIcon(char suit, char num){
-        BufferedImage image = resizeImage(APIAccess.getCard(suit, num), 226 / 2, 314 / 2);
+        BufferedImage image = resizeImage(APIAccess.getCard(suit, num), 0.5F);
         return new ImageIcon(image);
     }
 
@@ -130,16 +130,17 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
     /**
-     * Credits: https://www.baeldung.com/java-resize-image
+     * Inspired by https://www.baeldung.com/java-resize-image
      * @param originalImage The original image
-     * @param targetWidth The new width of the image
-     * @param targetHeight The new height of the image
+     * @param scale The factor to scale the image by
      * @return The new BufferedImage
      */
-    private static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight){
-        BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+    private static BufferedImage resizeImage(BufferedImage originalImage, float scale){
+        int newWidth = (int) (originalImage.getWidth() * scale);
+        int newHeight = (int) (originalImage.getHeight() * scale);
+        BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = resizedImage.createGraphics();
-        graphics2D.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+        graphics2D.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
         graphics2D.dispose();
         return resizedImage;
     }
