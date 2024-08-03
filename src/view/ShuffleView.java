@@ -12,13 +12,13 @@ import java.beans.PropertyChangeListener;
 
 public class ShuffleView  extends JPanel implements ActionListener, PropertyChangeListener {
     private final JButton shuffleButton;
+    private final ShuffleController shuffleController;
 
-    private ShuffleController shuffleController;
 
     public ShuffleView(ShuffleController shuffleController) {
-        shuffleButton = new JButton("Shuffle Deck");
-        JLabel instructions = new JLabel("You cannot shuffle the deck until it is empty.");
+        this.shuffleController = shuffleController;
 
+        shuffleButton = new JButton("Shuffle Deck");
 
         JPanel shufflePanel = new JPanel();
         shufflePanel.add(shuffleButton);

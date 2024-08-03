@@ -3,15 +3,12 @@ package interface_adapter;
 import javax.swing.*;
 
 public class DrawCardPresenter extends StartGamePresenter implements DrawCardOutputBoundary{
+
+
     public DrawCardPresenter(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel){
         super(viewManagerModel, turnViewModel);
+
     }
-    /**
-     * Requests that the user shuffle the deck.
-     */
-    //TODO: Make this actually load the shuffle view
-    @Override
-    public void loadShuffleView(){}
 
     /**
      * Lets the user know they are not allowed to draw a card.
@@ -19,5 +16,16 @@ public class DrawCardPresenter extends StartGamePresenter implements DrawCardOut
     @Override
     public void loadUnableToDrawCard() {
         JOptionPane.showMessageDialog(null, "You are not allowed to do that!");
+
+    }
+
+
+    /**
+     * Requests that the user shuffle the deck.
+     */
+    @Override
+    public void loadShuffleView() {
+        this.viewManagerModel.setActiveView("Shuffle View");
     }
 }
+
