@@ -12,9 +12,7 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReadRulesInteractorTest {
-    TemporaryTurnView temporaryTurnView;
-    TemporaryDefaultView temporaryDefaultView;
-    ReadRulesOutputBoundary testOutput = new ReadRulesPresenter(temporaryTurnView, temporaryDefaultView);
+    ReadRulesOutputBoundary testOutput = new ReadRulesPresenter();
     ByteArrayOutputStream output = new ByteArrayOutputStream();
     @BeforeEach
     public void setUpStreams(){

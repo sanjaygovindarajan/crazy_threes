@@ -44,7 +44,7 @@ public class Main {
         shuffleView.setController(sh);
 
         TemporaryDefaultView defaultView = new TemporaryDefaultView(ng, lg);
-        ReadRulesInputBoundary viewRules = new ReadRulesInteractor(new ReadRulesPresenter(view, defaultView));
+        ReadRulesInputBoundary viewRules = new ReadRulesInteractor(new ReadRulesPresenter());
         ReadRulesController vr = new ReadRulesController(viewRules);
         defaultView.setViewRules(vr);
         view.setViewRules(vr);
