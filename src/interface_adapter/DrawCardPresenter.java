@@ -1,8 +1,5 @@
 package interface_adapter;
 
-import view.ShuffleView;
-
-
 import javax.swing.*;
 
 public class DrawCardPresenter extends StartGamePresenter implements DrawCardOutputBoundary{
