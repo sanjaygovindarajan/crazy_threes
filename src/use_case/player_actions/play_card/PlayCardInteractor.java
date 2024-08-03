@@ -30,6 +30,7 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
                 game.playCard(player, index);
             } else {
                 String[] suits = {"Spades", "Hearts", "Diamonds", "Clubs"};
+                //TODO: Refactor this into its own view
                 int response = JOptionPane.showOptionDialog(null,
                         "Looks like you played a three! Pick a new suit",
                         "Three played",
