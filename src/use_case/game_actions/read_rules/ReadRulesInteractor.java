@@ -37,8 +37,7 @@ public class ReadRulesInteractor implements ReadRulesInputBoundary {
             "specify a suit for it (but never a number). The next player must play either a card of the specified \n" +
             "suit or a three. \n" +
             "\n" +
-            "The player that runs out of cards wins! You can save your wins by saving the game and \n" +
-            "accumulate them by loading your game and play again with the same people. \n", gameStarted); //type out rules here (in empty string)
+            "The player that runs out of cards wins! \n", gameStarted); //type out rules here (in empty string)
     }
 
 }

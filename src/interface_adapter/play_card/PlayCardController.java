@@ -45,4 +45,8 @@ public class PlayCardController {
     public void playThree(char suit, String newSuit) {
         playCardInteractor.playThree(suit, newSuit.toUpperCase().charAt(0));
     }
+
+    public void switchView() {
+        playCardInteractor.switchView();
+    }
 }

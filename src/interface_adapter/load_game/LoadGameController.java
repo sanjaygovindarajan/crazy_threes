@@ -22,5 +22,9 @@ public class LoadGameController {
 
         newGame.loadGame(loadGameInputData);
     }
+
+    public NewGameInteractor getInteractor() {
+        return this.newGame;
+    }
 }
 

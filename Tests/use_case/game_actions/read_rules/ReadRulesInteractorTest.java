@@ -1,4 +1,4 @@
-package use_case.player_actions.draw_card.game_actions.read_rules;
+package use_case.game_actions.read_rules;
 
 import interface_adapter.view_rules.ReadRulesOutputBoundary;
 import interface_adapter.view_rules.ReadRulesPresenter;
@@ -49,8 +49,7 @@ class ReadRulesInteractorTest {
             "specify a suit for it (but never a number). The next player must play either a card of the specified \n" +
             "suit or a three. \n" +
             "\n" +
-            "The player that runs out of cards wins! You can save your wins by saving the game and \n" +
-            "accumulate them by loading your game and play again with the same people. \n"));
+            "The player that runs out of cards wins! \n"));
         }
         }
     }

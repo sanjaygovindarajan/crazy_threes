@@ -1,5 +1,6 @@
 package interface_adapter;
 
+import interface_adapter.load_game.LoadGameViewModel;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
 import view.*;
@@ -11,19 +12,19 @@ import java.util.Scanner;
  * Not located in start_game package because it is used by many use cases.
  */
 public class StartGamePresenter implements StartGameOutputBoundary {
-    private TemporaryThreeView threeView;
-    private StartGameViewModel startGameViewModel;
-    private ViewManagerModel viewManagerModel;
-    private TemporaryTurnView view;
-    private TemporaryShuffleView shuffle;
+    protected TemporaryThreeView threeView;
+    protected TurnViewModel turnViewModel;
+    protected ViewManagerModel viewManagerModel;
+    protected TemporaryTurnView view;
+    protected TemporaryShuffleView shuffle;
 
     /**
      * Constructor for Phase 2. Not currently used.
      * @param viewManagerModel View manager model
      * @param startGameViewModel Start Game View Model
      */
-    public StartGamePresenter(ViewManagerModel viewManagerModel, StartGameViewModel startGameViewModel){
-        this.startGameViewModel = startGameViewModel;
+    public StartGamePresenter(ViewManagerModel viewManagerModel, TurnViewModel startGameViewModel){
+        this.turnViewModel = startGameViewModel;
         this.viewManagerModel = viewManagerModel;
 
     }
@@ -53,6 +54,14 @@ public class StartGamePresenter implements StartGameOutputBoundary {
     }
 
     /**
+     * Presenter for Phase 2
+     * @param viewManagerModel
+     * @param loadGameViewModel
+     */
+    public StartGamePresenter(ViewManagerModel viewManagerModel, LoadGameViewModel loadGameViewModel) {
+    }
+
+    /**
      * Prints the player whose turn it is, their cards, the face-up card, and the current suit.
      * Switches the view to the next player's turn.
      * If the method is called as a test and there is no view, prints out "Test completed."
@@ -75,10 +84,13 @@ public class StartGamePresenter implements StartGameOutputBoundary {
             System.out.println("However, the suit was changed to " + suit);
         }
         try {
+            //Phase 1
             this.view.requestAction();
         } catch(NullPointerException e){
-            //Test mode, there is no view
-            System.out.println("Test completed");
+            //Phase 2
+            //Switch to the turn view
+            this.viewManagerModel.setActiveView("Turn View");
+            this.viewManagerModel.firePropertyChanged();
         }
     }
 
@@ -112,24 +124,6 @@ public class StartGamePresenter implements StartGameOutputBoundary {
         }
     }
 
-    /**
-     * Requests that the player choose a different suit.
-     * @param suit The current suit
-     */
-    @Override
-    public void loadThreeView(char suit) {
-        threeView.requestAction(suit);
-
-    }
-
-    /**
-     * Displays a win message declaring that the player has won.
-     * @param player The name of the player that won
-     */
-    @Override
-    public void winMessage(String player){
-        System.out.println("Congratulations " + player + " wins!");
-    }
 
     /**
      * Sets the view in the case that the player played a three.
@@ -138,25 +132,6 @@ public class StartGamePresenter implements StartGameOutputBoundary {
     @Override
     public void setThreeView(TemporaryThreeView view){
         this.threeView = view;
-    }
-
-    @Override
-    public void loadUnableToDrawCard() {
-        System.out.println("You are not allowed to draw a card if you have a playable card.");
-        try {
-            this.view.requestAction();
-        } catch(NullPointerException e){
-            //Test mode, there is no view
-            System.out.println("Test completed");
-        }
-    }
-
-    /**
-     * Requests that the user shuffle the deck.
-     */
-    @Override
-    public void loadShuffleView() {
-        this.shuffle.shuffle(new Scanner(System.in));
     }
 
     /**

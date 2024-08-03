@@ -2,8 +2,6 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Not used in Phase 1
@@ -28,7 +26,7 @@ public class GamePanel extends JPanel {
             JOptionPane.showMessageDialog(null, "Start a new game!");
         });
 
-        loadGameButton.addActionListener(e -> LoadGameMain.main(new String[]{}));
+        loadGameButton.addActionListener(e -> Main.main(new String[]{}));
 
         saveGameButton.addActionListener(e -> {
              //update this line after the view of SaveGame is implemented

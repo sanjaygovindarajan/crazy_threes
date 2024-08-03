@@ -1,15 +1,16 @@
 package interface_adapter.load_game;
 
+import interface_adapter.StartGamePresenter;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.save_game.SaveGamePresenter;
 import use_case.game_actions.load_game.LoadGameOutputBoundary;
 import use_case.game_actions.load_game.LoadGameOutputData;
 import view.TemporaryTurnView;
 
-public class LoadGamePresenter implements LoadGameOutputBoundary {
+public class LoadGamePresenter extends StartGamePresenter implements LoadGameOutputBoundary {
 
     private LoadGameViewModel loadGameViewModel;
     private TemporaryTurnView view;
-    private ViewManagerModel viewManagerModel;
 
     /**
      * The version of the constructor for Phase 2
@@ -29,12 +30,6 @@ public class LoadGamePresenter implements LoadGameOutputBoundary {
      */
     public LoadGamePresenter(TemporaryTurnView view){
         this.view = view;
-    }
-
-    @Override
-    public void prepareSuccessView(LoadGameOutputData loadGameOutputData) {
-        System.out.println("You load " + loadGameOutputData.getGameName() + " successfully");
-        view.requestAction();
     }
 
     public void prepareFailView(String error){
