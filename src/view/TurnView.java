@@ -27,14 +27,14 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
     private final JTextField gameName;
     private final JPanel cardsPanel;
     private List<JButton> buttonList;
-    private JLabel discard;
+    private final JLabel discard;
     private final TurnViewModel viewModel;
 
 
-    private SaveGameController saveGameController;
-    private PlayCardController playCardController;
-    private DrawCardController drawCardController;
-    private ReadRulesController readRulesController;
+    private final SaveGameController saveGameController;
+    private final PlayCardController playCardController;
+    private final DrawCardController drawCardController;
+    private final ReadRulesController readRulesController;
 
     public TurnView(SaveGameController saveController,
                     PlayCardController playController,
