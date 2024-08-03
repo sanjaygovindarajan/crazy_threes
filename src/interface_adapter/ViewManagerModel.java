@@ -4,7 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- * Not used in Phase 1
+ * Class for managing which view is actively shown.
  */
 public class ViewManagerModel {
     private String activeViewName;

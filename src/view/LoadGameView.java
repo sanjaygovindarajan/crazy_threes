@@ -10,10 +10,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * Not used in Phase 1
+ * View for loading a previous game.
  */
 public class LoadGameView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "Load Game";
 
     private final JTextField gameNameInputField = new JTextField(15);
     private final LoadGameController loadGameController;

@@ -3,9 +3,12 @@ package view;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Class for accessing the API.
+ * The API, from https://deckofcardsapi.com, is used for accessing card images.
+ */
 public class APIAccess {
     private static final String apiString = "https://deckofcardsapi.com/static/img/";
 

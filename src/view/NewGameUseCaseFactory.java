@@ -4,18 +4,15 @@ import data_access.DataAccess;
 import data_access.DataAccessInterface;
 import interface_adapter.*;
 import interface_adapter.draw_card.DrawCardController;
-import interface_adapter.load_game.LoadGameController;
-import interface_adapter.load_game.LoadGamePresenter;
-import interface_adapter.load_game.LoadGameViewModel;
-import interface_adapter.play_card.PlayCardController;
-import interface_adapter.play_card.PlayCardOutputBoundary;
-import interface_adapter.play_card.PlayCardPresenter;
-import interface_adapter.save_game.SaveGameController;
-import interface_adapter.save_game.SaveGameOutputBoundary;
-import interface_adapter.save_game.SaveGamePresenter;
+import interface_adapter.load_game.*;
+import interface_adapter.play_card.*;
+import interface_adapter.save_game.*;
 import interface_adapter.start_game.StartGameOutputBoundary;
+import interface_adapter.view_rules.*;
 import use_case.game_actions.NewGameInteractor;
 import use_case.game_actions.load_game.LoadGameOutputBoundary;
+import use_case.game_actions.read_rules.ReadRulesInputBoundary;
+import use_case.game_actions.read_rules.ReadRulesInteractor;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -25,13 +22,16 @@ import java.io.IOException;
  */
 public class NewGameUseCaseFactory {
 
+
+
     public static TurnView create(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, LoadGameView loadGameView){
         LoadGameController loadGameController = loadGameView.getController();
         NewGameInteractor interactor = loadGameController.getInteractor();
         SaveGameController saveGameController = new SaveGameController(interactor.getSaveGame());
         DrawCardController drawCardController = new DrawCardController(interactor.getDrawCard());
         PlayCardController playCardController = new PlayCardController(interactor.getPlayCard());
-        return new TurnView(saveGameController, playCardController, drawCardController, turnViewModel);
+        ReadRulesController readRulesController = new ReadRulesController(new ReadRulesInteractor(new ReadRulesPresenter()));
+        return new TurnView(saveGameController, playCardController, drawCardController, readRulesController, turnViewModel);
     }
 
     public static LoadGameView create(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, LoadGameViewModel loadGameViewModel) {
@@ -42,6 +42,16 @@ public class NewGameUseCaseFactory {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
         return null;
+    }
+
+    public static NewGameView createNewGame(ViewManagerModel viewManagerModel){
+        return new NewGameView(viewManagerModel, createUserReadRulesUseCase());
+    }
+
+    private static ReadRulesController createUserReadRulesUseCase(){
+        ReadRulesOutputBoundary readRulesOutputBoundary = new ReadRulesPresenter();
+        ReadRulesInputBoundary readRules = new ReadRulesInteractor(readRulesOutputBoundary);
+        return new ReadRulesController(readRules);
     }
 
     private static LoadGameController createUserLoadGameUseCase(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel) throws IOException {
