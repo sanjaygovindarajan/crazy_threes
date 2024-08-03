@@ -12,14 +12,9 @@ public class RulesDataAccess implements RulesDataAccessInterface{
      * Scans an external file for the rules of the game
      * @return A String of the rules
      */
-    public String scanRules(){
-        rules = "";
-        try {
-            rules = Files.readString(Path.of(rulesFile.getPath()));
-        } catch (IOException e) {
-            System.out.println("File not found");
-            e.printStackTrace();
-        }
-        return String.valueOf(rules);
+    public String scanRules() throws IOException{
+
+        rules = Files.readString(Path.of(rulesFile.getPath()));
+        return rules;
     }
 }

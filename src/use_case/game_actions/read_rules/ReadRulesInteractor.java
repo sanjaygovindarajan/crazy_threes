@@ -3,6 +3,8 @@ package use_case.game_actions.read_rules;
 import data_access.RulesDataAccess;
 import interface_adapter.view_rules.ReadRulesOutputBoundary;
 
+import java.io.IOException;
+
 public class ReadRulesInteractor implements ReadRulesInputBoundary {
     final ReadRulesOutputBoundary presenter;
 
@@ -15,11 +17,15 @@ public class ReadRulesInteractor implements ReadRulesInputBoundary {
      * Displays rules based on a fixed string.
      */
     @Override
-    public void execute(boolean gameStarted) {
+    public void execute() {
         String rules;
         RulesDataAccess rulesDataAccess = new RulesDataAccess();
-        rules = rulesDataAccess.scanRules();
-        presenter.prepareSuccessView(String.valueOf(rules));
+        try {
+            rules = rulesDataAccess.scanRules();
+            presenter.prepareSuccessView(String.valueOf(rules));
+        } catch(IOException e){
+            presenter.prepareFailView();
+        }
     }
 
 }

@@ -11,4 +11,9 @@ public class ReadRulesPresenter implements ReadRulesOutputBoundary {
     public void prepareSuccessView(String message) {
         JOptionPane.showMessageDialog(null, message);
     }
+
+    @Override
+    public void prepareFailView() {
+        JOptionPane.showMessageDialog(null, "ERROR: Rules not found");
+    }
 }
