@@ -33,7 +33,7 @@ public class DrawCardPresenter extends StartGamePresenter implements DrawCardOut
     @Override
     public void loadShuffleView() {
         ShuffleView shuffleView = new ShuffleView(shuffleController, gameInterface);
-        ViewManagerModel.setActiveView(shuffleView);
+        viewManagerModel.setActiveView(shuffleView);
     }
 }
 
