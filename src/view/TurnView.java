@@ -37,6 +37,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
                     DrawCardController drawController,
                     TurnViewModel viewModel){
         this.viewModel = viewModel;
+        viewModel.addPropertyChangeListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -90,19 +91,33 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        //Get rid of the old cards
-        for(JButton oldButton : buttonList){
-            remove(oldButton);
+        if(evt.getSource() == viewModel){
+            resetCards();
         }
-        this.buttonList = new LinkedList<>();
-        //Add new cards
+
+    }
+
+    public void resetCards(){
+        clearCards();
+
         for(int i = 0;i < viewModel.getCardSuits().size();i++){
-            JButton button = new JButton(viewModel.getCardSuits().get(i) + viewModel.getCardNums().get(i));
+            JButton button = new JButton(getIcon(viewModel.getCardSuits().get(i), viewModel.getCardNums().get(i)));
             button.addActionListener(this);
             buttonList.add(button);
             add(button);
         }
         //Add new discard
-        discard.setText(viewModel.getDiscardSuit() + viewModel.getDiscardNum());
+        discard.setIcon(getIcon(viewModel.getDiscardSuit(), viewModel.getDiscardNum()));
+    }
+
+    private ImageIcon getIcon(char suit, char num){
+        return new ImageIcon(APIAccess.getCard(suit, num));
+    }
+
+    private void clearCards(){
+        for(JButton oldButton : buttonList){
+            remove(oldButton);
+        }
+        this.buttonList = new LinkedList<>();
     }
 }

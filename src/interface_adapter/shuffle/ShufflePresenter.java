@@ -1,9 +1,6 @@
 package interface_adapter.shuffle;
 
 
-import view.TemporaryTurnView;
-
-
 /**
  * Formats and presents the result of shuffling a deck operation.
  * Implements the ShuffleOutputBoundary interface to handle the shuffling

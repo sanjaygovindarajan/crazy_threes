@@ -3,9 +3,7 @@ package use_case.game_actions.read_rules;
 import interface_adapter.view_rules.ReadRulesOutputBoundary;
 import interface_adapter.view_rules.ReadRulesPresenter;
 import org.junit.jupiter.api.BeforeEach;
-import use_case.game_actions.read_rules.ReadRulesInteractor;
-import view.TemporaryDefaultView;
-import view.TemporaryTurnView;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 

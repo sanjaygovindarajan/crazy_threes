@@ -19,4 +19,8 @@ public interface PlayCardOutputBoundary extends StartGameOutputBoundary {
      * @param suit The current suit
      */
     void loadThreeView(char suit);
+
+    void loadInvalidCardView();
+
+    void loadMissingCardView();
 }

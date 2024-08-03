@@ -2,10 +2,7 @@ package interface_adapter.load_game;
 
 import interface_adapter.StartGamePresenter;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.save_game.SaveGamePresenter;
 import use_case.game_actions.load_game.LoadGameOutputBoundary;
-import use_case.game_actions.load_game.LoadGameOutputData;
-import view.TemporaryTurnView;
 
 public class LoadGamePresenter extends StartGamePresenter implements LoadGameOutputBoundary {
 

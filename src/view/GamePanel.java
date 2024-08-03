@@ -1,5 +1,7 @@
 package view;
 
+import app.Main;
+
 import javax.swing.*;
 import java.awt.*;
 

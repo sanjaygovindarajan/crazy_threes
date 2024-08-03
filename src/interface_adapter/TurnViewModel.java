@@ -7,39 +7,47 @@ import java.beans.PropertyChangeSupport;
 import java.util.*;
 
 public class TurnViewModel {
-    private List<String> cardSuits;
-    private List<String> cardNums;
-    private String discardSuit;
-    private String discardNum;
+    private List<Character> cardSuits;
+    private List<Character> cardNums;
+    private char discardSuit;
+    private char discardNum;
+    private String playerName;
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public void setCardSuits(List<String> suits){
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public void setCardSuits(List<Character> suits){
         cardSuits = suits;
     }
-    public void setCardNums(List<String> nums){
+
+    public void setCardNums(List<Character> nums){
         cardNums = nums;
     }
 
-    public void setDiscardSuit(String suit){
+    public void setDiscardSuit(char suit){
         discardSuit = suit;
     }
 
-    public void setDiscardNum(String num){
+    public void setDiscardNum(char num){
         discardNum = num;
     }
 
-    public List<String> getCardNums(){
+    public List<Character> getCardNums(){
         return this.cardNums;
     }
-
-    public List<String> getCardSuits(){
+    public String getPlayerName(){
+        return this.playerName;
+    }
+    public List<Character> getCardSuits(){
         return this.cardSuits;
     }
-    public String getDiscardSuit(){
+    public char getDiscardSuit(){
         return this.discardSuit;
     }
-    public String getDiscardNum(){
+    public char getDiscardNum(){
         return this.discardNum;
     }
 
