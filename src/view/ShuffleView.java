@@ -13,12 +13,11 @@ import java.beans.PropertyChangeListener;
 
 public class ShuffleView  extends JPanel implements ActionListener, PropertyChangeListener {
     private final JButton shuffleButton;
-    private final JPanel cannotShufflePanel;
 
     private ShuffleController shuffleController;
     private GameInterface gameInterface;
 
-    public ShuffleView(JPanel cannotShufflePanel) {
+    public ShuffleView(ShuffleController shuffleController, GameInterface gameInterface) {
         shuffleButton = new JButton("Shuffle Deck");
         JLabel instructions = new JLabel("You cannot shuffle the deck until it is empty.");
 
@@ -28,16 +27,6 @@ public class ShuffleView  extends JPanel implements ActionListener, PropertyChan
         shufflePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         shuffleButton.addActionListener(this);
 
-
-        this.cannotShufflePanel = new JPanel();
-        cannotShufflePanel.add(instructions);
-        cannotShufflePanel.setVisible(false);
-
-        setLayout(new BorderLayout());
-        add(shufflePanel, BorderLayout.NORTH);
-        add(cannotShufflePanel, BorderLayout.SOUTH);
-
-        add(this.cannotShufflePanel);
     }
 
 
@@ -45,15 +34,7 @@ public class ShuffleView  extends JPanel implements ActionListener, PropertyChan
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if(source == shuffleButton){
-            Deck currentDeck = gameInterface.getDeck();
-            if (currentDeck.getCardList().isEmpty()){
-                shuffleController.execute();
-                cannotShufflePanel.setVisible(false);
-            } else {
-                cannotShufflePanel.setVisible(true);
-            }
-            revalidate();
-            repaint();
+            shuffleController.execute();
             }
         }
 
