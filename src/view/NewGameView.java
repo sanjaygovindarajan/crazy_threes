@@ -34,8 +34,8 @@ public class NewGameView extends JPanel {
         JButton accessRulesButton = new JButton("Access Rules");
 
         newGameButton.addActionListener(_ -> {
-            //update this line after the view of NewGame is implemented
-            JOptionPane.showMessageDialog(null, "Start a new game!");
+            //TODO: update this line after the view of NewGame is implemented
+            JOptionPane.showMessageDialog(null, "Not implemented!");
         });
 
         loadGameButton.addActionListener(_ -> {

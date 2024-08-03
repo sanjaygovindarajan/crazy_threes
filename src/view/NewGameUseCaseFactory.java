@@ -44,8 +44,8 @@ public class NewGameUseCaseFactory {
         return null;
     }
 
-    public static GamePanel createNewGame(ViewManagerModel viewManagerModel){
-        return new GamePanel(viewManagerModel, createUserReadRulesUseCase());
+    public static NewGameView createNewGame(ViewManagerModel viewManagerModel){
+        return new NewGameView(viewManagerModel, createUserReadRulesUseCase());
     }
 
     private static ReadRulesController createUserReadRulesUseCase(){
