@@ -35,7 +35,7 @@ public class Main {
         //Create views
         LoadGameView loadGameView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameViewModel);
         TurnView turnView = NewGameUseCaseFactory.create(viewManagerModel, turnViewModel, loadGameView);
-        GamePanel gameView = NewGameUseCaseFactory.createNewGame(viewManagerModel);
+        NewGameView gameView = NewGameUseCaseFactory.createNewGame(viewManagerModel);
 
         // Add views to the main panel
         mainPanel.add(loadGameView, "Load Game");

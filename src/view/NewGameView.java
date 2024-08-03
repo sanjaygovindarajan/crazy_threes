@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * The initial view the user sees when they run the application.
  */
-public class GamePanel extends JPanel {
+public class NewGameView extends JPanel {
     private final ViewManagerModel viewManagerModel;
     private final ReadRulesController readRulesController;
 
@@ -18,7 +18,7 @@ public class GamePanel extends JPanel {
      * @param viewManagerModel The view manager model
      * @param readRulesController The controller for viewing the rules
      */
-    public GamePanel(ViewManagerModel viewManagerModel, ReadRulesController readRulesController) {
+    public NewGameView(ViewManagerModel viewManagerModel, ReadRulesController readRulesController) {
         this.viewManagerModel = viewManagerModel;
         this.readRulesController = readRulesController;
         setLayout(new GridLayout(4, 1));
