@@ -27,6 +27,7 @@ public class Main {
 
         //Create view manager model
         ViewManagerModel viewManagerModel = new ViewManagerModel();
+        ViewManager viewManager = new ViewManager(mainPanel, cardLayout, viewManagerModel);
 
         //Create view models
         LoadGameViewModel loadGameViewModel = new LoadGameViewModel();
@@ -38,9 +39,10 @@ public class Main {
         NewGameView gameView = NewGameUseCaseFactory.createNewGame(viewManagerModel);
 
         // Add views to the main panel
+        mainPanel.add(gameView, "New Game");
         mainPanel.add(loadGameView, "Load Game");
         mainPanel.add(turnView, "Turn View");
-        mainPanel.add(gameView, "New Game");
+
 
         // Sets the initial view
         viewManagerModel.setActiveView("New Game");
