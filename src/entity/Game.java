@@ -55,7 +55,7 @@ public class Game implements GameInterface{
         dealCards();
         try {
             discard.addCard(deck.dealCard());
-        } catch (MissingCardException _){
+        } catch (MissingCardException e){
         }
     }
 

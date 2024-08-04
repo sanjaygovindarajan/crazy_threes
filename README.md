@@ -1,6 +1,7 @@
 # Crazy three's
 Objectively the best CSC207 project ever created
 This is a multiplayer card game based on the same computer.
+It is a variation of the classic game Crazy 8's, except it uses 3's as suit changing cards instead of 8's.
 The players can choose to play against each other and/or bots.
 Once the game starts, the program shuffles the deck and hands out the starting hands out the starign hands to the Players.
 Each player must play a card or draw a card from the Deck
