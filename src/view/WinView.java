@@ -4,24 +4,32 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import interface_adapter.*;
 
 /**
  * Represents the view shown when the player wins the game.
  * This panel displays a congratulatory message and a button to start a new game.
  */
-public class WinView extends JPanel implements ActionListener{
+public class WinView extends JPanel implements ActionListener, PropertyChangeListener {
     private final WinViewModel winViewModel;
-    private JButton newGameButton;
+    private final ViewManagerModel viewManagerModel;
+    private final JButton newGameButton;
+    private final JLabel winMessage;
 
     /**
      * Constructs a WinView screen with a congratulatory message and a new game button.
+     * @param winViewModel
      * @param viewManagerModel the model that manages the game views and actions
      */
-    public WinView(WinViewModel winViewModel) {
+    public WinView(WinViewModel winViewModel, ViewManagerModel viewManagerModel) {
         this.winViewModel = winViewModel;
+        this.viewManagerModel = viewManagerModel;
         setLayout(new GridLayout(4, 1));
 
-        JLabel winMessage = new JLabel("Congratulations! You won!", SwingConstants.CENTER);
+        winMessage = new JLabel("Congratulations! You won!", SwingConstants.CENTER);
         winMessage.setFont(new Font("Arial", Font.BOLD, 30));
         add(winMessage, BorderLayout.CENTER);
 
@@ -39,8 +47,14 @@ public class WinView extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == newGameButton) {
-            winViewModel.requestNewGame();
+            viewManagerModel.setActiveView("New Game");
         }
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if(evt.getPropertyName().equals("winning player")){
+            winMessage.setText("Congratuations, " + winViewModel.getWinner() + "! You win!");
+        }
+    }
 }

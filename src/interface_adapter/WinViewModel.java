@@ -8,7 +8,7 @@ import java.beans.PropertyChangeSupport;
  */
 public class WinViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private boolean newGameRequested;
+    private String winner;
 
     /**
      * Adds a property change listener.
@@ -18,27 +18,11 @@ public class WinViewModel {
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-    
-    /**
-     * Handles the request to start a new game.
-     */
-    public void requestNewGame() {
-        newGameRequested = true;
-        support.firePropertyChange("newGame", false, true);
-    }
 
-    /**
-     * Checks if a new game was requested.
-     * @return True if a new game was requested, otherwise false.
-     */
-    public boolean isNewGameRequested() {
-        return newGameRequested;
+    public void setWinner(String winner) {
+        this.winner = winner;
     }
-
-    /**
-     * Resets the state of the WinViewModel.
-     */
-    public void reset() {
-        newGameRequested = false;
+    public String getWinner() {
+        return winner;
     }
 }
