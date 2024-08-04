@@ -32,6 +32,7 @@ public class PlayCardPresenter extends StartGamePresenter implements PlayCardOut
     @Override
     public void winMessage(String player){
         winViewModel.setWinner(player);
+        viewManagerModel.setActiveView("Win View");
     }
 
 }
