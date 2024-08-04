@@ -17,17 +17,60 @@ import java.util.Scanner;
 public class StartGamePresenter implements StartGameOutputBoundary {
     protected TurnViewModel turnViewModel;
     protected ViewManagerModel viewManagerModel;
+    protected WinViewModel winViewModel;
+    protected NameInputViewModel nameInputViewModel; // **Added for player name input**
+    private List<Player> players;
 
     /**
      * Constructor for Phase 2. Not currently used.
      * @param viewManagerModel View manager model
      * @param startGameViewModel Start Game View Model
+     * @param winViewModel Win View Model
+     * @param nameInputViewModel Name Input View Model
      */
-    public StartGamePresenter(ViewManagerModel viewManagerModel, TurnViewModel startGameViewModel){
+    public StartGamePresenter(ViewManagerModel viewManagerModel, TurnViewModel startGameViewModel,
+                              WinViewModel winViewModel, NameInputViewModel nameInputViewModel){
         this.turnViewModel = startGameViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.winViewModel = winViewModel;
+        this.nameInputViewModel = nameInputViewModel;
+
+        this.winViewModel.addPropertyChangeListener(evt -> {
+            if ("newGame".equals(evt.getPropertyName()) && Boolean.TRUE.equals(evt.getNewValue())) {
+                startNewGame();
+            }
+        });
+
+        this.nameInputViewModel.addPropertyChangeListener(evt -> {
+            if ("players".equals(evt.getPropertyName())) {
+                Player[] playerArray = (Player[]) evt.getNewValue();
+                players = new ArrayList<>();
+                for (Player player : playerArray) {
+                    players.add(player);
+                }
+                if (players == null || players.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No players have been entered.");
+                    return;
+                }
+                viewManagerModel.setActiveView("Game View");
+
+            }
+        });
 
     }
+
+    }
+
+//    UNSURE ABOUT THIS PART
+//    /**
+//     * Starts a new game when requested
+//     */
+//    private void startNewGame() {
+//        // start a new game
+//        // Update view to show the name input screen again or game view
+//        viewManagerModel.setActiveView("Name Input View");
+//    }
+//
 
     /**
      * Empty constructor used for testing purposes.
