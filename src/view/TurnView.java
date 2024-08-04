@@ -113,7 +113,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
                 int index = buttonList.indexOf((JButton) source);
                 playCardController.playCard(index);
             }
-        };
+        }
     }
 
     @Override
