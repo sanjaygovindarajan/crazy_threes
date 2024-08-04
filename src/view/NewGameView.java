@@ -25,13 +25,16 @@ public class NewGameView extends JPanel {
 
 
         JLabel titleLabel = new JLabel("Crazy Threes");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 40));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel);
 
         JButton newGameButton = new JButton("New Game");
+        newGameButton.setFont(new Font("Arial", Font.PLAIN, 24));
         JButton loadGameButton = new JButton("Load Game");
+        loadGameButton.setFont(new Font("Arial", Font.PLAIN, 24));
         JButton accessRulesButton = new JButton("Access Rules");
+        accessRulesButton.setFont(new Font("Arial", Font.PLAIN, 24));
 
         newGameButton.addActionListener(_ -> {
             //TODO: update this line after the view of NewGame is implemented
