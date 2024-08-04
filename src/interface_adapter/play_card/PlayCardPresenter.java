@@ -3,12 +3,15 @@ package interface_adapter.play_card;
 import interface_adapter.StartGamePresenter;
 import interface_adapter.TurnViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.WinViewModel;
 
 import javax.swing.*;
 
 public class PlayCardPresenter extends StartGamePresenter implements PlayCardOutputBoundary {
-    public PlayCardPresenter(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel) {
+    WinViewModel winViewModel;
+    public PlayCardPresenter(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel) {
         super(viewManagerModel, turnViewModel);
+        this.winViewModel = winViewModel;
     }
 
 
@@ -28,7 +31,8 @@ public class PlayCardPresenter extends StartGamePresenter implements PlayCardOut
      */
     @Override
     public void winMessage(String player){
-        System.out.println("Congratulations " + player + " wins!");
+        winViewModel.setWinner(player);
+        viewManagerModel.setActiveView("Win View");
     }
 
 }
