@@ -95,7 +95,7 @@ public class StartGamePresenter implements StartGameOutputBoundary {
         return card.replace("10","0")
                 .replace("11","J")
                 .replace("12","Q")
-                .replace("13","Q")
+                .replace("13","K")
                 .replace("14","A");
     }
 

@@ -4,6 +4,8 @@ import use_case.game_actions.NewGameInteractor;
 import use_case.game_actions.start_game.StartGameInputBoundary;
 import use_case.game_actions.start_game.StartGameInputData;
 
+import java.util.List;
+
 public class StartGameController {
     NewGameInteractor newGame;
     StartGameInputBoundary startGame;
@@ -12,7 +14,8 @@ public class StartGameController {
         this.startGame = newGame.getStartGame();
     }
 
-    public void execute(String userInput){
-        newGame.startGame(new StartGameInputData(userInput.split(" ")));
+    public void execute(List<String> userInput){
+        String[] playersArray = new String[userInput.size()];
+        newGame.startGame(new StartGameInputData(userInput.toArray(playersArray)));
     }
 }
