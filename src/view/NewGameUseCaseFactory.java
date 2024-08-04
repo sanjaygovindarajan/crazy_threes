@@ -76,10 +76,13 @@ public class NewGameUseCaseFactory {
         return new NewGameView(viewManagerModel, createUserReadRulesUseCase());
     }
 
+    /** Creates a new InputPlayersView
+     * @param interactor The NewGameInteractor
+     * @return A new InputPlayersView
+     */
     public static InputPlayersView createInputPlayers(NewGameInteractor interactor) {
         return new InputPlayersView(createUserStartGameUseCase(interactor));
     }
-
 
     /**
      * Creates a new WinView
@@ -90,7 +93,6 @@ public class NewGameUseCaseFactory {
     public static WinView createWinView(ViewManagerModel viewManagerModel, WinViewModel winViewModel){
         return new WinView(winViewModel, viewManagerModel);
     }
-
 
     /**
      * Creates a new controller for the read rules use case
