@@ -38,6 +38,8 @@ public class WinView extends JPanel implements ActionListener, PropertyChangeLis
         add(newGameButton, BorderLayout.SOUTH);
         newGameButton.addActionListener(this);
 
+        winViewModel.addPropertyChangeListener(this);
+
     }
 
     /**
