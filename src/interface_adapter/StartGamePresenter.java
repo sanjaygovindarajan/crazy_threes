@@ -23,11 +23,21 @@ public class StartGamePresenter implements StartGameOutputBoundary {
      * @param viewManagerModel View manager model
      * @param startGameViewModel Start Game View Model
      */
-    public StartGamePresenter(ViewManagerModel viewManagerModel, TurnViewModel startGameViewModel){
+    public StartGamePresenter(ViewManagerModel viewManagerModel, TurnViewModel startGameViewModel) {
         this.turnViewModel = startGameViewModel;
         this.viewManagerModel = viewManagerModel;
-
     }
+
+//    UNSURE ABOUT THIS PART
+//    /**
+//     * Starts a new game when requested
+//     */
+//    private void startNewGame() {
+//        // start a new game
+//        // Update view to show the name input screen again or game view
+//        viewManagerModel.setActiveView("Name Input View");
+//    }
+//
 
     /**
      * Empty constructor used for testing purposes.
@@ -46,7 +56,7 @@ public class StartGamePresenter implements StartGameOutputBoundary {
         turnViewModel.setPlayerName(data.getPlayerName());
         List<Character> cardSuits = new ArrayList<>();
         List<Character> cardNum = new ArrayList<>();
-        for(String card : data.getPlayerCards().split(",")){
+        for (String card : data.getPlayerCards().split(",")) {
             cardSuits.add(card.charAt(0));
             char num = changeCardNumber(card).charAt(1);
             cardNum.add(num);
@@ -56,7 +66,7 @@ public class StartGamePresenter implements StartGameOutputBoundary {
         turnViewModel.setDiscardSuit(data.getCard().charAt(0));
         char num = changeCardNumber(data.getCard()).charAt(1);
         turnViewModel.setDiscardNum(num);
-        if(data.getCard().charAt(1) == '3'){
+        if (data.getCard().charAt(1) == '3') {
             String suit = Character.toString(data.getCurrentSuit());
             suit = suit.replace("S", "spades");
             suit = suit.replace("C", "clubs");

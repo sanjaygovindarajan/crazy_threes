@@ -57,9 +57,9 @@ public class NewGameUseCaseFactory {
      * @param loadGameViewModel The LoadGameViewModel
      * @return A LoadGameView
      */
-    public static LoadGameView createLoadGameView(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, LoadGameViewModel loadGameViewModel) {
+    public static LoadGameView createLoadGameView(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, LoadGameViewModel loadGameViewModel, WinViewModel winViewModel) {
         try {
-            LoadGameController loadGameController = createUserLoadGameUseCase(viewManagerModel, turnViewModel);
+            LoadGameController loadGameController = createUserLoadGameUseCase(viewManagerModel, turnViewModel, winViewModel);
             return new LoadGameView(loadGameController, loadGameViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -106,8 +106,8 @@ public class NewGameUseCaseFactory {
      * @return A LoadGameController
      * @throws IOException Faulty data access
      */
-    private static LoadGameController createUserLoadGameUseCase(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel) throws IOException {
-        NewGameInteractor newGame = createNewGameInteractor(viewManagerModel, turnViewModel);
+    private static LoadGameController createUserLoadGameUseCase(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel) throws IOException {
+        NewGameInteractor newGame = createNewGameInteractor(viewManagerModel, turnViewModel, winViewModel);
         return new LoadGameController(newGame);
     }
 
@@ -117,12 +117,12 @@ public class NewGameUseCaseFactory {
      * @param turnViewModel The turn view model
      * @return A NewGameInteractor
      */
-    private static NewGameInteractor createNewGameInteractor(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel) {
+    private static NewGameInteractor createNewGameInteractor(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel) {
         DataAccessInterface userDataAccessObject = new DataAccess() {
         };
         LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, turnViewModel);
         SaveGameOutputBoundary saveGameOutputBoundary = new SaveGamePresenter();
-        PlayCardOutputBoundary playCardOutputBoundary = new PlayCardPresenter(viewManagerModel, turnViewModel);
+        PlayCardOutputBoundary playCardOutputBoundary = new PlayCardPresenter(viewManagerModel, turnViewModel, winViewModel);
         StartGameOutputBoundary startGameOutputBoundary = new StartGamePresenter(viewManagerModel, turnViewModel);
         DrawCardOutputBoundary drawCardOutputBoundary = new DrawCardPresenter(viewManagerModel, turnViewModel);
         ShuffleOutputBoundary shuffleOutputBoundary = new ShufflePresenter(viewManagerModel);
