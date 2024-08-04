@@ -17,7 +17,7 @@ public class WinView extends JPanel implements ActionListener{
      * Constructs a WinView screen with a congratulatory message and a new game button.
      * @param viewManagerModel the model that manages the game views and actions
      */
-    public WinView(ViewManagerModel viewManagerModel) {
+    public WinView(WinViewModel winViewModel) {
         this.winViewModel = winViewModel;
         setLayout(new GridLayout(4, 1));
 
