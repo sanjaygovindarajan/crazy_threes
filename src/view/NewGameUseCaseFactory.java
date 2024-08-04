@@ -76,6 +76,10 @@ public class NewGameUseCaseFactory {
         return new NewGameView(viewManagerModel, createUserReadRulesUseCase());
     }
 
+    public static InputPlayersView createInputPlayers(NewGameInteractor interactor) {
+        return new InputPlayersView(createUserStartGameUseCase(interactor));
+    }
+
     /**
      * Creates a new controller for the read rules use case
      * @return A ReadRulesController
@@ -88,13 +92,11 @@ public class NewGameUseCaseFactory {
 
     /**
      * Creates a new controller for the start game use case
-     * @param viewManagerModel The view manager model
-     * @param turnViewModel The turn view model
+     * @param interactor The new game interactor
      * @return A StartGameController
      */
-    private static StartGameController createUserStartGameUseCase(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel){
-        NewGameInteractor newGame = createNewGameInteractor(viewManagerModel, turnViewModel);
-        return new StartGameController(newGame);
+    private static StartGameController createUserStartGameUseCase(NewGameInteractor interactor){
+        return new StartGameController(interactor);
     }
 
     /**

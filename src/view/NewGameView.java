@@ -37,13 +37,11 @@ public class NewGameView extends JPanel {
         accessRulesButton.setFont(new Font("Arial", Font.PLAIN, 24));
 
         newGameButton.addActionListener(_ -> {
-            //TODO: update this line after the view of NewGame is implemented
-            JOptionPane.showMessageDialog(null, "Not implemented!");
+            this.viewManagerModel.setActiveView("Input Players");
         });
 
         loadGameButton.addActionListener(_ -> {
             this.viewManagerModel.setActiveView("Load Game");
-            this.viewManagerModel.firePropertyChanged();
         });
 
         accessRulesButton.addActionListener(_ -> {
