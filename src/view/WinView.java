@@ -53,10 +53,14 @@ public class WinView extends JPanel implements ActionListener, PropertyChangeLis
         }
     }
 
+    /**
+     * Updates the congratulatory message when the winner changes.
+     * @param evt the property change event containing the new winner's name
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals("winning player")){
-            winMessage.setText("Congratuations, " + winViewModel.getWinner() + "! You win!");
+            winMessage.setText("Congratulations, " + winViewModel.getWinner() + "! You win!");
         }
     }
 }
