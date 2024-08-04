@@ -1,6 +1,5 @@
 package view;
 
-import entity.GameInterface;
 import interface_adapter.shuffle.ShuffleController;
 
 import javax.swing.*;
@@ -16,7 +15,7 @@ public class ShuffleView  extends JPanel implements ActionListener, PropertyChan
 
     /**
      * The view when a player has to shuffle the deck
-     * @param shuffleController controller for shuffling the deck
+     * @param shuffleController controller for shuffling the deck.
      */
     public ShuffleView(ShuffleController shuffleController) {
         this.shuffleController = shuffleController;
