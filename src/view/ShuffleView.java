@@ -16,7 +16,7 @@ public class ShuffleView  extends JPanel implements ActionListener, PropertyChan
 
     /**
      * The view when a player has to shuffle the deck
-     * @param shuffleController
+     * @param shuffleController controller for shuffling the deck
      */
     public ShuffleView(ShuffleController shuffleController) {
         this.shuffleController = shuffleController;
