@@ -29,7 +29,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
             if (userDataAccessObject != null) {
                 List<String> gamesList = userDataAccessObject.loadGames();
                 for(String gameStr : gamesList) {
-                    if(gameStr.split(":")[0].equals(name)){
+                    if(gameStr.split("&")[0].trim().equals(name)){
                         game = readGame(gameStr);
                     }
                 }
@@ -81,7 +81,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
      * @return A Game object with attributes based on the input
      */
     private GameInterface readGame(String gameString){
-        String[] gameArray = gameString.split(":");
+        String[] gameArray = gameString.split("&");
         Deck deck = new Deck(readCardCollection(gameArray[1]));
         DeckDisposed discard = new DeckDisposed(readCardCollection(gameArray[2]));
         String[] playerArray = gameArray[3].split("/");

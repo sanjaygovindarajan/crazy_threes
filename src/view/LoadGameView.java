@@ -1,5 +1,8 @@
 package view;
 
+
+import data_access.DataAccess;
+import data_access.DataAccessInterface;
 import interface_adapter.load_game.LoadGameController;
 import interface_adapter.load_game.LoadGameViewModel;
 
@@ -8,65 +11,77 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * View for loading a previous game.
  */
-public class LoadGameView extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoadGameView extends JPanel implements PropertyChangeListener {
 
-    private final JTextField gameNameInputField = new JTextField(15);
     private final LoadGameController loadGameController;
+    private final JList<String> gameList;
+    DataAccessInterface dataAccess = new DataAccess("src/data_access/database.txt");
 
-    private final JButton loadGameButton = new JButton("Load Game");
-
-    public LoadGameView(LoadGameController controller, LoadGameViewModel loadGameViewModel) {
+    public LoadGameView(LoadGameController controller, LoadGameViewModel loadGameViewModel) throws IOException {
         this.loadGameController = controller;
         loadGameViewModel.addPropertyChangeListener(this);
 
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Type the name of the game");
+        JLabel titleLabel = new JLabel("Select a game to load");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new FlowLayout());
+        List<String> games = dataAccess.loadGames();
+        List<String> gameNames = new ArrayList<>();
+        for (String game : games) {
+            String[] parts = game.split("&");
+            if (parts.length > 0) {
+                gameNames.add(parts[0] + "              " + parts[parts.length - 1]);
+            }
+        }
+        gameList = new JList<>(gameNames.toArray(new String[0]));
+        gameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        inputPanel.add(new JLabel("Game Name:"));
-        inputPanel.add(gameNameInputField);
-        inputPanel.add(loadGameButton);
+        // Set the font size of the game list
+        gameList.setFont(new Font(gameList.getFont().getName(), gameList.getFont().getStyle(), 18));
+
+        // Add JList to a JScrollPane and add it to the panel
+        JPanel listPanel = new JPanel();
+        listPanel.setLayout(new BorderLayout());
+
+        JLabel listTitleLabel = new JLabel("Games in Database");
+        listTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        listPanel.add(listTitleLabel, BorderLayout.NORTH);
+        listPanel.add(new JScrollPane(gameList), BorderLayout.CENTER);
 
         add(titleLabel, BorderLayout.NORTH);
-        add(inputPanel, BorderLayout.CENTER);
+        add(listPanel, BorderLayout.CENTER);
 
-        loadGameButton.addActionListener(this);
+        gameList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Double-click detected
+                    String selectedValue = gameList.getSelectedValue();
+                    if (selectedValue != null) {
+                        // Split by any amount of whitespace
 
-        // Add key listener to the text field
-        gameNameInputField.addKeyListener(new KeyAdapter() {
-             @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    String gameName = gameNameInputField.getText().trim();
-                    try {
-                        loadGameController.execute(gameName); // Call controller method to load the game
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
+                        String[] parts = selectedValue.split(" {14}");
+                        if (parts.length > 0) {
+                            String selectedGame = parts[0];
+
+                            try {
+                                loadGameController.execute(selectedGame.trim());
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }
                     }
                 }
             }
         });
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Handle button click if needed
-        if (e.getSource() == loadGameButton) {
-            String gameName = gameNameInputField.getText().trim();
-            try {
-                loadGameController.execute(gameName); // Call controller method to load the game
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        }
     }
 
     @Override
