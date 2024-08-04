@@ -22,6 +22,6 @@ public class ShufflePresenter implements ShuffleOutputBoundary {
      */
     public void loadSuccessful(){
         JOptionPane.showMessageDialog(null, "Shuffled successfully");
-        this.viewManagerModel.setActiveView("Turn view");
+        this.viewManagerModel.setActiveView("Turn View");
     }
 }
