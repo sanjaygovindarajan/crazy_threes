@@ -28,14 +28,22 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
     private final JPanel cardsPanel;
     private List<JButton> buttonList;
     private final JLabel discard;
+    private final JLabel playerName;
     private final TurnViewModel viewModel;
-
 
     private final SaveGameController saveGameController;
     private final PlayCardController playCardController;
     private final DrawCardController drawCardController;
     private final ReadRulesController readRulesController;
 
+    /**
+     * Creates this view and initializes the controllers.
+     * @param saveController Controller for saving the game
+     * @param playController Controller for playing a card
+     * @param drawController Controller for drawing a card
+     * @param rulesController Controller for viewing the rules
+     * @param viewModel The view model for this view
+     */
     public TurnView(SaveGameController saveController,
                     PlayCardController playController,
                     DrawCardController drawController,
@@ -48,6 +56,8 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
 
         buttonList = new ArrayList<>();
         discard = new JLabel();
+        playerName = new JLabel();
+        playerName.setFont(new Font("Arial", Font.BOLD, 24));
         saveButton = new JButton("Save game");
         drawButton = new JButton("Draw card");
         rulesButton = new JButton("View Rules");
@@ -69,6 +79,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         JPanel discardPanel = new JPanel();
+        discardPanel.add(playerName);
         discardPanel.add(discard);
         discardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -102,7 +113,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
                 int index = buttonList.indexOf((JButton) source);
                 playCardController.playCard(index);
             }
-        };
+        }
     }
 
     @Override
@@ -114,7 +125,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
     /**
-     * Reloads the player's cards as well as the discard based on the view model data.
+     * Reloads the player's cards as well as the discard and the player name based on the view model data.
      */
     public void resetCards(){
         clearCards();
@@ -129,6 +140,7 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         }
 
         discard.setIcon(getIcon(viewModel.getDiscardSuit(), viewModel.getDiscardNum()));
+        playerName.setText("It's " + viewModel.getPlayerName() + "'s turn!     ");
         revalidate();
         repaint();
     }
