@@ -80,6 +80,18 @@ public class NewGameUseCaseFactory {
         return new InputPlayersView(createUserStartGameUseCase(interactor));
     }
 
+
+    /**
+     * Creates a new WinView
+     * @param viewManagerModel The view manager model
+     * @param winViewModel the winView model
+     * @return A new WinView
+     */
+    public static WinView createWinView(ViewManagerModel viewManagerModel, WinViewModel winViewModel){
+        return new WinView(winViewModel, viewManagerModel);
+    }
+
+
     /**
      * Creates a new controller for the read rules use case
      * @return A ReadRulesController
