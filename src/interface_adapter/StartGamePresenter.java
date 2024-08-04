@@ -61,7 +61,7 @@ public class StartGamePresenter implements StartGameOutputBoundary {
 
     }
 
-//    UNSUFRE ABOUT THIS PART
+//    UNSURE ABOUT THIS PART
 //    /**
 //     * Starts a new game when requested
 //     */
