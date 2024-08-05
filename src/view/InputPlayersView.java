@@ -1,18 +1,17 @@
 package view;
 
 import interface_adapter.start_game.StartGameController;
-import use_case.game_actions.start_game.StartGameInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
+import java.awt.event.*;
 import java.util.List;
+import java.util.ArrayList;
 
-public class InputPlayersView extends JPanel implements ActionListener, PropertyChangeListener {
+/**
+ * View for inputting new players when starting a new game.
+ */
+public class InputPlayersView extends JPanel implements ActionListener{
     StartGameController controller;
     JButton currentButton;
     JTextField playerName;
@@ -20,6 +19,11 @@ public class InputPlayersView extends JPanel implements ActionListener, Property
     List<JPanel> addedPlayerRows;
     JButton confirmButton;
     JPanel confirmPanel;
+
+    /**
+     * Creates this view based on the controller.
+     * @param controller The controller for starting the game
+     */
     public InputPlayersView(StartGameController controller){
         this.controller = controller;
         this.setLayout(new GridLayout(24, 2));
@@ -47,6 +51,10 @@ public class InputPlayersView extends JPanel implements ActionListener, Property
         addedPlayerRows.add(currentPanel);
     }
 
+    /**
+     * Handle add new player button and start game button
+     * @param e the click event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == confirmButton){
@@ -56,33 +64,69 @@ public class InputPlayersView extends JPanel implements ActionListener, Property
             }
             controller.execute(playerNames);
         } else if(e.getSource() == currentButton){
-            JLabel newPlayer = new JLabel(playerName.getText());
-            JPanel newPanel = new JPanel();
-            newPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-            JPanel oldPanel = addedPlayerRows.getLast();
-            oldPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            oldPanel.remove(playerName);
-            oldPanel.remove(currentButton);
-            oldPanel.add(newPlayer);
-            JLabel filler = new JLabel();
-            filler.setPreferredSize(new Dimension(120, (int) filler.getPreferredSize().getHeight()));
-            oldPanel.add(filler);
-            newPanel.add(playerName);
-            newPanel.add(currentButton);
-            addedPlayers.add(newPlayer);
-            addedPlayerRows.add(newPanel);
-            remove(confirmPanel);
-            add(newPanel);
-            add(confirmPanel);
-            playerName.setText("");
-            revalidate();
-            repaint();
+            addPlayer();
         }
-
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    /**
+     * Helper method for adding a new player based on the input field.
+     * Breaks up larger actionPerformed() method.
+     */
+    private void addPlayer(){
+        if(!isValidName(playerName.getText())){
+            JOptionPane.showMessageDialog(this, "Please enter a valid player name! \n" +
+                    "Player name must be nonempty and must not contain the characters ,;:/");
+            return;
+        }
+        JLabel newPlayer = new JLabel(playerName.getText());
+        JPanel newPanel = new JPanel();
+        newPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JPanel oldPanel = addedPlayerRows.getLast();
+        oldPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        oldPanel.remove(playerName);
+        oldPanel.remove(currentButton);
+        oldPanel.add(newPlayer);
+        JLabel filler = new JLabel();
+        filler.setPreferredSize(new Dimension(120, (int) filler.getPreferredSize().getHeight()));
+        oldPanel.add(filler);
+        newPanel.add(playerName);
+        newPanel.add(currentButton);
+        addedPlayers.add(newPlayer);
+        addedPlayerRows.add(newPanel);
+        remove(confirmPanel);
+        add(newPanel);
+        add(confirmPanel);
+        playerName.setText("");
+        revalidate();
+        repaint();
+    }
 
+    /**
+     * Checks if a player name is valid.
+     * @param name The player name
+     * @return Whether the player name is valid
+     */
+    private boolean isValidName(String name){
+        return !name.isEmpty()
+                && !name.contains(":")
+                && !name.contains(",")
+                && !name.contains(";")
+                && !name.contains("/");
+    }
+
+    /**
+     * Resets the list of players.
+     */
+    public void clearPlayers(){
+        addedPlayers.clear();
+        for(JPanel panel: addedPlayerRows){
+            remove(panel);
+        }
+        JPanel currentPanel = addedPlayerRows.getLast();
+        addedPlayerRows.clear();
+        addedPlayerRows.add(currentPanel);
+        add(currentPanel);
+        revalidate();
+        repaint();
     }
 }

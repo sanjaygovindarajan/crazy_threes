@@ -1,14 +1,14 @@
 package interface_adapter.load_game;
 
-import use_case.game_actions.NewGameInteractor;
+import use_case.game_actions.NewGameFacade;
 import use_case.game_actions.load_game.LoadGameInputBoundary;
 import use_case.game_actions.load_game.LoadGameInputData;
 
 public class LoadGameController {
     LoadGameInputBoundary loadGameInteractor;
-    NewGameInteractor newGame;
+    NewGameFacade newGame;
 
-    public LoadGameController(NewGameInteractor newGame) {
+    public LoadGameController(NewGameFacade newGame) {
         this.newGame = newGame;
         this.loadGameInteractor = newGame.getLoadGame();
     }
@@ -23,7 +23,7 @@ public class LoadGameController {
         newGame.loadGame(loadGameInputData);
     }
 
-    public NewGameInteractor getInteractor() {
+    public NewGameFacade getInteractor() {
         return this.newGame;
     }
 }

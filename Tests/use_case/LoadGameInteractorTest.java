@@ -4,9 +4,10 @@ import data_access.DataAccess;
 import data_access.DataAccessInterface;
 
 import entity.Game;
+import interface_adapter.load_game.LoadGameOutputBoundary;
 import interface_adapter.save_game.SaveGameOutputBoundary;
 import interface_adapter.save_game.SaveGamePresenter;
-import interface_adapter.StartGamePresenter;
+import interface_adapter.start_game.StartGamePresenter;
 import org.junit.Test;
 import use_case.game_actions.load_game.*;
 import use_case.game_actions.save_game.SaveGameInputBoundary;

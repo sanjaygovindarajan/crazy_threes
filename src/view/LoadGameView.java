@@ -3,13 +3,10 @@ package view;
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
 import interface_adapter.load_game.LoadGameController;
-import interface_adapter.load_game.LoadGameViewModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +14,7 @@ import java.util.List;
 /**
  * View for loading a previous game.
  */
-public class LoadGameView extends JPanel implements ActionListener, PropertyChangeListener {
+public class LoadGameView extends JPanel implements ActionListener {
 
     private final JTextField gameNameInputField = new JTextField(15);
     private final LoadGameController loadGameController;
@@ -26,9 +23,13 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
     DataAccessInterface dataAccess = new DataAccess("src/data_access/database.txt");
     private final JList<String> gameList;
 
-    public LoadGameView(LoadGameController controller, LoadGameViewModel loadGameViewModel) throws IOException {
+    /**
+     * Creates a new view for loading a pre-existing game.
+     * @param controller
+     * @throws IOException
+     */
+    public LoadGameView(LoadGameController controller){
         this.loadGameController = controller;
-        loadGameViewModel.addPropertyChangeListener(this);
 
         setLayout(new BorderLayout());
 
@@ -45,8 +46,12 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
 
         add(titleLabel, BorderLayout.NORTH);
         add(inputPanel, BorderLayout.CENTER);
-
-        List<String> games = dataAccess.loadGames();
+        List<String> games = new ArrayList<>();
+        try {
+            games = dataAccess.loadGames();
+        } catch (IOException _){
+            JOptionPane.showMessageDialog(this, "Unable to load games.");
+        }
         List<String> gameNames = new ArrayList<>();
         for (String game : games) {
             String[] parts = game.split(":");
@@ -87,6 +92,10 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
         });
     }
 
+    /**
+     * Monitors when a player is added
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         // Handle button click if needed
@@ -100,11 +109,10 @@ public class LoadGameView extends JPanel implements ActionListener, PropertyChan
         }
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("not implemented yet");
-    }
-
+    /**
+     * Getter method for the controller.
+     * @return The controller
+     */
     public LoadGameController getController() {
         return this.loadGameController;
     }

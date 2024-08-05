@@ -1,9 +1,8 @@
 package interface_adapter.load_game;
 
-import interface_adapter.StartGamePresenter;
+import interface_adapter.start_game.StartGamePresenter;
 import interface_adapter.TurnViewModel;
 import interface_adapter.ViewManagerModel;
-import use_case.game_actions.load_game.LoadGameOutputBoundary;
 
 import javax.swing.*;
 

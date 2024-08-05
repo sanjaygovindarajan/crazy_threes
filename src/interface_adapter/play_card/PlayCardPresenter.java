@@ -1,6 +1,6 @@
 package interface_adapter.play_card;
 
-import interface_adapter.StartGamePresenter;
+import interface_adapter.start_game.StartGamePresenter;
 import interface_adapter.TurnViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.WinViewModel;
