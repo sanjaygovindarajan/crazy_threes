@@ -16,13 +16,13 @@ public class PlayThreeViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public void setWinner(String suit) {
+    public void setSuit(String suit) {
         String oldSuit = this.suit;
         this.suit = suit;
         firePropertyChanged(oldSuit, suit);
     }
 
-    public String getWinner() {
+    public String getSuit() {
         return suit;
     }
 }

@@ -42,6 +42,7 @@ public class Main {
         ShuffleView shuffleView = NewGameUseCaseFactory.createShuffleView(viewManagerModel, loadGameView.getController().getInteractor());
         InputPlayersView playersView = NewGameUseCaseFactory.createInputPlayers(loadGameView.getController().getInteractor());
         WinView winView = NewGameUseCaseFactory.createWinView(viewManagerModel, winViewModel);
+       // PlayThreeView playThreeView = NewGameUseCaseFactory.createThreeView(viewManagerModel, loadGameView.getController().getInteractor());
 
         // Add views to the main panel
         mainPanel.add(gameView, "New Game");
