@@ -11,37 +11,69 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * The view for when a player needs to change the suit.
+ */
 public class PlayThreeView extends JPanel implements ActionListener, PropertyChangeListener {
-    private PlayThreeViewModel playThreeViewModel;
+    private final PlayThreeViewModel playThreeViewModel;
     private final ViewManagerModel viewManagerModel;
-    private final JLabel changeSuit;
+    private final JLabel changeSuitLabel;
 
+    /**
+     * Creates this view and initializes the controllers and UI components.
+     * @param playThreeViewModel The view model for this view
+     * @param viewManagerModel The model managing different views
+     * @param playCardController Controller for playing a card
+     */
     public PlayThreeView(PlayThreeViewModel playThreeViewModel, ViewManagerModel viewManagerModel, PlayCardController playCardController) {
+        this.playThreeViewModel = playThreeViewModel;
         this.viewManagerModel = viewManagerModel;
-        setLayout(new GridLayout(1, 4));
 
-        changeSuit = new JLabel("Please select the suit you would like to change the game to!", SwingConstants.CENTER);
-        changeSuit.setFont(new Font("Arial", Font.BOLD, 14));
-        add(changeSuit, BorderLayout.CENTER);
+        // Set layout and initialize components
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        changeSuitLabel = new JLabel("Please select the suit you would like to change the game to!", SwingConstants.CENTER);
+        changeSuitLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        changeSuitLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-        PlayThreeViewModel viewModel = new PlayThreeViewModel();
-        this.playThreeViewModel = viewModel;
-        viewModel.addPropertyChangeListener(this);
+        JPanel suitPanel = new JPanel();
+        suitPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
+        JButton[] suitButtons = new JButton[4];
+        String[] suits = {"Spades", "Clubs", "Diamonds", "Hearts"};
+
+        for (int i = 0; i < suits.length; i++) {
+            suitButtons[i] = new JButton(suits[i]);
+            suitButtons[i].setActionCommand(suits[i]);
+            suitButtons[i].addActionListener(this);
+            suitPanel.add(suitButtons[i]);
+        }
+
+        add(changeSuitLabel);
+        add(suitPanel);
+
+        playThreeViewModel.addPropertyChangeListener(this);
     }
 
+    /**
+     * Handles suit change button being clicked
+     * @param e The click event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == changeSuit) {
-            viewManagerModel.setActiveView("Three View");
-        }
+        String suit = e.getActionCommand();
+        playThreeViewModel.setSuit(suit);
+        viewManagerModel.setActiveView("Three View");
     }
 
+    /**
+     * Handles property changes in the view model
+     * @param evt The property change event to be processed
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals("current suit")){
-            changeSuit.setText("Suit changed to" + playThreeViewModel.getSuit());
+        if ("currentSuit".equals(evt.getPropertyName())) {
+            changeSuitLabel.setText("Suit changed to " + playThreeViewModel.getSuit());
         }
     }
 }
