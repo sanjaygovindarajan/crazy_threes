@@ -4,41 +4,46 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- * ViewModel for managing the state and logic related to the Win View.
+ * Manages the state and logic for the Win View, including the winner's name.
+ * Notifies listeners when the winner changes.
  */
 public class WinViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private boolean newGameRequested;
+    private String winner;
+
+    /**
+     * Notifies listeners that the winner has changed.
+     * @param oldWinner The previous winner's name.
+     * @param newWinner The new winner's name.
+     */
+    public void firePropertyChanged(String oldWinner, String newWinner) {
+        support.firePropertyChange("winning player", oldWinner, newWinner);
+    }
 
     /**
      * Adds a property change listener.
-     *
      * @param listener The listener to be added.
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-    
+
+
     /**
-     * Handles the request to start a new game.
+     * Sets the winner's name and notifies listeners of the change.
+     * @param winner The new winner's name.
      */
-    public void requestNewGame() {
-        newGameRequested = true;
-        support.firePropertyChange("newGame", false, true);
+    public void setWinner(String winner) {
+        String oldWinner = this.winner; // Store the old value
+        this.winner = winner;
+        firePropertyChanged(oldWinner, winner);
     }
 
     /**
-     * Checks if a new game was requested.
-     * @return True if a new game was requested, otherwise false.
+     * Returns the current winner's name.
+     * @return The winner's name.
      */
-    public boolean isNewGameRequested() {
-        return newGameRequested;
-    }
-
-    /**
-     * Resets the state of the WinViewModel.
-     */
-    public void reset() {
-        newGameRequested = false;
+    public String getWinner() {
+        return winner;
     }
 }
