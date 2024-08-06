@@ -18,6 +18,7 @@ public class PlayThreeView extends JPanel implements ActionListener, PropertyCha
     private final PlayThreeViewModel playThreeViewModel;
     private final ViewManagerModel viewManagerModel;
     private final JLabel changeSuitLabel;
+    private final PlayCardController playCardController;
 
     /**
      * Creates this view and initializes the controllers and UI components.
@@ -28,6 +29,7 @@ public class PlayThreeView extends JPanel implements ActionListener, PropertyCha
     public PlayThreeView(PlayThreeViewModel playThreeViewModel, ViewManagerModel viewManagerModel, PlayCardController playCardController) {
         this.playThreeViewModel = playThreeViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.playCardController = playCardController;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -62,6 +64,7 @@ public class PlayThreeView extends JPanel implements ActionListener, PropertyCha
     public void actionPerformed(ActionEvent e) {
         String suit = e.getActionCommand();
         playThreeViewModel.setSuit(suit);
+        playCardController.playThree(playThreeViewModel.getDiscardSuit(), suit);
         viewManagerModel.setActiveView("Three View");
     }
 

@@ -17,7 +17,7 @@ public class PlayThreeViewModel {
         support.firePropertyChange("suit", oldSuit, suit);
     }
 
-    public void setDiscardSuit(char suit) {
+    public void setSuit(char suit) {
         char oldSuit = this.discardSuit;
         this.discardSuit = suit;
         support.firePropertyChange("discardSuit", oldSuit, suit);
