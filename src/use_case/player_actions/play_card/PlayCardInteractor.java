@@ -4,6 +4,7 @@ import entity.*;
 import entity.exceptions.InvalidCardException;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
+import entity.Bot;
 
 public class PlayCardInteractor implements PlayCardInputBoundary {
     GameInterface game;
@@ -24,6 +25,7 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
         boolean threeCase = (number == 3);
         int index = -1;
         int count = 0;
+        DeckDisposed discard = game.getDiscard();
         for(Card card: player.viewHand().getCardList()){
             if(card.getCardNum() == number && card.getDisplaySuit() == suit){
                 index = count;
@@ -40,6 +42,14 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
             } else {
                 presenter.loadThreeView(suit);
             }
+            player = game.getCurrentPlayer();
+            while(player.isBot()) {
+                Bot bot = (Bot) game.getCurrentPlayer();
+                bot.chooseCard(discard, game);
+                if (game.isGameOver()) {
+                    break;
+                }
+            }
             if (game.isGameOver()) {
                 presenter.winMessage(game.getCurrentPlayer().getName());
             } else {
@@ -54,6 +64,7 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
         } catch (InvalidCardException e) {
             presenter.loadInvalidCardView();
         }
+
     }
 
     /**

@@ -1,5 +1,7 @@
 package entity;
 
+import entity.exceptions.InvalidCardException;
+
 public class Bot extends Player{
     String name;
     Hand cards;
@@ -12,12 +14,19 @@ public class Bot extends Player{
         super(name, cards);
     }
 
-    public void chooseCard(DeckDisposed d, Game game, int i) {
+    public void chooseCard(DeckDisposed d, GameInterface game) throws InvalidCardException {
         Card topCard = d.getCard();
+        int i = 0;
         for (Card c: cards.cardList) {
-            if (c.getCurrentSuit() == topCard.getCurrentSuit() && c.getCardNum() == topCard.getCardNum()) {
-                playCard(game, i);
+            if (c.getCurrentSuit() == topCard.getCurrentSuit() || c.getCardNum() == topCard.getCardNum()) {
+                game.playCard(this, i);
             }
+            i ++;
         }
+    }
+
+    @Override
+    public boolean isBot() {
+        return true;
     }
 }
