@@ -29,7 +29,6 @@ public class PlayThreeView extends JPanel implements ActionListener, PropertyCha
         this.playThreeViewModel = playThreeViewModel;
         this.viewManagerModel = viewManagerModel;
 
-        // Set layout and initialize components
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         changeSuitLabel = new JLabel("Please select the suit you would like to change the game to!", SwingConstants.CENTER);
