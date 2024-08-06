@@ -49,6 +49,7 @@ public class Main {
         mainPanel.add(turnView, "Turn View");
         mainPanel.add(shuffleView, "Shuffle View");
         mainPanel.add(playersView, "Input Players");
+        // mainPanel.add(threeView, )
         mainPanel.add(winView, "Win View");
 
 

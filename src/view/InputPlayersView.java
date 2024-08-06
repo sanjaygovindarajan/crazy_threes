@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class InputPlayersView extends JPanel implements ActionListener, PropertyChangeListener {
