@@ -3,7 +3,7 @@ package use_case.player_actions.draw_card;
 import entity.*;
 
 import entity.exceptions.MissingCardException;
-import interface_adapter.DrawCardOutputBoundary;
+import interface_adapter.draw_card.DrawCardOutputBoundary;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
 

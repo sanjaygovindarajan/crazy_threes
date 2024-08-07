@@ -1,8 +1,12 @@
-package interface_adapter;
+package interface_adapter.draw_card;
+
+import interface_adapter.start_game.StartGamePresenter;
+import interface_adapter.TurnViewModel;
+import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;
 
-public class DrawCardPresenter extends StartGamePresenter implements DrawCardOutputBoundary{
+public class DrawCardPresenter extends StartGamePresenter implements DrawCardOutputBoundary {
 
 
     public DrawCardPresenter(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel){

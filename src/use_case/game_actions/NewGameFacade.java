@@ -2,7 +2,8 @@ package use_case.game_actions;
 
 import data_access.DataAccessInterface;
 import entity.GameInterface;
-import interface_adapter.*;
+import interface_adapter.draw_card.DrawCardOutputBoundary;
+import interface_adapter.load_game.LoadGameOutputBoundary;
 import interface_adapter.play_card.PlayCardOutputBoundary;
 import interface_adapter.save_game.SaveGameOutputBoundary;
 import interface_adapter.shuffle.ShuffleOutputBoundary;
@@ -15,15 +16,21 @@ import use_case.player_actions.draw_card.*; //Draw card user story
 import use_case.player_actions.play_card.PlayCardInputBoundary;
 import use_case.player_actions.play_card.PlayCardInteractor;
 
-public class NewGameInteractor {
+/**
+ * A façade for creating a new game.
+ * The façade is responsible for updating other interactors with the new game.
+ * However, the creation of the game occurs instead in the StartGameInteractor
+ * and LoadGameInteractor classes, whose methods are not called outside of this
+ * class.
+ */
+public class NewGameFacade {
 
-    private GameInterface game;
-    private StartGameInputBoundary startGame; //Start game user story
-    private LoadGameInputBoundary loadGame; //Load game user story
-    private SaveGameInputBoundary saveGame; ///Save game user story
-    private PlayCardInputBoundary playCard; //Play card user story
-    private DrawCardInputBoundary drawCard; //Draw card user story
-    private ShuffleInputBoundary shuffle; //Shuffle user story
+    private final StartGameInputBoundary startGame;
+    private final LoadGameInputBoundary loadGame;
+    private final SaveGameInputBoundary saveGame;
+    private final PlayCardInputBoundary playCard;
+    private final DrawCardInputBoundary drawCard;
+    private final ShuffleInputBoundary shuffle;
 
     /**
      * Initializes all use case interactors.
@@ -35,7 +42,7 @@ public class NewGameInteractor {
      * @param drawCardPresenter The draw card presenter
      */
 
-    public NewGameInteractor(
+    public NewGameFacade(
             DataAccessInterface dataAccess,
             LoadGameOutputBoundary loadGamePresenter,
             SaveGameOutputBoundary saveGamePresenter,
@@ -56,16 +63,8 @@ public class NewGameInteractor {
      * @param inputData The input data for starting a game. Includes the player names.
      */
     public void startGame(StartGameInputData inputData){
-        //Create a new game
         startGame.execute(inputData);
-        //Gets the game object created
-        this.game = startGame.getGame();
-        //Makes sure all use case interactors act on the same game
-        saveGame.setGame(this.game);
-        playCard.setGame(this.game);
-        drawCard.setGame(this.game);
-        shuffle.setGame(this.game);
-        //Prepares to call presenter
+        setGames(startGame.getGame());
         startGame.present();
     }
 
@@ -74,22 +73,12 @@ public class NewGameInteractor {
      * @param inputData The input data. Includes the game name.
      */
     public void loadGame(LoadGameInputData inputData){
-        //Attempts to load the game
         try {
             loadGame.execute(inputData);
         }
-        catch(IllegalStateException e){
-            //Faulty data access object
-            System.out.println(e);
+        catch(IllegalStateException _){
         }
-        //Gets the game object loaded
-        this.game = loadGame.getGame();
-        //Makes sure all use case interactors act on the same game
-        saveGame.setGame(this.game);
-        playCard.setGame(this.game);
-        drawCard.setGame(this.game);
-        shuffle.setGame(this.game);
-        //Prepares to call presenter
+        setGames(loadGame.getGame());
         loadGame.present(inputData);
     }
 
@@ -138,6 +127,11 @@ public class NewGameInteractor {
     public StartGameInputBoundary getStartGame() {
         return this.startGame;
     }
+
+    private void setGames(GameInterface game){
+        saveGame.setGame(game);
+        playCard.setGame(game);
+        drawCard.setGame(game);
+        shuffle.setGame(game);
+    }
 }
-
-

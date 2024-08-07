@@ -9,12 +9,21 @@ public class PlayThreeViewModel {
     private String suit;
     private char discardSuit;
     private char discardNum;
+    private char threeSuit;
     private List<Character> cardNums;
 
     public void setSuit(String suit) {
         String oldSuit = this.suit;
         this.suit = suit;
         support.firePropertyChange("suit", oldSuit, suit);
+    }
+
+    public void setThreeSuit(char suit){
+        this.threeSuit = suit;
+    }
+
+    public char getThreeSuit() {
+        return threeSuit;
     }
 
     public void setSuit(char suit) {

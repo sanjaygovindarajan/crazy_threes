@@ -61,6 +61,6 @@ public class PlayThreeView extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String suit = e.getActionCommand();
-        playCardController.playThree(playThreeViewModel.getDiscardSuit(), suit);
+        playCardController.playThree(playThreeViewModel.getThreeSuit(), suit);
     }
 }
