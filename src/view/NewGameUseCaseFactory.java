@@ -146,7 +146,7 @@ public class NewGameUseCaseFactory {
         );
     }
 
-    public static PlayThreeView createThreeView(ViewManagerModel viewManagerModel, NewGameInteractor interactor, PlayThreeViewModel playThreeViewModel) {
+    public static PlayThreeView createThreeView(ViewManagerModel viewManagerModel, NewGameFacade interactor, PlayThreeViewModel playThreeViewModel) {
         PlayCardController playCardController = new PlayCardController(interactor.getPlayCard());
         return new PlayThreeView(playThreeViewModel, viewManagerModel, playCardController);
     }

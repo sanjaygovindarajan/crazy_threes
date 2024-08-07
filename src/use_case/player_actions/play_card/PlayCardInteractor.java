@@ -45,7 +45,7 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
             player = game.getCurrentPlayer();
             while(player.isBot()) {
                 Bot bot = (Bot) game.getCurrentPlayer();
-                bot.chooseCard(discard, game);
+                bot.chooseCard(game.getDiscard(), game);
                 if (game.isGameOver()) {
                     break;
                 }
