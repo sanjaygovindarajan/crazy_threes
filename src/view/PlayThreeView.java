@@ -65,7 +65,6 @@ public class PlayThreeView extends JPanel implements ActionListener, PropertyCha
         String suit = e.getActionCommand();
         playThreeViewModel.setSuit(suit);
         playCardController.playThree(playThreeViewModel.getDiscardSuit(), suit);
-        viewManagerModel.setActiveView("Three View");
     }
 
     /**
