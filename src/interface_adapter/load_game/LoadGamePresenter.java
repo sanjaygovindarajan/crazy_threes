@@ -1,44 +1,20 @@
 package interface_adapter.load_game;
 
+import interface_adapter.StartGamePresenter;
+import interface_adapter.TurnViewModel;
 import interface_adapter.ViewManagerModel;
 import use_case.game_actions.load_game.LoadGameOutputBoundary;
-import use_case.game_actions.load_game.LoadGameOutputData;
-import view.TemporaryTurnView;
 
-public class LoadGamePresenter implements LoadGameOutputBoundary {
+import javax.swing.*;
 
-    private LoadGameViewModel loadGameViewModel;
-    private TemporaryTurnView view;
-    private ViewManagerModel viewManagerModel;
+public class LoadGamePresenter extends StartGamePresenter implements LoadGameOutputBoundary {
 
-    /**
-     * The version of the constructor for Phase 2
-     * @param viewManagerModel The view manager model
-     * @param signupViewModel The view model
-     */
-    public LoadGamePresenter(ViewManagerModel viewManagerModel,
-                           LoadGameViewModel signupViewModel
-                           ) {
-        this.viewManagerModel = viewManagerModel;
-        this.loadGameViewModel = signupViewModel;
-    }
-
-    /**
-     * The version of the constructor for Phase 1
-     * @param view The view used in Phase 1
-     */
-    public LoadGamePresenter(TemporaryTurnView view){
-        this.view = view;
-    }
-
-    @Override
-    public void prepareSuccessView(LoadGameOutputData loadGameOutputData) {
-        System.out.println("You load " + loadGameOutputData.getGameName() + " successfully");
-        view.requestAction();
+    public LoadGamePresenter(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel) {
+        super(viewManagerModel, turnViewModel);
     }
 
     public void prepareFailView(String error){
-        System.out.println(error);
+        JOptionPane.showMessageDialog(null, "ERROR: " + error);
 
     }
 }

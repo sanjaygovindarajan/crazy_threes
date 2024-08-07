@@ -2,7 +2,6 @@ package use_case.deck_actions;
 
 import entity.*;
 import interface_adapter.shuffle.ShuffleOutputBoundary;
-import interface_adapter.shuffle.ShufflePresenter;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ public class ShuffleInteractor implements ShuffleInputBoundary {
     private GameInterface game;
     private final ShuffleOutputBoundary presenter;
 
-    public ShuffleInteractor(ShufflePresenter presenter) {
+    public ShuffleInteractor(ShuffleOutputBoundary presenter) {
         this.presenter = presenter;
     }
 

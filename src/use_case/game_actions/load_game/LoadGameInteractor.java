@@ -2,7 +2,6 @@ package use_case.game_actions.load_game;
 
 import data_access.DataAccessInterface;
 import entity.*;
-import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
 
 import java.util.ArrayList;
@@ -12,16 +11,13 @@ import java.util.List;
 public class LoadGameInteractor implements LoadGameInputBoundary {
 
     private final DataAccessInterface userDataAccessObject;
-    private final LoadGameOutputBoundary userPresenter;
-    private final StartGameOutputBoundary presenter;
+    private final LoadGameOutputBoundary presenter;
     private GameInterface currentGame;
 
     public LoadGameInteractor(DataAccessInterface userDataAccessObject,
-                              LoadGameOutputBoundary userPresenter,
-                              StartGameOutputBoundary presenter) {
+                              LoadGameOutputBoundary userPresenter) {
         this.userDataAccessObject = userDataAccessObject;
-        this.userPresenter = userPresenter;
-        this.presenter = presenter;
+        this.presenter = userPresenter;
     }
 
     @Override
@@ -44,33 +40,34 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
             }
 
             if (game == null) {
-                userPresenter.prepareFailView("This game doesn't exist.");
+                presenter.prepareFailView("This game doesn't exist.");
             } else {
 
                 this.currentGame = game;
             }
         } catch (Exception e) {
             if (e.getMessage() == null) {
-                userPresenter.prepareFailView("This game doesn't exist.");
+                presenter.prepareFailView("This game doesn't exist.");
             }
             else {
 
-                userPresenter.prepareFailView(e.getMessage());}
+                presenter.prepareFailView(e.getMessage());}
 
             }
 
     }
 
     public void present(LoadGameInputData loadGameInputData){
-        // LoadGameOutputData loadGameOutputData = new LoadGameOutputData(currentGame, loadGameInputData.getGameName(), false);
-        // userPresenter.prepareSuccessView(loadGameOutputData);
-        StartGameOutputData outputData = new StartGameOutputData(
-                currentGame.getCurrentPlayer().viewHand().toString(),
-                currentGame.getCurrentPlayer().getName(),
-                currentGame.getDiscard().getCard().toString(),
-                currentGame.getDiscard().getSuit()
-        );
-        presenter.loadSuccessView(outputData);
+        try {
+            StartGameOutputData outputData = new StartGameOutputData(
+                    currentGame.getCurrentPlayer().viewHand().toString(),
+                    currentGame.getCurrentPlayer().getName(),
+                    currentGame.getDiscard().getCard().toString(),
+                    currentGame.getDiscard().getSuit()
+            );
+            presenter.loadSuccessView(outputData);
+        } catch(NullPointerException _){
+        }
     }
 
     @Override
