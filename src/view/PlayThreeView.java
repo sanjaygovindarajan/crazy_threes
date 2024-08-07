@@ -14,7 +14,7 @@ import java.beans.PropertyChangeListener;
 /**
  * The view for when a player needs to change the suit.
  */
-public class PlayThreeView extends JPanel implements ActionListener, PropertyChangeListener {
+public class PlayThreeView extends JPanel implements ActionListener{
     private final PlayThreeViewModel playThreeViewModel;
     private final ViewManagerModel viewManagerModel;
     private final JLabel changeSuitLabel;
@@ -52,8 +52,6 @@ public class PlayThreeView extends JPanel implements ActionListener, PropertyCha
 
         add(changeSuitLabel);
         add(suitPanel);
-
-        playThreeViewModel.addPropertyChangeListener(this);
     }
 
     /**
@@ -63,19 +61,6 @@ public class PlayThreeView extends JPanel implements ActionListener, PropertyCha
     @Override
     public void actionPerformed(ActionEvent e) {
         String suit = e.getActionCommand();
-        playThreeViewModel.setSuit(suit);
         playCardController.playThree(playThreeViewModel.getDiscardSuit(), suit);
-        viewManagerModel.setActiveView("Three View");
-    }
-
-    /**
-     * Handles property changes in the view model
-     * @param evt The property change event to be processed
-     */
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if ("currentSuit".equals(evt.getPropertyName())) {
-            changeSuitLabel.setText("Suit changed to " + playThreeViewModel.getSuit());
-        }
     }
 }
