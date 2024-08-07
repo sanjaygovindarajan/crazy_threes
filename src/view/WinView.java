@@ -21,7 +21,7 @@ public class WinView extends JPanel implements ActionListener, PropertyChangeLis
 
     /**
      * Constructs a WinView screen with a congratulatory message and a new game button.
-     * @param winViewModel
+     * @param winViewModel The view model for this view
      * @param viewManagerModel the model that manages the game views and actions
      */
     public WinView(WinViewModel winViewModel, ViewManagerModel viewManagerModel) {

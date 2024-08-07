@@ -1,8 +1,7 @@
 package use_case;
 import entity.*;
 import entity.exceptions.InvalidCardException;
-import entity.exceptions.MissingCardException;
-import interface_adapter.StartGamePresenter;
+import interface_adapter.start_game.StartGamePresenter;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;

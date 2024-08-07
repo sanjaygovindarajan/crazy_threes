@@ -35,6 +35,10 @@ public class ViewManagerModel {
         support.firePropertyChange("view", null, this.activeViewName);
     }
 
+    /**
+     * Allows for the creation of listeners to alert the view when this calss changes.
+     * @param listener The class that listens to it
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }

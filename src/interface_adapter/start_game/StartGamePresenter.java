@@ -1,18 +1,13 @@
-package interface_adapter;
-
-import interface_adapter.load_game.LoadGameViewModel;
-import interface_adapter.start_game.StartGameOutputBoundary;
-import interface_adapter.start_game.StartGameOutputData;
-import view.*;
+package interface_adapter.start_game;
+import interface_adapter.TurnViewModel;
+import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
- * The presenter for the start game, play card, draw card, and load game user stories.
- * Not located in start_game package because it is used by many use cases.
+ * The presenter for the start game user stories.
+ * Also, the draw card, load game, and play card presenters inherit from this.
  */
 public class StartGamePresenter implements StartGameOutputBoundary {
     protected TurnViewModel turnViewModel;
@@ -28,17 +23,6 @@ public class StartGamePresenter implements StartGameOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
-//    UNSURE ABOUT THIS PART
-//    /**
-//     * Starts a new game when requested
-//     */
-//    private void startNewGame() {
-//        // start a new game
-//        // Update view to show the name input screen again or game view
-//        viewManagerModel.setActiveView("Name Input View");
-//    }
-//
-
     /**
      * Empty constructor used for testing purposes.
      */
@@ -46,10 +30,9 @@ public class StartGamePresenter implements StartGameOutputBoundary {
     }
 
     /**
-     * Prints the player whose turn it is, their cards, the face-up card, and the current suit.
+     * Loads the cards from the game, the player name, and the top card of the discard pile.
      * Switches the view to the next player's turn.
-     * If the method is called as a test and there is no view, prints out "Test completed."
-     * @param data Includes the player's cards and the face-up card.
+     * @param data The output data
      */
     @Override
     public void loadSuccessView(StartGameOutputData data) {

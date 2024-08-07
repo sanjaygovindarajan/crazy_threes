@@ -28,13 +28,12 @@ public class WinViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-
     /**
      * Sets the winner's name and notifies listeners of the change.
      * @param winner The new winner's name.
      */
     public void setWinner(String winner) {
-        String oldWinner = this.winner; // Store the old value
+        String oldWinner = this.winner;
         this.winner = winner;
         firePropertyChanged(oldWinner, winner);
     }

@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.draw_card;
 
 import interface_adapter.start_game.StartGameOutputBoundary;
 

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaveGameInteractor implements SaveGameInputBoundary {
-    final DataAccessInterface dataAccessObject;
-    final SaveGameOutputBoundary presenter;
-    GameInterface game;
+    private final DataAccessInterface dataAccessObject;
+    private final SaveGameOutputBoundary presenter;
+    private GameInterface game;
 
     public SaveGameInteractor(DataAccessInterface dataAccessObject, SaveGameOutputBoundary presenter) {
         this.dataAccessObject = dataAccessObject;

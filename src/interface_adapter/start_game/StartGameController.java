@@ -1,15 +1,15 @@
 package interface_adapter.start_game;
 
-import use_case.game_actions.NewGameInteractor;
+import use_case.game_actions.NewGameFacade;
 import use_case.game_actions.start_game.StartGameInputBoundary;
 import use_case.game_actions.start_game.StartGameInputData;
 
 import java.util.List;
 
 public class StartGameController {
-    NewGameInteractor newGame;
+    NewGameFacade newGame;
     StartGameInputBoundary startGame;
-    public StartGameController(NewGameInteractor newGame){
+    public StartGameController(NewGameFacade newGame){
         this.newGame = newGame;
         this.startGame = newGame.getStartGame();
     }
