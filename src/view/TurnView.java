@@ -84,15 +84,20 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         discardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         this.cardsPanel = new JPanel();
-        cardsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        cardsPanel.setLayout(new GridLayout(3, 5, 10, 10));
 
         saveButton.addActionListener(this);
         drawButton.addActionListener(this);
         rulesButton.addActionListener(this);
 
-        add(discardPanel);
-        add(cardsPanel);
-        add(buttonsPanel);
+        add(discardPanel, BorderLayout.NORTH);
+        add(cardsPanel, BorderLayout.CENTER);
+
+
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+
+        bottomPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        add(bottomPanel, BorderLayout.SOUTH);
     }
 
     /**
