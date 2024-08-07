@@ -84,20 +84,17 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         discardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         this.cardsPanel = new JPanel();
-        cardsPanel.setLayout(new GridLayout(3, 5, 10, 10));
+        JScrollPane scroll = new JScrollPane(cardsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        cardsPanel.setPreferredSize(new Dimension(100, 600));
+        scroll.setPreferredSize(new Dimension(100, 200));
 
         saveButton.addActionListener(this);
         drawButton.addActionListener(this);
         rulesButton.addActionListener(this);
 
-        add(discardPanel, BorderLayout.NORTH);
-        add(cardsPanel, BorderLayout.CENTER);
-
-
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-
-        bottomPanel.add(buttonsPanel, BorderLayout.SOUTH);
-        add(bottomPanel, BorderLayout.SOUTH);
+        add(discardPanel);
+        add(scroll);
+        add(buttonsPanel);
     }
 
     /**
@@ -121,6 +118,11 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         }
     }
 
+    /**
+     * Monitors the view model for any incoming changes from the presenter.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getSource() == viewModel){
@@ -134,8 +136,12 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
      */
     public void resetCards(){
         clearCards();
+        cardsPanel.setPreferredSize(new Dimension(100, 0));
 
         for(int i = 0;i < viewModel.getCardSuits().size();i++){
+            if(i % 5 == 0){
+                cardsPanel.setPreferredSize(new Dimension(100, cardsPanel.getPreferredSize().height + 200));
+            }
             JButton button = new JButton(getIcon(viewModel.getCardSuits().get(i), viewModel.getCardNums().get(i)));
             button.addActionListener(this);
             button.setContentAreaFilled(false);

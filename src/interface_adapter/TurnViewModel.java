@@ -1,9 +1,6 @@
 package interface_adapter;
 
-import interface_adapter.load_game.LoadGameState;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import java.beans.*;
 import java.util.*;
 
 public class TurnViewModel {
