@@ -103,7 +103,11 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
         String[] playerArray = playerString.split(";");
         String name = playerArray[0];
         Hand hand = new Hand(readCardCollection(playerArray[1]));
-        return new Player(name, hand); //Add once constructor is complete
+        if(name.charAt(0) == '#'){
+            return new Bot(name, hand);
+        } else {
+            return new Player(name, hand);
+        }
     }
 
     /**

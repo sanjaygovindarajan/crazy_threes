@@ -17,7 +17,12 @@ public class Game implements GameInterface{
         this.discard = new DeckDisposed();
         this.players =  new ArrayList<>();
         for (String name: playerNames) {
-            this.players.add(new Player(name));
+            if(name.charAt(0) == '#') {
+                this.players.add(new Bot(name));
+            }
+            else{
+                this.players.add(new Player(name));
+            }
         }
         turn = 0;
         this.isGameOver = false;

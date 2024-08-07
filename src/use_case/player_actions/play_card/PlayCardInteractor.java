@@ -101,8 +101,7 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
     }
 
     private void finishPlayGame() throws InvalidCardException {
-        Player player = game.getCurrentPlayer();
-        while(player.isBot()) {
+        while(game.getCurrentPlayer().isBot()) {
             Bot bot = (Bot) game.getCurrentPlayer();
             bot.chooseCard(game.getDiscard(), game);
             if (game.isGameOver()) {
@@ -112,7 +111,7 @@ public class PlayCardInteractor implements PlayCardInputBoundary {
         if (game.isGameOver()) {
             presenter.winMessage(game.getCurrentPlayer().getName());
         } else {
-            player = game.getCurrentPlayer();
+            Player player = game.getCurrentPlayer();
             StartGameOutputData outputData = new StartGameOutputData(
                     player.viewHand().toString(),
                     player.getName(),

@@ -3,9 +3,9 @@ package entity;
 import entity.exceptions.MissingCardException;
 
 public class Player {
-    private final Hand cards;
-    private final String name;
-    private final int numWins;
+    protected final Hand cards;
+    protected final String name;
+    protected final int numWins;
     public Player(String name) {
         this.name = name;
         this.cards = new Hand();
