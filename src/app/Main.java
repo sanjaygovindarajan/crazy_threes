@@ -1,5 +1,6 @@
 package app;
 
+import interface_adapter.PlayThreeViewModel;
 import interface_adapter.TurnViewModel;
 import interface_adapter.WinViewModel;
 import interface_adapter.ViewManagerModel;
@@ -31,6 +32,7 @@ public class Main {
 
         TurnViewModel turnViewModel = new TurnViewModel();
         WinViewModel winViewModel = new WinViewModel();
+        PlayThreeViewModel playThreeViewModel = new PlayThreeViewModel();
 
         LoadGameView loadGameView = NewGameUseCaseFactory.createLoadGameView(viewManagerModel, turnViewModel, winViewModel);
         TurnView turnView = NewGameUseCaseFactory.createTurnView(turnViewModel, loadGameView.getController().getInteractor());
@@ -38,12 +40,14 @@ public class Main {
         ShuffleView shuffleView = NewGameUseCaseFactory.createShuffleView(loadGameView.getController().getInteractor());
         InputPlayersView playersView = NewGameUseCaseFactory.createInputPlayers(loadGameView.getController().getInteractor());
         WinView winView = NewGameUseCaseFactory.createWinView(viewManagerModel, winViewModel);
+        PlayThreeView playThreeView = NewGameUseCaseFactory.createThreeView(viewManagerModel, loadGameView.getController().getInteractor(), playThreeViewModel);
 
         mainPanel.add(gameView, "New Game");
         mainPanel.add(loadGameView, "Load Game");
         mainPanel.add(turnView, "Turn View");
         mainPanel.add(shuffleView, "Shuffle View");
         mainPanel.add(playersView, "Input Players");
+        mainPanel.add(playThreeView, "Three view");
         mainPanel.add(winView, "Win View");
 
         viewManagerModel.setActiveView("New Game");

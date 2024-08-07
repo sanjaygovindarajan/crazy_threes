@@ -79,6 +79,10 @@ public class Player {
             return cards.cardList.isEmpty();
     }
 
+    public boolean isBot() {
+        return false;
+    }
+
     /**
      * Converts a Player object to a String
      * @return The player in string format

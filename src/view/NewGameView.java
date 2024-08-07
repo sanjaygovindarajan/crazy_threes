@@ -36,15 +36,15 @@ public class NewGameView extends JPanel {
         JButton accessRulesButton = new JButton("Access Rules");
         accessRulesButton.setFont(new Font("Arial", Font.PLAIN, 24));
 
-        newGameButton.addActionListener(_ -> {
+        newGameButton.addActionListener(e -> {
             this.viewManagerModel.setActiveView("Input Players");
         });
 
-        loadGameButton.addActionListener(_ -> {
+        loadGameButton.addActionListener(e -> {
             this.viewManagerModel.setActiveView("Load Game");
         });
 
-        accessRulesButton.addActionListener(_ -> {
+        accessRulesButton.addActionListener(e -> {
             this.readRulesController.execute();
         });
 

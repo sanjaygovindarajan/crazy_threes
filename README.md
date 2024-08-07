@@ -23,5 +23,3 @@ After running the program, type "View rules"
 Currently, as of Phase 1, it is possible to save a game to a database
 and load a game from the database. Basic gameplay is also supported.
 It is possible to view the rules before the game or before your turn.
-
-

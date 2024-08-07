@@ -67,7 +67,7 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
                     currentGame.getDiscard().getSuit()
             );
             presenter.loadSuccessView(outputData);
-        } catch(NullPointerException _){
+        } catch(NullPointerException e){
         }
     }
 
