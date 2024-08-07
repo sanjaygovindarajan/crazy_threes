@@ -111,6 +111,11 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if(source == saveButton){
+            if(!isValidName(gameName.getText())){
+                JOptionPane.showMessageDialog(this, "Please enter a valid game name! \n" +
+                        "Game name must be nonempty and must not contain the characters ,;/&");
+                return;
+            }
             saveGameController.execute(gameName.getText());
         } else if(source == drawButton){
             drawCardController.drawCard();
@@ -198,5 +203,13 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         graphics2D.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
         graphics2D.dispose();
         return resizedImage;
+    }
+
+    private boolean isValidName(String name){
+        return !name.isEmpty()
+                && !name.contains(",")
+                && !name.contains(";")
+                && !name.contains("&")
+                && !name.contains("/");
     }
 }
