@@ -51,9 +51,9 @@ public class NewGameUseCaseFactory {
      * @param turnViewModel The TurnViewModel
      * @return A LoadGameView
      */
-    public static LoadGameView createLoadGameView(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel) {
+    public static LoadGameView createLoadGameView(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel, PlayThreeViewModel playThreeViewModel) {
         try {
-            LoadGameController loadGameController = createUserLoadGameUseCase(viewManagerModel, turnViewModel, winViewModel);
+            LoadGameController loadGameController = createUserLoadGameUseCase(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel);
             return new LoadGameView(loadGameController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -114,8 +114,8 @@ public class NewGameUseCaseFactory {
      * @return A LoadGameController
      * @throws IOException Faulty data access
      */
-    private static LoadGameController createUserLoadGameUseCase(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel) throws IOException {
-        NewGameFacade newGame = createNewGameFacade(viewManagerModel, turnViewModel, winViewModel);
+    private static LoadGameController createUserLoadGameUseCase(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel, PlayThreeViewModel playThreeViewModel) throws IOException {
+        NewGameFacade newGame = createNewGameFacade(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel);
         return new LoadGameController(newGame);
     }
 
@@ -126,12 +126,12 @@ public class NewGameUseCaseFactory {
      * @param winViewModel The win view model
      * @return A NewGameFacade
      */
-    private static NewGameFacade createNewGameFacade(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel) {
+    private static NewGameFacade createNewGameFacade(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel, PlayThreeViewModel playThreeViewModel) {
         DataAccessInterface userDataAccessObject = new DataAccess() {
         };
         LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, turnViewModel);
         SaveGameOutputBoundary saveGameOutputBoundary = new SaveGamePresenter();
-        PlayCardOutputBoundary playCardOutputBoundary = new PlayCardPresenter(viewManagerModel, turnViewModel, winViewModel);
+        PlayCardOutputBoundary playCardOutputBoundary = new PlayCardPresenter(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel);
         StartGameOutputBoundary startGameOutputBoundary = new StartGamePresenter(viewManagerModel, turnViewModel);
         DrawCardOutputBoundary drawCardOutputBoundary = new DrawCardPresenter(viewManagerModel, turnViewModel);
         ShuffleOutputBoundary shuffleOutputBoundary = new ShufflePresenter(viewManagerModel);

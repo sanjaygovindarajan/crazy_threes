@@ -1,5 +1,6 @@
 package interface_adapter.play_card;
 
+import interface_adapter.PlayThreeViewModel;
 import interface_adapter.start_game.StartGamePresenter;
 import interface_adapter.TurnViewModel;
 import interface_adapter.ViewManagerModel;
@@ -9,9 +10,11 @@ import javax.swing.*;
 
 public class PlayCardPresenter extends StartGamePresenter implements PlayCardOutputBoundary {
     WinViewModel winViewModel;
-    public PlayCardPresenter(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel) {
+    PlayThreeViewModel playThreeViewModel;
+    public PlayCardPresenter(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel, PlayThreeViewModel playThreeViewModel) {
         super(viewManagerModel, turnViewModel);
         this.winViewModel = winViewModel;
+        this.playThreeViewModel = playThreeViewModel;
     }
 
 
@@ -23,6 +26,12 @@ public class PlayCardPresenter extends StartGamePresenter implements PlayCardOut
     @Override
     public void loadMissingCardView() {
 
+    }
+
+    @Override
+    public void loadThreeView(char suit) {
+        playThreeViewModel.setThreeSuit(suit);
+        viewManagerModel.setActiveView("Three View");
     }
 
     /**
