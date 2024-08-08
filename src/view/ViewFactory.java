@@ -23,7 +23,7 @@ import java.io.IOException;
 /**
  * Creates the views and constructors.
  */
-public class NewGameUseCaseFactory {
+public class ViewFactory {
     /**
      * Creates a new ShuffleView
      * @param interactor The interactor for creating a new game
