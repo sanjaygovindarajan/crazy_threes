@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.load_game.ViewGamesController;
 import interface_adapter.view_rules.ReadRulesController;
 
 import javax.swing.*;
@@ -12,15 +13,17 @@ import java.awt.*;
 public class NewGameView extends JPanel {
     private final ViewManagerModel viewManagerModel;
     private final ReadRulesController readRulesController;
+    private final ViewGamesController viewGamesController;
 
     /**
      * Builds a new view based on the view manager model and a controller for reading the rules.
      * @param viewManagerModel The view manager model
      * @param readRulesController The controller for viewing the rules
      */
-    public NewGameView(ViewManagerModel viewManagerModel, ReadRulesController readRulesController) {
+    public NewGameView(ViewManagerModel viewManagerModel, ReadRulesController readRulesController, ViewGamesController viewGamesController) {
         this.viewManagerModel = viewManagerModel;
         this.readRulesController = readRulesController;
+        this.viewGamesController = viewGamesController;
         setLayout(new GridLayout(4, 1));
 
 
@@ -41,7 +44,7 @@ public class NewGameView extends JPanel {
         });
 
         loadGameButton.addActionListener(e -> {
-            this.viewManagerModel.setActiveView("Load Game");
+            this.viewGamesController.execute();
         });
 
         accessRulesButton.addActionListener(e -> {

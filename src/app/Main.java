@@ -4,6 +4,7 @@ import interface_adapter.PlayThreeViewModel;
 import interface_adapter.TurnViewModel;
 import interface_adapter.WinViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.load_game.LoadGameViewModel;
 import view.*;
 
 import javax.swing.*;
@@ -33,10 +34,11 @@ public class Main {
         TurnViewModel turnViewModel = new TurnViewModel();
         WinViewModel winViewModel = new WinViewModel();
         PlayThreeViewModel playThreeViewModel = new PlayThreeViewModel();
+        LoadGameViewModel loadGameViewModel = new LoadGameViewModel();
 
-        LoadGameView loadGameView = NewGameUseCaseFactory.createLoadGameView(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel);
+        LoadGameView loadGameView = NewGameUseCaseFactory.createLoadGameView(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel, loadGameViewModel);
         TurnView turnView = NewGameUseCaseFactory.createTurnView(turnViewModel, loadGameView.getController().getInteractor());
-        NewGameView gameView = NewGameUseCaseFactory.createNewGame(viewManagerModel);
+        NewGameView gameView = NewGameUseCaseFactory.createNewGame(viewManagerModel, loadGameViewModel);
         ShuffleView shuffleView = NewGameUseCaseFactory.createShuffleView(loadGameView.getController().getInteractor());
         InputPlayersView playersView = NewGameUseCaseFactory.createInputPlayers(loadGameView.getController().getInteractor());
         WinView winView = NewGameUseCaseFactory.createWinView(viewManagerModel, winViewModel);
