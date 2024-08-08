@@ -41,10 +41,16 @@ public class InputPlayersView extends JPanel implements ActionListener{
         currentPanel.add(currentButton);
         JPanel welcomePanel = new JPanel();
         JLabel welcomeLabel = new JLabel("Add up to five players to start the game!");
+        JLabel botLabel = new JLabel("To add a bot, begin the player name with '#'");
+        JPanel botPanel = new JPanel();
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
         welcomePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        botLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        botPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         welcomePanel.add(welcomeLabel);
+        botPanel.add(botLabel);
         add(welcomePanel);
+        add(botPanel);
         add(currentPanel);
         addedPlayers = new ArrayList<>();
         addedPlayerRows = new ArrayList<>();
@@ -78,6 +84,10 @@ public class InputPlayersView extends JPanel implements ActionListener{
                     "Player name must be nonempty and must not contain the characters ,;/&");
             return;
         }
+        if(addedPlayers.isEmpty() && playerName.getText().charAt(0) == '#'){
+            JOptionPane.showMessageDialog(this, "The first player cannot be a bot!");
+            return;
+        }
         JLabel newPlayer = new JLabel(playerName.getText());
         JPanel newPanel = new JPanel();
         newPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -94,7 +104,9 @@ public class InputPlayersView extends JPanel implements ActionListener{
         addedPlayers.add(newPlayer);
         addedPlayerRows.add(newPanel);
         remove(confirmPanel);
-        add(newPanel);
+        if(addedPlayers.size() < 5) {
+            add(newPanel);
+        }
         add(confirmPanel);
         playerName.setText("");
         revalidate();
