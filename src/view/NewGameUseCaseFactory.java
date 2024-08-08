@@ -12,6 +12,8 @@ import interface_adapter.start_game.*;
 import interface_adapter.view_rules.*;
 import use_case.game_actions.NewGameFacade;
 import interface_adapter.load_game.LoadGameOutputBoundary;
+import use_case.game_actions.load_game.ViewGamesInputBoundary;
+import use_case.game_actions.load_game.ViewGamesInteractor;
 import use_case.game_actions.read_rules.ReadRulesInputBoundary;
 import use_case.game_actions.read_rules.ReadRulesInteractor;
 
@@ -51,10 +53,10 @@ public class NewGameUseCaseFactory {
      * @param turnViewModel The TurnViewModel
      * @return A LoadGameView
      */
-    public static LoadGameView createLoadGameView(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel, PlayThreeViewModel playThreeViewModel) {
+    public static LoadGameView createLoadGameView(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel, PlayThreeViewModel playThreeViewModel, LoadGameViewModel loadGameViewModel) {
         try {
             LoadGameController loadGameController = createUserLoadGameUseCase(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel);
-            return new LoadGameView(loadGameController);
+            return new LoadGameView(loadGameController, loadGameViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -66,9 +68,12 @@ public class NewGameUseCaseFactory {
      * @param viewManagerModel The view manager model
      * @return A new NewGameView
      */
-    public static NewGameView createNewGame(ViewManagerModel viewManagerModel){
-        return new NewGameView(viewManagerModel, createUserReadRulesUseCase());
+    public static NewGameView createNewGame(ViewManagerModel viewManagerModel, LoadGameViewModel loadGameViewModel){
+        return new NewGameView(viewManagerModel, createUserReadRulesUseCase(), createUserViewGamesUseCase(new DataAccess(),
+                loadGameViewModel,
+                viewManagerModel));
     }
+
 
     /** Creates a new InputPlayersView
      * @param interactor The NewGameFacade
@@ -96,6 +101,12 @@ public class NewGameUseCaseFactory {
         ReadRulesOutputBoundary readRulesOutputBoundary = new ReadRulesPresenter();
         ReadRulesInputBoundary readRules = new ReadRulesInteractor(readRulesOutputBoundary);
         return new ReadRulesController(readRules);
+    }
+
+    private static ViewGamesController createUserViewGamesUseCase(DataAccessInterface dataAccess, LoadGameViewModel loadGameViewModel, ViewManagerModel viewManagerModel) {
+        ViewGamesOutputBoundary viewGamesOutputBoundary = new ViewGamesPresenter(loadGameViewModel, viewManagerModel);
+        ViewGamesInputBoundary viewGames = new ViewGamesInteractor(dataAccess, viewGamesOutputBoundary);
+        return new ViewGamesController(viewGames);
     }
 
     /**
