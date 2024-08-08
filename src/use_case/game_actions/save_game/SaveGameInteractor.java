@@ -5,6 +5,7 @@ import entity.*;
 import interface_adapter.save_game.SaveGameOutputBoundary;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
             List<String> games = dataAccessObject.loadGames();
             List<String> gameNames = new ArrayList<>();
             for (String game : games) {
-                gameNames.add(game.split(":")[0].trim());
+                gameNames.add(game.split("&")[0].trim());
 
             }
             String gameName = inputData.getGameName();
@@ -36,7 +37,8 @@ public class SaveGameInteractor implements SaveGameInputBoundary {
                 presenter.prepareFailureView("Game already exists");
             }
             else {
-                dataAccessObject.saveGame(inputData.getGameName() + ":" + game.toString());
+                LocalDateTime now = LocalDateTime.now();
+                dataAccessObject.saveGame(inputData.getGameName() + "&" + game.toString(), now);
                 presenter.prepareSuccessView("Game " + inputData.getGameName() + " saved.");
             }
         } catch (IOException e) {

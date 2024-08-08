@@ -211,7 +211,7 @@ public class Game implements GameInterface{
             playerList.add(player.toString());
         }
         String playerListStr = String.join("/",playerList);
-        return String.join(":",deck.toString(),discard.toString(),playerListStr, turn + "\n");
+        return String.join("&",deck.toString(),discard.toString(),playerListStr,turn + "\n");
     }
 
     /**

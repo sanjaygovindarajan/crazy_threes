@@ -84,17 +84,23 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         discardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         this.cardsPanel = new JPanel();
-        JScrollPane scroll = new JScrollPane(cardsPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        cardsPanel.setPreferredSize(new Dimension(100, 600));
-        scroll.setPreferredSize(new Dimension(100, 200));
+        cardsPanel.setLayout(new GridLayout(3, 5, 10, 10));
+
+        // Wrap cardsPanel in a JScrollPane
+        JScrollPane scrollPane = new JScrollPane(cardsPanel);
 
         saveButton.addActionListener(this);
         drawButton.addActionListener(this);
         rulesButton.addActionListener(this);
 
-        add(discardPanel);
-        add(scroll);
-        add(buttonsPanel);
+        setLayout(new BorderLayout());
+        add(discardPanel, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        add(bottomPanel, BorderLayout.SOUTH);
+
     }
 
     /**
@@ -105,6 +111,11 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if(source == saveButton){
+            if(!isValidName(gameName.getText())){
+                JOptionPane.showMessageDialog(this, "Please enter a valid game name! \n" +
+                        "Game name must be nonempty and must not contain the characters ,;/&");
+                return;
+            }
             saveGameController.execute(gameName.getText());
         } else if(source == drawButton){
             drawCardController.drawCard();
@@ -192,5 +203,13 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         graphics2D.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
         graphics2D.dispose();
         return resizedImage;
+    }
+
+    private boolean isValidName(String name){
+        return !name.isEmpty()
+                && !name.contains(",")
+                && !name.contains(";")
+                && !name.contains("&")
+                && !name.contains("/");
     }
 }

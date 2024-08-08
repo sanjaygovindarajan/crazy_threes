@@ -75,7 +75,7 @@ public class InputPlayersView extends JPanel implements ActionListener{
     private void addPlayer(){
         if(!isValidName(playerName.getText())){
             JOptionPane.showMessageDialog(this, "Please enter a valid player name! \n" +
-                    "Player name must be nonempty and must not contain the characters ,;:/");
+                    "Player name must be nonempty and must not contain the characters ,;/&");
             return;
         }
         JLabel newPlayer = new JLabel(playerName.getText());
@@ -108,9 +108,9 @@ public class InputPlayersView extends JPanel implements ActionListener{
      */
     private boolean isValidName(String name){
         return !name.isEmpty()
-                && !name.contains(":")
                 && !name.contains(",")
                 && !name.contains(";")
+                && !name.contains("&")
                 && !name.contains("/");
     }
 
