@@ -2,6 +2,9 @@ package data_access;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class DataAccess implements DataAccessInterface {
@@ -36,20 +39,17 @@ public class DataAccess implements DataAccessInterface {
      * Saves a string representing a game in the database
      * @param game The string of the game to be saved in the database
      */
-    public void saveGame(String game) throws IOException{
+    public void saveGame(String game, LocalDateTime date) throws IOException{
         String existing = Files.readString(Path.of(this.databaseFile.getPath()));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = date.format(dateFormatter);
+        String gameEntry = game + "&" + formattedDate;
         String db;
         if(existing.isEmpty()) {
-            db = game;
+            db = gameEntry;
         } else {
-            db = game + ",,," + existing;
-        };
+            db = gameEntry + ",,," + existing;
+        }
         Files.writeString(Path.of(this.databaseFile.getPath()), db);
     }
-
-
-
-
-
-
 }
