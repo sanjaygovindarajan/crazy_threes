@@ -25,6 +25,11 @@ public class SaveGameInteractorTest {
 
     @BeforeEach
     public void setUp() throws IOException {
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        File dir = new File("src/data_access");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
         file = new File("src/data_access/database.txt");
         dataAccess = new DataAccess(file);
         Files.writeString(Path.of(file.getPath()), "");
@@ -52,3 +57,4 @@ public class SaveGameInteractorTest {
     }
 
 }
+

@@ -58,6 +58,10 @@ public class LoadGameInteractor implements LoadGameInputBoundary {
 
     }
 
+    /**
+     * Call start game presenter to load
+     * @param loadGameInputData The input data of load game.
+     */
     public void present(LoadGameInputData loadGameInputData){
         try {
             StartGameOutputData outputData = new StartGameOutputData(

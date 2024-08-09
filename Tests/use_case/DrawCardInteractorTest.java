@@ -1,9 +1,15 @@
-package use_case.player_actions.draw_card;
+package use_case;
 
 import entity.*;
 import entity.exceptions.MissingCardException;
+import interface_adapter.TurnViewModel;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.draw_card.DrawCardOutputBoundary;
+import interface_adapter.draw_card.DrawCardPresenter;
 import interface_adapter.start_game.StartGamePresenter;
 import org.junit.jupiter.api.Test;
+import use_case.player_actions.draw_card.DrawCardInputBoundary;
+import use_case.player_actions.draw_card.DrawCardInteractor;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,7 +31,7 @@ public class DrawCardInteractorTest {
      *
      * @throws MissingCardException if there are no cards left in the deck to draw
      */
-     @Test
+    @Test
     public void testHandleDrawCard() throws MissingCardException {
         // Setup
         List<Card> initialDeck = new ArrayList<>();
@@ -40,9 +46,11 @@ public class DrawCardInteractorTest {
         DeckDisposed discard = new DeckDisposed();
         discard.addCard(new Three('S'));
         Game game = new Game(deck, players, 0,discard);
-
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        TurnViewModel turnViewModel = new TurnViewModel();
+        DrawCardOutputBoundary drawCardOutputBoundary = new DrawCardPresenter(viewManagerModel, turnViewModel);
         // Setup the interactor with the necessary dependencies
-        DrawCardInputBoundary interactor = new DrawCardInteractor(new StartGamePresenter());
+        DrawCardInputBoundary interactor = new DrawCardInteractor(drawCardOutputBoundary);
         interactor.setGame(game);
 
         // Test

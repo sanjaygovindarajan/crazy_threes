@@ -11,7 +11,7 @@ public class LoadGamePresenter extends StartGamePresenter implements LoadGameOut
     public LoadGamePresenter(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel) {
         super(viewManagerModel, turnViewModel);
     }
-
+    @Override
     public void prepareFailView(String error){
         JOptionPane.showMessageDialog(null, "ERROR: " + error);
 

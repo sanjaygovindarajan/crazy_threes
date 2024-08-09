@@ -4,7 +4,7 @@ import interface_adapter.PlayThreeViewModel;
 import interface_adapter.TurnViewModel;
 import interface_adapter.WinViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.load_game.LoadGameViewModel;
+import interface_adapter.LoadGameViewModel;
 import view.*;
 
 import javax.swing.*;

@@ -1,6 +1,7 @@
 package interface_adapter.start_game;
 import interface_adapter.TurnViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.load_game.LoadGameOutputBoundary;
 
 import javax.swing.*;
 import java.util.*;
@@ -9,7 +10,7 @@ import java.util.*;
  * The presenter for the start game user stories.
  * Also, the draw card, load game, and play card presenters inherit from this.
  */
-public class StartGamePresenter implements StartGameOutputBoundary {
+public class StartGamePresenter implements StartGameOutputBoundary{
     protected TurnViewModel turnViewModel;
     protected ViewManagerModel viewManagerModel;
 
