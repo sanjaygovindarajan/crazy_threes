@@ -1,6 +1,12 @@
 package use_case;
 import entity.*;
 import entity.exceptions.InvalidCardException;
+import interface_adapter.PlayThreeViewModel;
+import interface_adapter.TurnViewModel;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.WinViewModel;
+import interface_adapter.play_card.PlayCardOutputBoundary;
+import interface_adapter.play_card.PlayCardPresenter;
 import interface_adapter.start_game.StartGamePresenter;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -39,15 +45,20 @@ public class PlayCardInteractorTest {
         DeckDisposed discard = new DeckDisposed();
         discard.addCard(new Card(2,'S'));
         Game game = new Game(deck, players, 0, discard);
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        TurnViewModel turnViewModel = new TurnViewModel();
+        WinViewModel winViewModel = new WinViewModel();
+        PlayThreeViewModel playThreeViewModel = new PlayThreeViewModel();
+        PlayCardOutputBoundary playCardOutputBoundary = new PlayCardPresenter(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel);
 
-        PlayCardInputBoundary interactor = new PlayCardInteractor(new StartGamePresenter());
+        PlayCardInputBoundary interactor = new PlayCardInteractor(playCardOutputBoundary);
         interactor.setGame(game);
 
 
         Player player = game.getCurrentPlayer();
         int beforeNum = player.viewHand().getCardList().size();
         Card card = player.viewHand().getCardList().getLast();
-        interactor.playCard(card.getCardNum(), card.getCurrentSuit());
+        interactor.playCard(card.getCardNum());
 
         //Ensure player has one less card than before
         assertEquals(player.viewHand().getCardList().size(), beforeNum - 1);

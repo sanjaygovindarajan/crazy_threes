@@ -3,6 +3,7 @@ package use_case.game_actions.read_rules;
 import interface_adapter.view_rules.ReadRulesOutputBoundary;
 import interface_adapter.view_rules.ReadRulesPresenter;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -18,11 +19,11 @@ class ReadRulesInteractorTest {
         System.setOut(printed);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void execute() {
         try {
             ReadRulesInteractor testInteract = new ReadRulesInteractor(testOutput);
-            testInteract.execute(false);
+            testInteract.execute();
         } catch (Exception e) {
             assertTrue(output.toString().contains("Success! The rules are as follows: \n " +
             "Each player is dealt 9 cards, the balance of the cards becomes the deck. The first card is placed \n" +
