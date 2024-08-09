@@ -16,7 +16,11 @@ public class ViewGamesInteractor implements ViewGamesInputBoundary{
         this.userDataAccessObject = userDataAccessObject;
         this.presenter = presenter;
     }
-
+    /**
+     * Loads the saved games and presents the results.
+     * If an IOException occurs during loading, it invokes the presenter's
+     * loadFailView method.
+     */
     @Override
     public void loadSavedGames() {
         List<String> games = new ArrayList<>();
