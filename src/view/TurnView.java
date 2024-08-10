@@ -2,6 +2,7 @@ package view;
 
 import interface_adapter.TurnViewModel;
 import interface_adapter.draw_card.DrawCardController;
+import interface_adapter.load_game.LoadGameController;
 import interface_adapter.play_card.PlayCardController;
 import interface_adapter.save_game.SaveGameController;
 import interface_adapter.view_rules.ReadRulesController;
@@ -211,5 +212,37 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
                 && !name.contains(";")
                 && !name.contains("&")
                 && !name.contains("/");
+    }
+
+    /**
+     * Getter method for the save game controller
+     * @return The controller for saving the game
+     */
+    public SaveGameController getSaveGameController() {
+        return this.saveGameController;
+    }
+
+    /**
+     * Getter method for the read rules controller
+     * @return The controller for reading the rules
+     */
+    public ReadRulesController getReadRulesController() {
+        return this.readRulesController;
+    }
+
+    /**
+     * Getter method for the play card controller
+     * @return The controller for playing a card
+     */
+    public PlayCardController getPlayCardController() {
+        return this.playCardController;
+    }
+
+    /**
+     * Getter method for the draw card controller
+     * @return The controller for drawing a card
+     */
+    public DrawCardController getDrawCardController() {
+        return this.drawCardController;
     }
 }

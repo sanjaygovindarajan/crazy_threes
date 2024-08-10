@@ -1,6 +1,8 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.draw_card.DrawCardController;
+import interface_adapter.load_game.LoadGameController;
 import interface_adapter.load_game.ViewGamesController;
 import interface_adapter.view_rules.ReadRulesController;
 
@@ -54,5 +56,13 @@ public class NewGameView extends JPanel {
         add(newGameButton);
         add(loadGameButton);
         add(accessRulesButton);
+    }
+
+    /**
+     * Getter method for the controller
+     * @return The controller for viewing the games
+     */
+    public ViewGamesController getViewGamesController() {
+        return this.viewGamesController;
     }
 }

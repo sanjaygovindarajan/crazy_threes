@@ -25,12 +25,6 @@ public class StartGamePresenter implements StartGameOutputBoundary{
     }
 
     /**
-     * Empty constructor used for testing purposes.
-     */
-    public StartGamePresenter(){
-    }
-
-    /**
      * Loads the cards from the game, the player name, and the top card of the discard pile.
      * Switches the view to the next player's turn.
      * @param data The output data

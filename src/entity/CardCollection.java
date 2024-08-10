@@ -6,9 +6,6 @@ public abstract class CardCollection {
     public CardCollection() {
     }
 
-    public CardCollection(LinkedList<Card> cardList){
-        this.cardList = cardList;
-    }
     /**
      * Adds a new card to the end of the list
      * @param card The card to add to the list

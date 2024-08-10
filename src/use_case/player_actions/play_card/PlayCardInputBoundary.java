@@ -1,15 +1,17 @@
 package use_case.player_actions.play_card;
 
 import entity.GameInterface;
+import interface_adapter.play_card.PlayCardInputData;
+import interface_adapter.play_card.PlayThreeInputData;
 import interface_adapter.start_game.StartGameOutputBoundary;
 
 public interface PlayCardInputBoundary {
 
     /**
      * Allows for a card to be played in the game.
-     * @param index The index of the card to be played
+     * @param inputData The index of the card to be played
      */
-    void playCard(int index);
+    void playCard(PlayCardInputData inputData);
 
     /**
      * Sets the current game being played.
@@ -19,10 +21,9 @@ public interface PlayCardInputBoundary {
 
     /**
      * Allows for a three to be played in the game and for the suit of the disposal deck to be set.
-     * @param suit the suit of the card being played.
-     * @param newSuit the suit the disposal deck will begin accepting.
+     * @param inputData The suit and new suit of the card
      */
-    void playThree(char suit, char newSuit);
+    void playThree(PlayThreeInputData inputData);
 
     StartGameOutputBoundary getPresenter();
 }

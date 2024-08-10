@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.draw_card.DrawCardController;
 import interface_adapter.shuffle.ShuffleController;
 
 import javax.swing.*;
@@ -44,5 +45,13 @@ public class ShuffleView  extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+    }
+
+    /**
+     * Getter method for the controller
+     * @return The controller for shuffling
+     */
+    public ShuffleController getController() {
+        return this.shuffleController;
     }
 }

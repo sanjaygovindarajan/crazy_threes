@@ -1,9 +1,6 @@
 package interface_adapter.play_card;
 
-import use_case.player_actions.play_card.PlayCardInputData;
 import use_case.player_actions.play_card.PlayCardInputBoundary;
-
-import java.util.Objects;
 
 public class PlayCardController {
     final PlayCardInputBoundary playCardInteractor;
@@ -19,7 +16,7 @@ public class PlayCardController {
      */
     public void playCard(int index){
 
-        playCardInteractor.playCard(index);
+        playCardInteractor.playCard(new PlayCardInputData(index));
     }
 
     /**
@@ -28,6 +25,10 @@ public class PlayCardController {
      * @param newSuit the suit the disposal deck will begin accepting (user input).
      */
     public void playThree(char suit, String newSuit) {
-        playCardInteractor.playThree(suit, newSuit.toUpperCase().charAt(0));
+        playCardInteractor.playThree(new PlayThreeInputData(suit, newSuit.toUpperCase().charAt(0)));
+    }
+
+    public PlayCardInputBoundary getInteractor() {
+        return this.playCardInteractor;
     }
 }

@@ -22,4 +22,8 @@ public class ShuffleController {
     public void execute(){
         shuffleInteractor.shuffle();
     }
+
+    public ShuffleInputBoundary getInteractor() {
+        return this.shuffleInteractor;
+    }
 }

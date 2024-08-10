@@ -16,4 +16,12 @@ public class ViewGamesController {
     public void execute(){
         interactor.loadSavedGames();
     }
+
+    /**
+     * Getter method for the use case interactor
+     * @return THe use case interactor
+     */
+    public ViewGamesInputBoundary getInteractor() {
+        return this.interactor;
+    }
 }

@@ -31,14 +31,4 @@ public class Hand extends CardCollection {
         return playedCard;
     }
 
-    /**
-     * Plays a three
-     * @param i The index of the three
-     * @return The three
-     */
-    public Three playThree(int i) {
-        Three playedCard = (Three) cardList.get(i);
-        this.cardList.remove(i);
-        return playedCard;
-    }
 }

@@ -12,6 +12,7 @@ import interface_adapter.start_game.*;
 import interface_adapter.view_rules.*;
 import use_case.game_actions.NewGameFacade;
 import interface_adapter.load_game.LoadGameOutputBoundary;
+import use_case.game_actions.NewGameInterface;
 import use_case.game_actions.load_game.ViewGamesInputBoundary;
 import use_case.game_actions.load_game.ViewGamesInteractor;
 import use_case.game_actions.read_rules.ReadRulesInputBoundary;
@@ -29,7 +30,7 @@ public class ViewFactory {
      * @param interactor The interactor for creating a new game
      * @return A ShuffleView
      */
-    public static ShuffleView createShuffleView(NewGameFacade interactor){
+    public static ShuffleView createShuffleView(NewGameInterface interactor){
         ShuffleController shuffleController = new ShuffleController(interactor.getShuffle());
         return new ShuffleView(shuffleController);
     }
@@ -39,7 +40,7 @@ public class ViewFactory {
      * @param interactor The NewGameFacade
      * @return A TurnView
      */
-    public static TurnView createTurnView(TurnViewModel turnViewModel, NewGameFacade interactor){
+    public static TurnView createTurnView(TurnViewModel turnViewModel, NewGameInterface interactor){
         SaveGameController saveGameController = new SaveGameController(interactor.getSaveGame());
         DrawCardController drawCardController = new DrawCardController(interactor.getDrawCard());
         PlayCardController playCardController = new PlayCardController(interactor.getPlayCard());
@@ -79,7 +80,7 @@ public class ViewFactory {
      * @param interactor The NewGameFacade
      * @return A new InputPlayersView
      */
-    public static InputPlayersView createInputPlayers(NewGameFacade interactor) {
+    public static InputPlayersView createInputPlayers(NewGameInterface interactor) {
         return new InputPlayersView(createUserStartGameUseCase(interactor));
     }
 
@@ -114,7 +115,7 @@ public class ViewFactory {
      * @param interactor The new game interactor
      * @return A StartGameController
      */
-    private static StartGameController createUserStartGameUseCase(NewGameFacade interactor){
+    private static StartGameController createUserStartGameUseCase(NewGameInterface interactor){
         return new StartGameController(interactor);
     }
 
@@ -126,7 +127,7 @@ public class ViewFactory {
      * @throws IOException Faulty data access
      */
     private static LoadGameController createUserLoadGameUseCase(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel, PlayThreeViewModel playThreeViewModel) throws IOException {
-        NewGameFacade newGame = createNewGameFacade(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel);
+        NewGameInterface newGame = createNewGameFacade(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel);
         return new LoadGameController(newGame);
     }
 
@@ -137,7 +138,7 @@ public class ViewFactory {
      * @param winViewModel The win view model
      * @return A NewGameFacade
      */
-    private static NewGameFacade createNewGameFacade(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel, PlayThreeViewModel playThreeViewModel) {
+    private static NewGameInterface createNewGameFacade(ViewManagerModel viewManagerModel, TurnViewModel turnViewModel, WinViewModel winViewModel, PlayThreeViewModel playThreeViewModel) {
         DataAccessInterface userDataAccessObject = new DataAccess() {
         };
         LoadGameOutputBoundary loadGameOutputBoundary = new LoadGamePresenter(viewManagerModel, turnViewModel);
@@ -157,7 +158,7 @@ public class ViewFactory {
         );
     }
 
-    public static PlayThreeView createThreeView(ViewManagerModel viewManagerModel, NewGameFacade interactor, PlayThreeViewModel playThreeViewModel) {
+    public static PlayThreeView createThreeView(ViewManagerModel viewManagerModel, NewGameInterface interactor, PlayThreeViewModel playThreeViewModel) {
         PlayCardController playCardController = new PlayCardController(interactor.getPlayCard());
         return new PlayThreeView(playThreeViewModel, viewManagerModel, playCardController);
     }
