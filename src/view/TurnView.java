@@ -200,6 +200,11 @@ public class TurnView extends JPanel implements ActionListener, PropertyChangeLi
         return resizedImage;
     }
 
+    /**
+     * Checks if a player name is valid.
+     * @param name The player name
+     * @return Whether the player name is valid
+     */
     private boolean isValidName(String name){
         return !name.isEmpty()
                 && !name.contains(",")
