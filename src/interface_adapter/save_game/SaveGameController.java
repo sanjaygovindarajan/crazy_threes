@@ -11,4 +11,8 @@ public class SaveGameController {
         SaveGameInputData inputData = new SaveGameInputData(gameName);
         saveGameInputBoundary.execute(inputData);
     }
+
+    public SaveGameInputBoundary getInteractor() {
+        return this.saveGameInputBoundary;
+    }
 }

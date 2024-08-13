@@ -26,4 +26,8 @@ public class DrawCardController {
     public void drawCard() {
         drawCardInteractor.handleDrawCard();
     }
+
+    public DrawCardInputBoundary getInteractor() {
+        return this.drawCardInteractor;
+    }
 }

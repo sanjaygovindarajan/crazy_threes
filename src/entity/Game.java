@@ -148,12 +148,8 @@ public class Game implements GameInterface{
      * @return Whether the card can be played
      */
     private boolean isValidPlay(Card card) {
-        if (discard.getCardList().isEmpty()) {
-            return true;
-        } else {
-            Card topCard = discard.getCard();
-            return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit() || card.getCardNum() == 3;
-        }
+        Card topCard = discard.getCard();
+        return card.getCardNum() == topCard.getCardNum() || card.getCurrentSuit() == topCard.getCurrentSuit() || card.getCardNum() == 3;
     }
 
     /**

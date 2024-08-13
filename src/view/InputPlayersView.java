@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.load_game.ViewGamesController;
 import interface_adapter.start_game.StartGameController;
 
 import javax.swing.*;
@@ -140,5 +141,13 @@ public class InputPlayersView extends JPanel implements ActionListener{
         add(currentPanel);
         revalidate();
         repaint();
+    }
+
+    /**
+     * Getter method for the controller
+     * @return The controller for starting the game
+     */
+    public StartGameController getController() {
+        return this.controller;
     }
 }

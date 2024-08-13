@@ -2,6 +2,7 @@ package view;
 
 import interface_adapter.PlayThreeViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.load_game.ViewGamesController;
 import interface_adapter.play_card.PlayCardController;
 
 import javax.swing.*;
@@ -62,5 +63,13 @@ public class PlayThreeView extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         String suit = e.getActionCommand();
         playCardController.playThree(playThreeViewModel.getThreeSuit(), suit);
+    }
+
+    /**
+     * Getter method for the controller
+     * @return The controller for playing a three
+     */
+    public PlayCardController getController() {
+        return this.playCardController;
     }
 }

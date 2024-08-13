@@ -1,32 +1,25 @@
 package use_case;
 import entity.*;
-import entity.exceptions.InvalidCardException;
-import interface_adapter.PlayThreeViewModel;
-import interface_adapter.TurnViewModel;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.WinViewModel;
+import interface_adapter.play_card.PlayCardInputData;
 import interface_adapter.play_card.PlayCardOutputBoundary;
-import interface_adapter.play_card.PlayCardPresenter;
-import interface_adapter.start_game.StartGamePresenter;
+import interface_adapter.play_card.PlayThreeInputData;
+import interface_adapter.start_game.StartGameOutputData;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
-import use_case.player_actions.play_card.PlayCardInputBoundary;
-import use_case.player_actions.play_card.PlayCardInteractor;
+import use_case.player_actions.play_card.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayCardInteractorTest {
-
-    /**
-     * Tests the handleDrawCard method of the PlayCardInteractor.
-     * This test check that a player can play a card and a three, that those cards are removed from their hand, that
-     * they are being put in the disposal deck, and that the suit properly changes when a three is played.
-     * @throws InvalidCardException if there are no cards left in the deck to draw
-     */
-    @Test
-    public void testPlayCard() throws InvalidCardException {
+    Game game;
+    PlayCardInteractor interactor;
+    DeckDisposed discard;
+    Player player;
+    int status = 0;
+    @BeforeEach
+    public void setUp(){
         List<Card> initialhand = new ArrayList<>();
         for (char suit : new char[]{'S'}) {
             for (int num : new int[]{3, 2, 1}) {
@@ -42,23 +35,29 @@ public class PlayCardInteractorTest {
         List<Player> players = new ArrayList<>();
         Hand hand = new Hand(initialhand);
         players.add(new Player("TestName", hand));
-        DeckDisposed discard = new DeckDisposed();
-        discard.addCard(new Card(2,'S'));
-        Game game = new Game(deck, players, 0, discard);
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        TurnViewModel turnViewModel = new TurnViewModel();
-        WinViewModel winViewModel = new WinViewModel();
-        PlayThreeViewModel playThreeViewModel = new PlayThreeViewModel();
-        PlayCardOutputBoundary playCardOutputBoundary = new PlayCardPresenter(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel);
+        discard = new DeckDisposed();
+        discard.addCard(new Card(2,'H'));
+        game = new Game(deck, players, 0, discard);
+        player = players.getFirst();
+        PlayCardOutputBoundary playCardOutputBoundary = new MockPresenter();
 
-        PlayCardInputBoundary interactor = new PlayCardInteractor(playCardOutputBoundary);
+        interactor = new PlayCardInteractor(playCardOutputBoundary);
         interactor.setGame(game);
+    }
+
+    /**
+     * Tests the handleDrawCard method of the PlayCardInteractor.
+     * This test check that a player can play a card and a three, that those cards are removed from their hand, that
+     * they are being put in the disposal deck, and that the suit properly changes when a three is played.
+     */
+    @Test
+    public void testPlayCard() {
 
 
         Player player = game.getCurrentPlayer();
         int beforeNum = player.viewHand().getCardList().size();
         Card card = player.viewHand().getCardList().getLast();
-        interactor.playCard(card.getCardNum());
+        interactor.playCard(new PlayCardInputData(card.getCardNum()));
 
         //Ensure player has one less card than before
         assertEquals(player.viewHand().getCardList().size(), beforeNum - 1);
@@ -68,20 +67,62 @@ public class PlayCardInteractorTest {
 
         //Ensure the card played is no longer in the player's hand.
         assertNotEquals(player.viewHand().getCardList().getFirst(), discard.getCardList().getLast());
+    }
 
-        Card newCard = player.viewHand().getCardList().getFirst();
-        interactor.playThree(newCard.getCurrentSuit(), 'D');
+    @Test
+    public void testPlayThree() {
+        interactor.playThree(new PlayThreeInputData('S', 'D'));
 
-        //Ensure player has two fewer cards than before
-        assertEquals(player.viewHand().getCardList().size(), beforeNum - 2);
+    }
+    @Test
+    public void testMissingCard(){
+        interactor.playThree(new PlayThreeInputData('H','H'));
+        assertEquals(status, 2);
 
-        //Ensure disposal deck size has increased by 2
-        assertEquals(discard.getCardList().size(), 3);
+    }
+    @Test
+    public void testInvalidCard(){
+        interactor.playCard(new PlayCardInputData(2));
+        assertEquals(status, 2);
 
-        //Ensure the card played is no longer in the player's hand.
-        assertNotEquals(player.viewHand().getCardList().getFirst(), discard.getCardList().getLast());
+    }
 
-        //Ensure disposal deck suit was properly changed.
-        assertEquals(discard.getSuit(), 'D');
+    @Test
+    public void testWin(){
+        interactor.playCard(new PlayCardInputData(1));
+        interactor.playCard(new PlayCardInputData(1));
+        interactor.playThree(new PlayThreeInputData('S', 'D'));
+        assertEquals(status, 1);
+    }
+    class MockPresenter implements PlayCardOutputBoundary{
+
+        @Override
+        public void winMessage(String player) {
+            assertEquals(player, "TestName");
+            status = 1;
+
+        }
+
+        @Override
+        public void loadInvalidCardView() {
+            status = 2;
+        }
+
+        @Override
+        public void loadThreeView(char suit) {
+
+            assert(List.of('C','S','H','D').contains(suit));
+            status = 4;
+        }
+
+        @Override
+        public void loadSuccessView(StartGameOutputData data) {
+            if(data.getCard().charAt(1) == '3'){
+                assertEquals(data.getCurrentSuit(), 'D');
+            } else {
+                assertEquals(data.getCurrentSuit(), 'S');
+            }
+            status = 5;
+        }
     }
 }

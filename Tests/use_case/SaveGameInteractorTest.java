@@ -3,7 +3,7 @@ package use_case;
 import data_access.DataAccess;
 import data_access.DataAccessInterface;
 import entity.*;
-import interface_adapter.save_game.*;
+import interface_adapter.save_game.SaveGameOutputBoundary;
 import org.junit.jupiter.api.*;
 import use_case.game_actions.save_game.SaveGameInputBoundary;
 import use_case.game_actions.save_game.SaveGameInputData;
@@ -33,7 +33,7 @@ public class SaveGameInteractorTest {
         file = new File("src/data_access/database.txt");
         dataAccess = new DataAccess(file);
         Files.writeString(Path.of(file.getPath()), "");
-        output = new SaveGamePresenter();
+        output = new MockPresenter();
         interactor = new SaveGameInteractor(dataAccess, output);
     }
 
@@ -54,6 +54,19 @@ public class SaveGameInteractorTest {
     @AfterEach
     void tearDown() throws IOException {
         setUp();
+    }
+
+    class MockPresenter implements SaveGameOutputBoundary {
+
+        @Override
+        public void prepareSuccessView(String message) {
+
+        }
+
+        @Override
+        public void prepareFailureView(String error) {
+
+        }
     }
 
 }
