@@ -10,4 +10,12 @@ public class ReadRulesController {
     public void execute() {
         readRulesInputBoundary.execute();
     }
+
+    /**
+     * Getter method for the use case interactor
+     * @return THe use case interactor
+     */
+    public ReadRulesInputBoundary getInteractor() {
+        return this.readRulesInputBoundary;
+    }
 }

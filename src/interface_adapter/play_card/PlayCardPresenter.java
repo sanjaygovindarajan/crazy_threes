@@ -17,17 +17,19 @@ public class PlayCardPresenter extends StartGamePresenter implements PlayCardOut
         this.playThreeViewModel = playThreeViewModel;
     }
 
-
+    /**
+     * The player is not allowed to play the card that they attempted to play.
+     * Loads an error message
+     */
     @Override
     public void loadInvalidCardView() {
         JOptionPane.showMessageDialog(null, "You are not allowed to play that card!");
     }
 
-    @Override
-    public void loadMissingCardView() {
-
-    }
-
+    /**
+     * Asks the player to choose the new suit.
+     * @param suit The suit of the three they played
+     */
     @Override
     public void loadThreeView(char suit) {
         playThreeViewModel.setThreeSuit(suit);

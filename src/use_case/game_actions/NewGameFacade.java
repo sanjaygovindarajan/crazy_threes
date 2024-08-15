@@ -23,7 +23,7 @@ import use_case.player_actions.play_card.PlayCardInteractor;
  * and LoadGameInteractor classes, whose methods are not called outside of this
  * class.
  */
-public class NewGameFacade {
+public class NewGameFacade implements NewGameInterface {
 
     private final StartGameInputBoundary startGame;
     private final LoadGameInputBoundary loadGame;
@@ -62,6 +62,7 @@ public class NewGameFacade {
      * Starts a new game.
      * @param inputData The input data for starting a game. Includes the player names.
      */
+    @Override
     public void startGame(StartGameInputData inputData){
         startGame.execute(inputData);
         setGames(startGame.getGame());
@@ -72,6 +73,7 @@ public class NewGameFacade {
      * Loads a new game.
      * @param inputData The input data. Includes the game name.
      */
+    @Override
     public void loadGame(LoadGameInputData inputData){
         try {
             loadGame.execute(inputData);
@@ -86,6 +88,7 @@ public class NewGameFacade {
      * Gets the save game use case interactor
      * @return The save game use case interactor
      */
+    @Override
     public SaveGameInputBoundary getSaveGame() {
         return saveGame;
     }
@@ -94,6 +97,7 @@ public class NewGameFacade {
      * Gets the play card use case interactor
      * @return The play card use case interactor
      */
+    @Override
     public PlayCardInputBoundary getPlayCard() {
         return playCard;
     }
@@ -102,6 +106,7 @@ public class NewGameFacade {
      * Gets the load game use case interactor
      * @return The load game use case interactor
      */
+    @Override
     public LoadGameInputBoundary getLoadGame() {
         return loadGame;
     }
@@ -110,12 +115,14 @@ public class NewGameFacade {
      * Gets the draw card use case interactor
      * @return The draw card use case interactor
      */
+    @Override
     public DrawCardInputBoundary getDrawCard() { return drawCard; }
 
     /**
      * Gets the shuffle use case interactor
      * @return The shuffle use case interactor
      */
+    @Override
     public ShuffleInputBoundary getShuffle() {
         return shuffle;
     }
@@ -124,6 +131,7 @@ public class NewGameFacade {
      * Gets the start game use case interactor
      * @return The start game use case interactor
      */
+    @Override
     public StartGameInputBoundary getStartGame() {
         return this.startGame;
     }
