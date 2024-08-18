@@ -27,10 +27,9 @@ public class ShuffleInteractorTest {
      * the deck. It also verifies that a playable card is eventually present and that a card
      * is played. It checks if the interactor correctly interacts with the game state.
      *
-     * @throws MissingCardException if there are no cards left in the deck to draw
      */
     @Test
-    public void testHandleDrawCard() throws MissingCardException {
+    public void testShuffle() {
         // Setup
         List<Card> initialDeck = new ArrayList<>();
         DeckDisposed discard = new DeckDisposed();

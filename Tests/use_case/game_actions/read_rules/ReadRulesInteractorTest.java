@@ -14,13 +14,13 @@ class ReadRulesInteractorTest {
     ReadRulesOutputBoundary testOutput = new ReadRulesPresenter();
     ByteArrayOutputStream output = new ByteArrayOutputStream();
     @BeforeEach
-    public void setUpStreams(){
+    public void setUp(){
         PrintStream printed = new PrintStream(output);
         System.setOut(printed);
     }
 
     @Test
-    void execute() {
+    void testExecute() {
         try {
             ReadRulesInteractor testInteract = new ReadRulesInteractor(testOutput);
             testInteract.execute();
@@ -48,5 +48,7 @@ class ReadRulesInteractorTest {
             "\n" +
             "The player that runs out of cards wins! \n"));
         }
+
+
         }
     }

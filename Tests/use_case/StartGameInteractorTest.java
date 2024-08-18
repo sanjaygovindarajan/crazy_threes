@@ -1,7 +1,5 @@
 package use_case;
-import entity.Card;
 import entity.Game;
-import entity.Three;
 import interface_adapter.load_game.LoadGameOutputBoundary;
 import org.junit.jupiter.api.Test;
 import entity.Player;
@@ -9,7 +7,6 @@ import interface_adapter.TurnViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.start_game.StartGameOutputBoundary;
 import interface_adapter.start_game.StartGameOutputData;
-import interface_adapter.start_game.StartGamePresenter;
 import use_case.game_actions.start_game.StartGameInputData;
 import use_case.game_actions.start_game.StartGameInteractor;
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,10 +26,14 @@ public class StartGameInteractorTest {
 
 
     @Test
-    public void interactorTest() {
+    public void testExecute() {
         Player player1 = new Player("test1");
         interactor.execute(inputData);
         assert interactor.getGame().getPlayers().get(0).getName().equals(player1.getName());
+    }
+
+    @Test
+    public void testPresent() {
         Game game = new Game(List.of(players));
         interactor.setGame(game);
         interactor.present();

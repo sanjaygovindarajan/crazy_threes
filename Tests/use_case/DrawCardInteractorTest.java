@@ -7,6 +7,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.draw_card.DrawCardOutputBoundary;
 import interface_adapter.draw_card.DrawCardPresenter;
 import interface_adapter.start_game.StartGamePresenter;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.player_actions.draw_card.DrawCardInputBoundary;
 import use_case.player_actions.draw_card.DrawCardInteractor;
@@ -31,29 +32,39 @@ public class DrawCardInteractorTest {
      *
      * @throws MissingCardException if there are no cards left in the deck to draw
      */
-    @Test
-    public void testHandleDrawCard() throws MissingCardException {
-        // Setup
+    Game game;
+    Deck deck;
+    DrawCardInputBoundary interactor;
+    DrawCardOutputBoundary drawCardOutputBoundary;
+    Deck emptyDeck;
+
+    @BeforeEach
+    void setUp() {
         List<Card> initialDeck = new ArrayList<>();
         for (char suit : new char[]{'S', 'C', 'H', 'D'}) {
             for (int num : new int[]{2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}) {
                 initialDeck.add(new Card(num, suit));
             }
         }
-        Deck deck = new Deck(initialDeck);
+        deck = new Deck(initialDeck);
+        emptyDeck = new Deck();
         List<Player> players = new ArrayList<>();
         players.add(new Player("TestName"));
         DeckDisposed discard = new DeckDisposed();
-        discard.addCard(new Three('S'));
-        Game game = new Game(deck, players, 0,discard);
+        discard.addCard(new Card(2, 'S'));
+        game = new Game(deck, players, 0,discard);
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         TurnViewModel turnViewModel = new TurnViewModel();
-        DrawCardOutputBoundary drawCardOutputBoundary = new DrawCardPresenter(viewManagerModel, turnViewModel);
+        drawCardOutputBoundary = new DrawCardPresenter(viewManagerModel, turnViewModel);
         // Setup the interactor with the necessary dependencies
-        DrawCardInputBoundary interactor = new DrawCardInteractor(drawCardOutputBoundary);
+        interactor = new DrawCardInteractor(drawCardOutputBoundary);
         interactor.setGame(game);
+    }
 
+    @Test
+    public void testHandleDrawCard() throws MissingCardException {
         // Test
+
         Player player = game.getCurrentPlayer();
         interactor.handleDrawCard();
 
@@ -65,5 +76,27 @@ public class DrawCardInteractorTest {
 
         //Ensure the top card is no longer in the deck
         assertNotEquals(player.viewHand().getCardList().getFirst(), deck.getCardList().getFirst());
+
+        Card card = player.viewHand().getCardList().getFirst();
+        interactor.handleDrawCard();
+
+        assertEquals(card, player.viewHand().getCardList().getFirst());
+        player.playCard(game, 0);
+        while (deck.getCardList().size() > 0) {
+            interactor.handleDrawCard();
+            player.playCard(game, 0);
+        }
+        interactor.handleDrawCard();
+        assertEquals(deck.getCardList().size(), 0);
+
+
+
     }
+
+    @Test
+    public void testGetPresenter(){
+        assertEquals(drawCardOutputBoundary, interactor.getPresenter());
+    }
+
+
 }
