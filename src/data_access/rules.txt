@@ -14,5 +14,4 @@ disposed deck and then continue to draw cards until they can play.
 Threes are wild! That is, a three may be played at any time in turn, and the player need only
 specify a suit for it (but never a number). The next player must play either a card of the specified
 suit or a three.
-The player that runs out of cards wins! You can save your wins by saving the game and
-accumulate them by loading your game and play again with the same people.
+The player that runs out of cards wins!

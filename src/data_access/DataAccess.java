@@ -27,12 +27,6 @@ public class DataAccess implements DataAccessInterface {
         String db = Files.readString(Path.of(this.databaseFile.getPath()));
         String[] gamesArray = db.split(",,,");
         return Arrays.asList(gamesArray);
-        // for(String game: gamesArray){
-            // if(game.split(":")[0].equals(name)){
-                // return readGame(game);
-            // }
-        // }
-        // throw new IndexOutOfBoundsException();
     }
 
     /**
