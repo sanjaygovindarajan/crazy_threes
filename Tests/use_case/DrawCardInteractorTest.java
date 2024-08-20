@@ -2,11 +2,8 @@ package use_case;
 
 import entity.*;
 import entity.exceptions.MissingCardException;
-import interface_adapter.TurnViewModel;
-import interface_adapter.ViewManagerModel;
 import interface_adapter.draw_card.DrawCardOutputBoundary;
-import interface_adapter.draw_card.DrawCardPresenter;
-import interface_adapter.start_game.StartGamePresenter;
+import interface_adapter.start_game.StartGameOutputData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.player_actions.draw_card.DrawCardInputBoundary;
@@ -41,11 +38,7 @@ public class DrawCardInteractorTest {
     @BeforeEach
     void setUp() {
         List<Card> initialDeck = new ArrayList<>();
-        for (char suit : new char[]{'S', 'C', 'H', 'D'}) {
-            for (int num : new int[]{2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}) {
-                initialDeck.add(new Card(num, suit));
-            }
-        }
+        initialDeck.add(new Card(2, 'S'));
         deck = new Deck(initialDeck);
         emptyDeck = new Deck();
         List<Player> players = new ArrayList<>();
@@ -53,49 +46,58 @@ public class DrawCardInteractorTest {
         DeckDisposed discard = new DeckDisposed();
         discard.addCard(new Card(2, 'S'));
         game = new Game(deck, players, 0,discard);
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        TurnViewModel turnViewModel = new TurnViewModel();
-        drawCardOutputBoundary = new DrawCardPresenter(viewManagerModel, turnViewModel);
+        drawCardOutputBoundary = new MockPresenter();
         // Setup the interactor with the necessary dependencies
         interactor = new DrawCardInteractor(drawCardOutputBoundary);
         interactor.setGame(game);
     }
 
     @Test
-    public void testHandleDrawCard() throws MissingCardException {
-        // Test
-
-        Player player = game.getCurrentPlayer();
+    public void testHandleDrawCard(){
         interactor.handleDrawCard();
+    }
 
-        //Ensure player has one more card than before
-        assertEquals(player.viewHand().getCardList().size(), 1);
-
-        //Ensure deck size has decreased by 1
-        assertEquals(deck.getCardList().size(), 47);
-
-        //Ensure the top card is no longer in the deck
-        assertNotEquals(player.viewHand().getCardList().getFirst(), deck.getCardList().getFirst());
-
-        Card card = player.viewHand().getCardList().getFirst();
+    @Test
+    public void testShuffleView(){
         interactor.handleDrawCard();
-
-        assertEquals(card, player.viewHand().getCardList().getFirst());
-        player.playCard(game, 0);
-        while (deck.getCardList().size() > 0) {
-            interactor.handleDrawCard();
-            player.playCard(game, 0);
-        }
+        game.getDiscard().addCard(new Card(4,'H'));
         interactor.handleDrawCard();
-        assertEquals(deck.getCardList().size(), 0);
+    }
 
-
-
+    @Test
+    public void testUnableToDrawCard(){
+        deck.addCard(new Card(2, 'S'));
+        interactor.handleDrawCard();
+        interactor.handleDrawCard();
     }
 
     @Test
     public void testGetPresenter(){
         assertEquals(drawCardOutputBoundary, interactor.getPresenter());
+    }
+
+    class MockPresenter implements DrawCardOutputBoundary{
+
+        @Override
+        public void loadUnableToDrawCard() {
+            assertEquals(game.getCurrentPlayer().viewHand().getCardList().size(), 1);
+            assertTrue(game.hasPlayableCard());
+
+        }
+
+        @Override
+        public void loadShuffleView() {
+            assertEquals(game.getCurrentPlayer().viewHand().getCardList().size(), 1);
+            assertTrue(deck.getCardList().isEmpty());
+            System.out.println("Test");
+
+        }
+
+        @Override
+        public void loadSuccessView(StartGameOutputData data) {
+            assertEquals((data.getPlayerCards().length() + 1) / 3, 1);
+
+        }
     }
 
 

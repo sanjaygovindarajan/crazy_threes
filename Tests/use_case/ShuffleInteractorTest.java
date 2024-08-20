@@ -1,10 +1,7 @@
 package use_case;
 
 import entity.*;
-import entity.exceptions.MissingCardException;
-import interface_adapter.ViewManagerModel;
 import interface_adapter.shuffle.ShuffleOutputBoundary;
-import interface_adapter.shuffle.ShufflePresenter;
 import org.junit.jupiter.api.Test;
 import use_case.deck_actions.ShuffleInputBoundary;
 import use_case.deck_actions.ShuffleInteractor;
@@ -34,7 +31,7 @@ public class ShuffleInteractorTest {
         List<Card> initialDeck = new ArrayList<>();
         DeckDisposed discard = new DeckDisposed();
         for (char suit : new char[]{'S', 'C', 'H', 'D'}) {
-            for (int num : new int[]{2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}) {
+            for (int num : new int[]{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}) {
                 discard.addCard(new Card(num, suit));
             }
         }
@@ -42,14 +39,25 @@ public class ShuffleInteractorTest {
         List<Player> players = new ArrayList<>();
         players.add(new Player("TestName"));
         Game game = new Game(deck, players, 0,discard);
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        ShuffleOutputBoundary shuffleOutputBoundary = new ShufflePresenter(viewManagerModel);
+        ShuffleOutputBoundary shuffleOutputBoundary = new MockPresenter();
         ShuffleInputBoundary interactor = new ShuffleInteractor(shuffleOutputBoundary);
         interactor.setGame(game);
         List<Card> cardList = discard.getCardList();
         interactor.shuffle();
-        assert game.getDeck().getCardList().size() == 47;
+        assert game.getDeck().getCardList().size() == 51;
+        assert game.getDiscard().getCardList().size() == 1;
         assert game.getDeck().getCardList() != cardList;
 
+    }
+
+    class MockPresenter implements ShuffleOutputBoundary{
+
+        /**
+         * Since there is no output data for this use case,
+         * there is nothing to assert.
+         */
+        @Override
+        public void loadSuccessful() {
+        }
     }
 }
