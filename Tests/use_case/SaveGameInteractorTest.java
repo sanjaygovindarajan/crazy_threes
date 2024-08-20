@@ -49,6 +49,10 @@ public class SaveGameInteractorTest {
         interactor.execute(inputData);
         File file = new File("src/data_access/database.txt");
         System.out.println(Files.readString(Path.of(file.getPath())));
+        String originalPath = Files.readString(Path.of(file.getPath()));
+        assert originalPath.contains("game1");
+        interactor.execute(inputData);
+        assertEquals(originalPath, Files.readString(Path.of(file.getPath())));
     }
 
     @AfterEach

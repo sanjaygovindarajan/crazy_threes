@@ -17,7 +17,10 @@ public class PlayCardInteractorTest {
     PlayCardInteractor interactor;
     DeckDisposed discard;
     Player player;
+    Bot bot;
     int status = 0;
+    PlayCardOutputBoundary playCardOutputBoundary;
+    List<Player> players;
     @BeforeEach
     public void setUp(){
         List<Card> initialhand = new ArrayList<>();
@@ -31,15 +34,21 @@ public class PlayCardInteractorTest {
             }
         }
         List<Card> initialDeck = new ArrayList<>();
+        List<Card> botInitialHand = new ArrayList<>();
+        botInitialHand.add(new Card(1,'S'));
+        botInitialHand.add(new Card(1,'S'));
+        botInitialHand.add(new Card(1,'S'));
         Deck deck = new Deck(initialDeck);
-        List<Player> players = new ArrayList<>();
+        players = new ArrayList<>();
         Hand hand = new Hand(initialhand);
+        Hand botHand = new Hand(botInitialHand);
         players.add(new Player("TestName", hand));
+        bot = new Bot("bot1", botHand);
         discard = new DeckDisposed();
         discard.addCard(new Card(2,'H'));
         game = new Game(deck, players, 0, discard);
         player = players.getFirst();
-        PlayCardOutputBoundary playCardOutputBoundary = new MockPresenter();
+        playCardOutputBoundary = new MockPresenter();
 
         interactor = new PlayCardInteractor(playCardOutputBoundary);
         interactor.setGame(game);
@@ -89,10 +98,23 @@ public class PlayCardInteractorTest {
 
     @Test
     public void testWin(){
+        players.add(bot);
         interactor.playCard(new PlayCardInputData(1));
         interactor.playCard(new PlayCardInputData(1));
         interactor.playThree(new PlayThreeInputData('S', 'D'));
+        System.out.println(status);
         assertEquals(status, 1);
+    }
+
+    @Test
+    public void testGetPresenter(){
+        assertEquals(playCardOutputBoundary,interactor.getPresenter());
+
+    }
+
+    @Test
+    public void testBotFinishGame() {
+
     }
     class MockPresenter implements PlayCardOutputBoundary{
 
@@ -125,4 +147,5 @@ public class PlayCardInteractorTest {
             status = 5;
         }
     }
+
 }
