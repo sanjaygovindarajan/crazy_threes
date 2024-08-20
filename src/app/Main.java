@@ -36,13 +36,13 @@ public class Main {
         PlayThreeViewModel playThreeViewModel = new PlayThreeViewModel();
         LoadGameViewModel loadGameViewModel = new LoadGameViewModel();
 
-        LoadGameView loadGameView = ViewFactory.createLoadGameView(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel, loadGameViewModel);
-        TurnView turnView = ViewFactory.createTurnView(turnViewModel, loadGameView.getController().getInteractor());
-        NewGameView gameView = ViewFactory.createNewGame(viewManagerModel, loadGameViewModel);
-        ShuffleView shuffleView = ViewFactory.createShuffleView(loadGameView.getController().getInteractor());
-        InputPlayersView playersView = ViewFactory.createInputPlayers(loadGameView.getController().getInteractor());
-        WinView winView = ViewFactory.createWinView(viewManagerModel, winViewModel);
-        PlayThreeView playThreeView = ViewFactory.createThreeView(viewManagerModel, loadGameView.getController().getInteractor(), playThreeViewModel);
+        LoadGameView loadGameView = ViewBuilder.createLoadGameView(viewManagerModel, turnViewModel, winViewModel, playThreeViewModel, loadGameViewModel);
+        TurnView turnView = ViewBuilder.createTurnView(turnViewModel, loadGameView.getController().getInteractor());
+        NewGameView gameView = ViewBuilder.createNewGame(viewManagerModel, loadGameViewModel);
+        ShuffleView shuffleView = ViewBuilder.createShuffleView(loadGameView.getController().getInteractor());
+        InputPlayersView playersView = ViewBuilder.createInputPlayers(loadGameView.getController().getInteractor());
+        WinView winView = ViewBuilder.createWinView(viewManagerModel, winViewModel);
+        PlayThreeView playThreeView = ViewBuilder.createThreeView(viewManagerModel, loadGameView.getController().getInteractor(), playThreeViewModel);
 
         mainPanel.add(gameView, "New Game");
         mainPanel.add(loadGameView, "Load Game");
