@@ -10,7 +10,7 @@ import use_case.game_actions.NewGameInterface;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ViewFactoryTest {
+class ViewBuilderTest {
     ViewManagerModel viewManagerModel = new ViewManagerModel();
     DataAccessInterface dataAccess = new DataAccess();
     TurnViewModel turnViewModel = new TurnViewModel();
@@ -22,7 +22,7 @@ class ViewFactoryTest {
 
     @BeforeEach
     void setUp(){
-        loadGame = ViewFactory.createLoadGameView(
+        loadGame = ViewBuilder.createLoadGameView(
                 viewManagerModel,
                 turnViewModel,
                 winViewModel,
@@ -34,13 +34,13 @@ class ViewFactoryTest {
 
     @Test
     void createShuffleView() {
-        ShuffleView view = ViewFactory.createShuffleView(newGame);
+        ShuffleView view = ViewBuilder.createShuffleView(newGame);
         assertEquals(view.getController().getInteractor(), newGame.getShuffle());
     }
 
     @Test
     void createTurnView() {
-        TurnView view = ViewFactory.createTurnView(turnViewModel, newGame);
+        TurnView view = ViewBuilder.createTurnView(turnViewModel, newGame);
         assertEquals(view.getSaveGameController().getInteractor(), newGame.getSaveGame());
         assertEquals(view.getPlayCardController().getInteractor(), newGame.getPlayCard());
         assertEquals(view.getDrawCardController().getInteractor(), newGame.getDrawCard());
@@ -49,24 +49,24 @@ class ViewFactoryTest {
 
     @Test
     void createNewGame() {
-        NewGameView view = ViewFactory.createNewGame(viewManagerModel, loadGameViewModel);
+        NewGameView view = ViewBuilder.createNewGame(viewManagerModel, loadGameViewModel);
         assertNotNull(view.getViewGamesController().getInteractor());
     }
 
     @Test
     void createInputPlayers() {
-        InputPlayersView view = ViewFactory.createInputPlayers(newGame);
+        InputPlayersView view = ViewBuilder.createInputPlayers(newGame);
         assertEquals(view.getController().getInteractor(), newGame);
     }
 
     @Test
     void createWinView() {
-        WinView view = ViewFactory.createWinView(viewManagerModel, winViewModel);
+        WinView view = ViewBuilder.createWinView(viewManagerModel, winViewModel);
     }
 
     @Test
     void createThreeView() {
-        PlayThreeView view = ViewFactory.createThreeView(viewManagerModel, newGame, playThreeViewModel);
+        PlayThreeView view = ViewBuilder.createThreeView(viewManagerModel, newGame, playThreeViewModel);
         assertEquals(view.getController().getInteractor(), newGame.getPlayCard());
     }
 }

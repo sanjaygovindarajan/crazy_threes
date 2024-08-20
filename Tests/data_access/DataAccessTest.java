@@ -29,7 +29,8 @@ class DataAccessTest {
         LocalDateTime now = LocalDateTime.now();
         String mockGameStr = "AB,AB,AB:AB,AB:AB,AB:AB,AB:AB,AB:AB";
         dataAccess.saveGame(mockGameStr, now);
-        assertEquals(mockGameStr, Files.readString(Path.of(file.getPath())));
+        String expectedGameStr = Files.readString(Path.of(file.getPath())).split("&")[0];
+        assertEquals(mockGameStr, expectedGameStr);
     }
 
     @Test
@@ -41,7 +42,12 @@ class DataAccessTest {
         dataAccess.saveGame(mockGameStr1, now);
         dataAccess.saveGame(mockGameStr2, now);
         dataAccess.saveGame(mockGameStr3, now);
-        assertEquals(String.join(",,,",mockGameStr3,mockGameStr2,mockGameStr1), Files.readString(Path.of(file.getPath())));
+        String expectedGame1 = Files.readString(Path.of(file.getPath())).split(",,,")[2].split("&")[0];
+        String expectedGame2 = Files.readString(Path.of(file.getPath())).split(",,,")[1].split("&")[0];
+        String expectedGame3 = Files.readString(Path.of(file.getPath())).split(",,,")[0].split("&")[0];
+        Assertions.assertEquals(expectedGame2, mockGameStr2);
+        Assertions.assertEquals(expectedGame1, mockGameStr1);
+        Assertions.assertEquals(expectedGame3, mockGameStr3);
     }
 
     @AfterEach
