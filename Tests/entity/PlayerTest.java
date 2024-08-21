@@ -27,24 +27,40 @@ class PlayerTest {
         testPlayer2 = new Player("Tester2", hand2);
     }
 
+    /**
+     * Tests the viewHand method of Player.
+     * Verifies output is equal to set hands.
+     */
     @Test
     void viewHand() {
         assert hand1.equals(testPlayer1.viewHand());
         assert hand2.equals(testPlayer2.viewHand());
     }
 
+    /**
+     * Tests the getName method of Player.
+     * Verifies output correct player names.
+     */
     @Test
     void getName() {
         assertEquals("Tester1", testPlayer1.getName());
         assertEquals("Tester2", testPlayer2.getName());
     }
 
+    /**
+     * Tests the hasCard method of Player.
+     * Verifies true if player has said card.
+     */
     @Test
     void hasCard() {
         Card sevenHearts = new Card(7, 'H');
         assert testPlayer2.hasCard(sevenHearts);
     }
 
+    /**
+     * Tests the playCard method of Player.
+     * Verifies that card appeared in disposal deck.
+     */
     @Test
     void playCard() {
         DeckDisposed testDeck = new DeckDisposed();
@@ -53,6 +69,10 @@ class PlayerTest {
         testPlayer2.playCard(testGame, 0);
     }
 
+    /**
+     * Tests the drawCard method of Player.
+     * Verifies drawn card shows up in player's hand.
+     */
     @Test
     void drawCard() throws MissingCardException {
         LinkedList<Card> testCards = new LinkedList<>();
@@ -63,6 +83,10 @@ class PlayerTest {
         testPlayer1.hasCard(new Card(7, 'H'));
     }
 
+    /**
+     * Tests the hasWin method of Player.
+     * Verifies if player has a win.
+     */
     @Test
     void hasWin() {
         assert testPlayer1.hasWin();

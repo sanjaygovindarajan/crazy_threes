@@ -16,12 +16,20 @@ class DeckTest {
         }
     }
 
+    /**
+     * Tests the dealCard method of Deck.
+     * Checks that Card was dealt from deck.
+     */
     @Test
     void dealCard() throws MissingCardException {
         Card test = deck.cardList.getFirst();
         assertEquals(test, deck.dealCard());
     }
 
+    /**
+     * Tests the shuffle method of Deck.
+     * Checks that deck was shuffled.
+     */
     @Test
     void shuffle() {
         Deck unshuffled = new Deck();
