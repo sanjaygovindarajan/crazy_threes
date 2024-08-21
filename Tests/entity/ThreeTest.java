@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ThreeTest {
-
     /**
+     * Tests the setNewSuit method of Three.
      * Verifies that the suit of the card can be changed and retrieved correctly.
      */
     @Test
@@ -19,6 +19,7 @@ class ThreeTest {
     }
 
     /**
+     * Tests the getCurrentSuit method of Three.
      * Verifies that the initial suit of the card is set correctly and can be retrieved.
      */
     @Test

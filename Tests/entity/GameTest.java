@@ -15,6 +15,10 @@ class GameTest {
         game = new Game(List.of(new String[]{"Player 1"}));
     }
 
+    /**
+     * Tests the setDeck method of Game.
+     * Checks that the deck was set.
+     */
     @Test
     void setDeck() {
         Deck deck = new Deck();
@@ -22,6 +26,10 @@ class GameTest {
         assertEquals(game.getDeck(), deck);
     }
 
+    /**
+     * Tests the setDiscard method of Game.
+     * Checks that the DeckDisposed was set.
+     */
     @Test
     void setDiscard() {
         DeckDisposed discard = new DeckDisposed();
@@ -29,6 +37,10 @@ class GameTest {
         assertEquals(game.getDiscard(), discard);
     }
 
+    /**
+     * Tests the hasPlayableCard method of Game.
+     * Checks that it is true that a card is playable when one is set.
+     */
     @Test
     void hasPlayableCard() {
         game.getDiscard().addCard(new Card(2, 'S'));
@@ -36,12 +48,19 @@ class GameTest {
         assertTrue(game.hasPlayableCard());
     }
 
-
+    /**
+     * Tests the getPlayers method of Game.
+     * Checks that correct player was returned first.
+     */
     @Test
     void getPlayers() {
         assertEquals(game.getPlayers().getFirst().getName(), "Player 1");
     }
 
+    /**
+     * Tests the getTurn method of Game.
+     * Checks that the first turn is 0.
+     */
     @Test
     void getTurn() {
         assertEquals(game.getTurn(), 0);

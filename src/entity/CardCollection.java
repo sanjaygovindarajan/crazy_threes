@@ -1,7 +1,7 @@
 package entity;
 import java.util.*;
 
-public abstract class CardCollection {
+public class CardCollection {
     protected LinkedList<Card> cardList;
     public CardCollection() {
     }
